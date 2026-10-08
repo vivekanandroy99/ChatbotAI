@@ -150,3 +150,6 @@ __pycache__/
 /Assets/--Temp-CCiC-*
 /RL_DataLink/
 /.claude/
+# LLMUnity's model list (written by its model manager / builds)
+/Assets/StreamingAssets/LLMManager.json
+/Assets/StreamingAssets/LLMManager.json.meta
