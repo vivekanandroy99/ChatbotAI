@@ -62,6 +62,21 @@ Main folders:
 5. CHANGE LOG (newest first)
 ----------------------------
 
+2026-10-08 (f) - Mac version in the same project (English, lighter) - written on Windows, NOT tested on a Mac yet
+  Guide: MAC-SETUP.md. Setup on the Mac: bash tools/setup_mac.sh (uv Python 3.11 -> TTSServer/venv,
+  TTSServer/requirements-mac.txt, model downloads checked against the Windows files' sha256: Gemma from
+  lmstudio-community/gemma-3-4b-it-GGUF, Whisper from ggerganov/whisper.cpp, Kokoro from the kokoro-onnx release,
+  bge-m3 + reranker into ~/.cache/huggingface). Build on the Mac: Tools > ChatbotAI > Build Mac App
+  (Editor/MacBuild.cs -> Builds/<scene>_mac/AltcoreBot.app + TTSServer + TTSRuntime/python + hf_cache + settings
+  from the plist via plutil). Microphone usage text set (PlayerSettings.macOS).
+  Code: Platform.cs (IsMac/IsWindows runtime checks - every branch compiles everywhere; AppFolder = folder next to
+  the .exe/.app; VenvPython bin/python3 vs Scripts/python.exe). TTSProcessManager: Mac builds run TTSRuntime/python
+  with PYTHONPATH = venv site-packages (a Mac venv's python is a symlink to the building Mac's Python); Veena
+  switched off on Mac. StartupCheck: no NVIDIA/speaker-list checks on Mac. WindowsFiles: Finder dialog via
+  osascript + move to ~/.Trash on Mac (BinName "Trash"/"Recycle Bin" in the menu texts).
+  server.py: DEVICE cuda/mps/cpu, Kokoro gets 4 CPU threads without CUDA; knowledge.py fp16 on mps too;
+  veena_engine: os.add_dll_directory only on Windows. Windows behaviour unchanged (compile + checks run here).
+
 2026-10-08 (e) - Git set up properly (whole project committed, Git LFS for big art) + v5 Windows build
   Before: only an empty "Initial check-in" commit; everything since was untracked.
   Now: commit 32c2f68 tracks the project. Remote "origin" = github.com/vivekanandroy99/ChatbotAI - NOT pushed yet

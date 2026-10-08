@@ -1,0 +1,18 @@
+# Mac version (Apple silicon) - installed by tools/setup_mac.sh into TTSServer/venv (Python 3.11 from uv).
+# Same versions as the Windows environment, minus the NVIDIA parts: torch's Mac build uses Apple's GPU (MPS) for
+# the document search; Kokoro runs on onnxruntime's CPU build; no Veena (llama-cpp-python CUDA) / SNAC.
+torch==2.11.0
+numpy==2.4.6
+fastapi==0.141.1
+uvicorn==0.53.0
+pydantic==2.13.5
+soundfile==0.14.0
+huggingface_hub[hf_xet]==0.36.2
+transformers==4.46.1
+tokenizers==0.20.3
+safetensors==0.8.0
+kokoro-onnx==0.6.1
+phonemizer==3.4.0
+pypdf==6.19.0
+python-docx==1.2.0
+python-pptx==1.0.2

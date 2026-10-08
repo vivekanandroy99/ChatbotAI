@@ -65,7 +65,7 @@ namespace ChatbotAI.Audio
 
         static Process process;
 
-        public static string ProjectRoot => Directory.GetParent(Application.dataPath).FullName;
+        public static string ProjectRoot => Platform.AppFolder;
         public static string TtsDir => Path.Combine(ProjectRoot, "TTSServer");
 
         public static string HubCache
@@ -97,7 +97,7 @@ namespace ChatbotAI.Audio
         public static void Download(Engine engine)
         {
             if (process != null && !process.HasExited) return;
-            string python = Path.Combine(TtsDir, "venv", "Scripts", "python.exe");
+            string python = Platform.VenvPython(Path.Combine(TtsDir, "venv"));
             if (!File.Exists(python))
             {
                 Fail("voice engine's Python environment not found");

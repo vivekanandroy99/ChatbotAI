@@ -104,7 +104,8 @@ def _load():
         try:
             import torch
             # llama.cpp's CUDA build needs the CUDA runtime DLLs that ship with torch.
-            os.add_dll_directory(os.path.join(os.path.dirname(torch.__file__), "lib"))
+            if hasattr(os, "add_dll_directory"):  # Windows only
+                os.add_dll_directory(os.path.join(os.path.dirname(torch.__file__), "lib"))
             from llama_cpp import Llama
             from snac import SNAC
 

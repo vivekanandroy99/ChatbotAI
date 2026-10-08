@@ -72,7 +72,10 @@ log = logging.getLogger("tts_server")
 log.setLevel(logging.INFO)
 logging.getLogger("knowledge").setLevel(logging.INFO)
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+# NVIDIA (Windows) -> cuda; Apple silicon (Mac) -> mps for the document search, Kokoro then runs on the CPU.
+DEVICE = ("cuda" if torch.cuda.is_available()
+          else "mps" if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available()
+          else "cpu")
 MODELS_DIR = Path(__file__).resolve().parent / "models"
 KNOWLEDGE_ROOT = Path(
     os.environ.get("KNOWLEDGE_ROOT")
@@ -105,9 +108,10 @@ if not (MODELS_DIR / KOKORO_MODEL).is_file():
 def session_options():
     """Kokoro runs on the GPU; onnxruntime's pool of CPU threads only spins, competing with
     Veena's per-token CPU work (Veena slowed from 0.73x to 1.04x real time). One thread,
-    no spinning - Kokoro itself got faster too (0.27 s vs 0.38 s per sentence)."""
+    no spinning - Kokoro itself got faster too (0.27 s vs 0.38 s per sentence).
+    Without an NVIDIA card (Mac) Kokoro runs on the CPU and gets 4 threads instead."""
     options = ort.SessionOptions()
-    options.intra_op_num_threads = 1
+    options.intra_op_num_threads = 1 if DEVICE == "cuda" else min(4, os.cpu_count() or 4)
     options.add_session_config_entry("session.intra_op.allow_spinning", "0")
     options.add_session_config_entry("session.inter_op.allow_spinning", "0")
     return options

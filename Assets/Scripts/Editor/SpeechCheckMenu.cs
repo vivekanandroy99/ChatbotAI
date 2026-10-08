@@ -22,7 +22,7 @@ namespace ChatbotAI.EditorTools
             string ttsDir = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "TTSServer");
             var info = new ProcessStartInfo
             {
-                FileName = Path.Combine(ttsDir, "venv", "Scripts", "python.exe"),
+                FileName = ChatbotAI.Platform.VenvPython(Path.Combine(ttsDir, "venv")),
                 Arguments = $"speech_check.py {args}",
                 WorkingDirectory = ttsDir,
                 UseShellExecute = false,

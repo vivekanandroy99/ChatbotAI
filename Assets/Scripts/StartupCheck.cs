@@ -23,15 +23,18 @@ namespace ChatbotAI
             else if (chosenMic.Length > 0 && !mics.Contains(chosenMic))
                 list.Add($"The chosen microphone \"{chosenMic}\" isn't connected - the default microphone is used.");
 
+            // Speaker list and NVIDIA check: Windows only (a Mac plays through its own speakers and runs the AI on Apple's GPU).
             var speakers = Audio.AudioOutputDevice.List();
             string chosenSpeaker = Audio.AudioOutputDevice.Chosen;
-            if (speakers.Count == 0)
+            if (!Platform.IsWindows) { }
+            else if (speakers.Count == 0)
                 list.Add("No speaker or headphones found - the bot's replies can't be heard.");
             else if (chosenSpeaker.Length > 0 && !speakers.Exists(s => s.id == chosenSpeaker))
                 list.Add("The chosen speaker isn't connected - the default speaker is used.");
 
             string gpu = SystemInfo.graphicsDeviceName ?? "";
-            if (!SystemInfo.graphicsDeviceVendor.ToUpperInvariant().Contains("NVIDIA") && !gpu.ToUpperInvariant().Contains("NVIDIA"))
+            if (Platform.IsMac) { }
+            else if (!SystemInfo.graphicsDeviceVendor.ToUpperInvariant().Contains("NVIDIA") && !gpu.ToUpperInvariant().Contains("NVIDIA"))
                 list.Add($"The graphics card ({gpu}) isn't NVIDIA - the AI needs one and will be very slow or won't start.");
             else if (SystemInfo.graphicsMemorySize > 0 && SystemInfo.graphicsMemorySize < RecommendedGpuMb)
                 list.Add($"The graphics card has {SystemInfo.graphicsMemorySize / 1024f:0} GB of memory - 12 GB or more is recommended " +

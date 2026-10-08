@@ -23,6 +23,9 @@ heardAs names first, then document vocabulary (built when listening starts).
 Lighting (2026-10-08): menu > Lighting = StageBackdrop.Lighting per bot ("light/<id>"), multipliers on the scene's key light
 and the Advanced fill/studio settings; applied in Play mode only (never edit the scene's Directional Light from code in
 the Editor). Menu pages keep their scroll (CompanionMenu.resumeAt).
+Mac version (2026-10-08, memory.txt (f), MAC-SETUP.md): same project; Windows-vs-Mac through `Platform` runtime checks
+(not #if - keeps every branch compiling on both). Mac = English, no Veena, Metal/MPS; tools/setup_mac.sh + Editor/MacBuild.cs.
+Git (2026-10-08 (e)): Git LFS for art; models/venvs/LlamaLib/indexes are gitignored - setup_mac.sh downloads them.
 Help (2026-10-08): HelpGuides.cs = a guide per menu page (? in the sheet header; root "Help & guides"); pictures in
 Resources/Help from tools/capture_help_shots.cs + import_help_shots.cs - re-run them when a menu page changes, and add
 or edit a guide when you add or change a page.

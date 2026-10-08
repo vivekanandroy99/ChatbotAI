@@ -491,10 +491,10 @@ namespace ChatbotAI.UI
                     if (File.Exists(copy) && !WindowsFiles.Recycle(copy)) failed++;
                 }
                 DocumentsChanged(bots);
-                documentsNote = failed == 0 ? $"Removed {info.Name} (it's in the Recycle Bin)." : $"Couldn't remove {info.Name} - is it open in another program?";
+                documentsNote = failed == 0 ? $"Removed {info.Name} (it's in the {WindowsFiles.BinName})." : $"Couldn't remove {info.Name} - is it open in another program?";
                 Back();
             });
-            Footnote("Goes to the Recycle Bin, so it can be restored from there.");
+            Footnote($"Goes to the {WindowsFiles.BinName}, so it can be restored from there.");
         }
 
         // ---------------- The active bot's pages ----------------
@@ -649,7 +649,7 @@ namespace ChatbotAI.UI
                 registry.Delete(profile);
                 ShowRoot();
             });
-            Footnote("Its documents and taught answers go to the Recycle Bin, so they can be restored from there.");
+            Footnote($"Its documents and taught answers go to the {WindowsFiles.BinName}, so they can be restored from there.");
         }
 
         // ---------------- Advanced: staff sign-in ----------------

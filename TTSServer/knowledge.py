@@ -276,7 +276,7 @@ class KnowledgeBase:
         log.info("Loading embedding model %s on %s ...", EMBED_MODEL_ID, device)
         self.device = device
         self.tokenizer = AutoTokenizer.from_pretrained(EMBED_MODEL_ID)
-        dtype = torch.float16 if device == "cuda" else torch.float32
+        dtype = torch.float16 if device in ("cuda", "mps") else torch.float32  # mps = Apple silicon (Mac)
         self.model = AutoModel.from_pretrained(EMBED_MODEL_ID, torch_dtype=dtype).to(device).eval()
         self.reranker = self.rerank_tokenizer = None
         if use_reranker:

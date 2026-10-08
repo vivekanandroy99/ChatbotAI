@@ -103,6 +103,8 @@ namespace ChatbotAI.Audio
                 string off = ModelChoices.Get(ModelChoices.OffKey(engine));
                 if (off.Length > 0) SetSwitchedOn(engine, off != "1");
             }
+            // Mac version: no Veena (its fast build needs an NVIDIA card) - its voices speak with Kokoro.
+            if (Platform.IsMac) SetSwitchedOn(VoiceModelLibrary.Engine.Veena, false);
         }
 
         async Task<bool> IsAlreadyRunning()
@@ -116,24 +118,42 @@ namespace ChatbotAI.Audio
 
         bool StartServerProcess()
         {
-            string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+            string projectRoot = Platform.AppFolder;
             string ttsDir = Path.Combine(projectRoot, "TTSServer");
-            string pythonExe = Path.Combine(ttsDir, "venv", "Scripts", "python.exe");
+            string venv = Path.Combine(ttsDir, "venv");
+            string pythonExe = Platform.VenvPython(venv);
             string serverScript = Path.Combine(ttsDir, "server.py");
+
+            // A portable build (PortableBuild.cs / MacBuild.cs) carries its own Python and model cache in TTSRuntime/
+            // next to TTSServer/, so the app runs on a computer without Python installed.
+            string runtimeDir = Path.Combine(projectRoot, "TTSRuntime");
+            string bundledPython = Path.Combine(runtimeDir, "python");
+            string sitePackages = null;
+            if (Directory.Exists(bundledPython))
+            {
+                if (Platform.IsMac)
+                {
+                    // A Mac venv's python is a link to the Python it was made with (an absolute path on the Mac that
+                    // built it): run the bundled Python itself and hand it the environment's packages instead.
+                    pythonExe = Platform.InstalledPython(bundledPython);
+                    string lib = Path.Combine(venv, "lib");
+                    if (Directory.Exists(lib))
+                        foreach (string dir in Directory.GetDirectories(lib, "python3*"))
+                            if (Directory.Exists(Path.Combine(dir, "site-packages"))) sitePackages = Path.Combine(dir, "site-packages");
+                }
+                // Windows: the environments are pointed at that Python (their pyvenv.cfg holds an absolute path, and
+                // the folder may have been copied anywhere).
+                else if (!PointEnvironmentAt(venv, bundledPython)) return false;
+            }
+            string bundledModels = Path.Combine(runtimeDir, "hf_cache");
 
             if (!File.Exists(pythonExe) || !File.Exists(serverScript))
             {
-                Fail($"Voice & knowledge engine not found at {ttsDir}");
+                Fail(Platform.IsMac && !Directory.Exists(venv)
+                    ? "The voice & knowledge engine isn't set up on this Mac yet - run tools/setup_mac.sh (see MAC-SETUP.md)."
+                    : $"Voice & knowledge engine not found at {ttsDir}");
                 return false;
             }
-            // A portable build (PortableBuild.cs) carries its own Python and model cache in TTSRuntime/ next to
-            // TTSServer/: the Python environments are pointed at that Python here (their pyvenv.cfg holds an absolute
-            // path, and the folder may have been copied anywhere), so the app runs on a PC without Python installed.
-            string runtimeDir = Path.Combine(projectRoot, "TTSRuntime");
-            string bundledPython = Path.Combine(runtimeDir, "python");
-            if (Directory.Exists(bundledPython))
-                if (!PointEnvironmentAt(Path.Combine(ttsDir, "venv"), bundledPython)) return false;
-            string bundledModels = Path.Combine(runtimeDir, "hf_cache");
 
             var startInfo = new ProcessStartInfo
             {
@@ -155,6 +175,7 @@ namespace ChatbotAI.Audio
             startInfo.EnvironmentVariables["TRANSFORMERS_OFFLINE"] = "1";
             if (Directory.Exists(bundledModels)) startInfo.EnvironmentVariables["HF_HOME"] = bundledModels;
             startInfo.EnvironmentVariables["PYTHONIOENCODING"] = "utf-8";
+            if (sitePackages != null) startInfo.EnvironmentVariables["PYTHONPATH"] = sitePackages;
             startInfo.EnvironmentVariables["KOKORO_MODEL"] = kokoroModel;
             startInfo.EnvironmentVariables["VEENA_MODEL"] = veenaModel;
             startInfo.EnvironmentVariables["RERANKER_OFF"] = useReranker ? "0" : "1";

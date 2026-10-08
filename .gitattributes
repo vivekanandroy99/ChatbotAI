@@ -170,6 +170,9 @@ Packages/packages-lock.json linguist-generated
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
 
+# ChatbotAI: shell scripts must keep LF endings (tools/setup_mac.sh)
+*.sh                    text eol=lf
+
 # ChatbotAI: CC4 exports use ".Fbx"; owner documents; big CC texture arrays / extracted meshes
 *.Fbx                   lfs
 *.docx                  lfs
