@@ -1,0 +1,4 @@
+- [Model comparison 2026-09-23](model-comparison-2026-09-23.md) — Gemma-3-4B chosen after full comparison; remaining rough edges
+- [Keep memory.txt updated](keep-memory-txt-updated.md) — add a dated change-log entry to memory.txt for every change
+- [Next improvements backlog](next-improvements-backlog.md) — open / deferred / done improvement items as of 2026-10-06; use when asked "what's left"
+- [Mac version plan](mac-version-plan.md) — later: separate Mac (M5 Air 24 GB) version, English only, offline-light + online API keys
