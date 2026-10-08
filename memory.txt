@@ -62,6 +62,27 @@ Main folders:
 5. CHANGE LOG (newest first)
 ----------------------------
 
+2026-10-08 (e) - Git set up properly (whole project committed, Git LFS for big art) + v5 Windows build
+  Before: only an empty "Initial check-in" commit; everything since was untracked.
+  Now: commit 32c2f68 tracks the project. Remote "origin" = github.com/vivekanandroy99/ChatbotAI - NOT pushed yet
+  (needs the owner's OK; Git LFS ~2 GB to upload - check GitHub's LFS allowance first).
+  Git LFS (.gitattributes): FBX/.Fbx, textures, audio, PDF/docx/pptx/xlsx, fonts, .mesh, CC "*Array.asset".
+  LFS is enabled per repo ("git lfs install --local"); a new machine needs Git LFS installed before cloning.
+  NOT in git (.gitignore) - copy these or re-download on a new machine:
+    Assets/StreamingAssets/Models/**/*.gguf|*.bin (Gemma, Whisper) + their .meta
+    TTSServer/models/ (Kokoro onnx + voices bin, Veena gguf), TTSServer/venv/ (Windows Python env)
+    Assets/StreamingAssets/LlamaLib-*/ + LLMUnityBuild/ (LLMUnity downloads them again itself)
+    HF cache (~/.cache/huggingface: bge-m3, reranker, SNAC) - was never in the project
+    Knowledge/**/.index/ (rebuilt from the documents), tools/whisper-convert-venv, tools/whisper.cpp,
+    Assets/_Recovery, Library, Builds, Backups, Conversations, SpeechReview, .claude
+  v5 build: Builds/AltcoreBot_v5 (20.9 GB: TTSServer 9.5, Data 6.9, TTSRuntime 4.5). Launch test: startup check OK,
+  LLM + Whisper loaded, 4 knowledge bots ready, reranker + Veena loaded, sidecar ready; closed cleanly.
+  (Estimate was 19.6 GB - Pearl/Peter + help pictures came after it.)
+  Pearl/Peter voices checked: Pearl af_heart/veena_kavya (female), Peter am_michael/veena_vinaya (male).
+  Owner: male talk animation + body language parked until files exist; item list "parked" stays parked.
+  Plan: a Mac version later inside this same project (separate build profile/Mac-only code, own Python setup
+  script), English only, offline-light + online AI (Advanced > "Online models & API keys" is still a preview).
+
 2026-10-08 (d) - Lighting page in the menu (like Camera), menu keeps its scroll position, new Pearl model
   * Menu > [bot] > Lighting: 7 looks (Natural = as delivered, Soft, Bright, Dramatic, Warm, Cool, Glow) + MAIN LIGHT
     sliders (Brightness x, Direction -90..90 deg, Height, Warmth) + OTHER LIGHTS (Soft light = fill, Back light = rim,
