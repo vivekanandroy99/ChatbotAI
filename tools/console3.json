@@ -1,0 +1,472 @@
+﻿{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {},
+    "result": {
+      "entries": [
+        {
+          "seq": 1,
+          "timestampUtc": "2026-09-18T07:29:48.3209579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Auto-assigned LLM 'LLM' to LLMAgent 'DialogueBrain'",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLMClient:AssignLLM () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMClient.cs:386)\nLLMUnity.LLMClient:Reset () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMClient.cs:237)\nUnityEngine.GameObject:AddComponent<LLMUnity.LLMAgent> ()\nPipelineEvaluation.PipelineEval_127ffb51:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 2,
+          "timestampUtc": "2026-09-18T07:29:48.4853895Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Scene built and saved at Assets/Scenes/DialogueTest.unity",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_127ffb51:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 3,
+          "timestampUtc": "2026-09-18T07:30:21.705267Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 4,
+          "timestampUtc": "2026-09-18T07:30:21.70576Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 5,
+          "timestampUtc": "2026-09-18T07:30:21.7688742Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-large-v2-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 6,
+          "timestampUtc": "2026-09-18T07:30:21.7773626Z",
+          "level": "error",
+          "logType": "Exception",
+          "message": "IOException: The file is too long. This operation is currently limited to supporting files less than 2 gigabytes in size.",
+          "stackTrace": "Whisper.Utils.FileUtils.ReadAllBytesAsync (System.String path) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/FileUtils.cs:101)\nWhisper.Utils.FileUtils.ReadFileAsync (System.String path) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/FileUtils.cs:40)\nWhisper.WhisperWrapper.InitFromFileAsync (System.String modelPath, Whisper.WhisperContextParams contextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:304)\nWhisper.WhisperManager.InitModel () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nUnityEngine.Debug:LogException(Exception)\nWhisper.Utils.LogUtils:Exception(Exception) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:23)\nWhisper.<InitModel>d__45:MoveNext() (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:201)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start(<InitModel>d__45&)\nWhisper.WhisperManager:InitModel()\nWhisper.<Awake>d__42:MoveNext() (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start(<Awake>d__42&)\nWhisper.WhisperManager:Awake()\n",
+          "seeded": false
+        },
+        {
+          "seq": 7,
+          "timestampUtc": "2026-09-18T07:30:22.2918522Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 8,
+          "timestampUtc": "2026-09-18T07:30:22.6274705Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 335 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 9,
+          "timestampUtc": "2026-09-18T07:30:23.7629251Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 10,
+          "timestampUtc": "2026-09-18T07:30:23.7629251Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-3B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 11,
+          "timestampUtc": "2026-09-18T07:30:23.764427Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 12,
+          "timestampUtc": "2026-09-18T07:30:23.8155714Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_avx512.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 13,
+          "timestampUtc": "2026-09-18T07:33:35.6878579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopping server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 14,
+          "timestampUtc": "2026-09-18T07:33:35.6878579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 15,
+          "timestampUtc": "2026-09-18T07:33:35.6878579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "shutting down tasks\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 16,
+          "timestampUtc": "2026-09-18T07:33:35.6878579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped service loop\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 17,
+          "timestampUtc": "2026-09-18T07:33:35.6878579Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "service stopped\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 18,
+          "timestampUtc": "2026-09-18T07:41:18.896166Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Updated WhisperHindi ModelPath to Models/Whisper/ggml-hindi-medium-f16.bin and saved scene.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_f1c6faa9:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 19,
+          "timestampUtc": "2026-09-18T07:41:28.1500769Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-medium-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 20,
+          "timestampUtc": "2026-09-18T07:41:28.3089835Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 21,
+          "timestampUtc": "2026-09-18T07:41:28.52837Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 22,
+          "timestampUtc": "2026-09-18T07:41:28.6988247Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 23,
+          "timestampUtc": "2026-09-18T07:41:28.6988247Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 24,
+          "timestampUtc": "2026-09-18T07:41:28.8955102Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 195 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 25,
+          "timestampUtc": "2026-09-18T07:41:29.0802225Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 381 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 26,
+          "timestampUtc": "2026-09-18T07:41:30.8025573Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 27,
+          "timestampUtc": "2026-09-18T07:41:30.8025573Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-3B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 28,
+          "timestampUtc": "2026-09-18T07:41:30.8030606Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 29,
+          "timestampUtc": "2026-09-18T07:41:30.8971529Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_avx512.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 30,
+          "timestampUtc": "2026-09-18T07:42:15.8607177Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Ask() triggered.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_0ca20ccb:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 31,
+          "timestampUtc": "2026-09-18T07:42:17.4664189Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "TEST_REPLY: Hey there! We're open from 10 AM to 6 PM every day. Can't wait for you to stop by!",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_0ca20ccb/<>c:<Execute>b__0_0 (string)\nChatbotAI.Dialogue.DialogueController/<Ask>d__8:MoveNext () (at Assets/Scripts/Dialogue/DialogueController.cs:62)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nLLMUnity.LLMAgent/<Chat>d__33:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMAgent.cs:300)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nUndreamAI.LlamaLib.LLMAgent/<ChatAsync>d__24:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LlamaLib/LLMAgent.cs:272)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 32,
+          "timestampUtc": "2026-09-18T07:43:31.5937827Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopping server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 33,
+          "timestampUtc": "2026-09-18T07:43:31.5937827Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 34,
+          "timestampUtc": "2026-09-18T07:43:31.5937827Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "shutting down tasks\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 35,
+          "timestampUtc": "2026-09-18T07:43:31.5937827Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped service loop\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 36,
+          "timestampUtc": "2026-09-18T07:43:31.5937827Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "service stopped\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 37,
+          "timestampUtc": "2026-09-18T07:47:45.2062182Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Mic UI added and wired.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_04d6d452:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 38,
+          "timestampUtc": "2026-09-18T07:47:54.3576201Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-medium-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 39,
+          "timestampUtc": "2026-09-18T07:47:54.4956205Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 40,
+          "timestampUtc": "2026-09-18T07:47:54.5579002Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 41,
+          "timestampUtc": "2026-09-18T07:47:55.744009Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 42,
+          "timestampUtc": "2026-09-18T07:47:55.744009Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 43,
+          "timestampUtc": "2026-09-18T07:47:55.9641695Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 220 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 44,
+          "timestampUtc": "2026-09-18T07:47:56.1402083Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 395 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 45,
+          "timestampUtc": "2026-09-18T07:47:56.8322792Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 46,
+          "timestampUtc": "2026-09-18T07:47:56.8332851Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-3B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 47,
+          "timestampUtc": "2026-09-18T07:47:56.8332851Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 48,
+          "timestampUtc": "2026-09-18T07:47:56.9297113Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_avx512.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 48,
+      "session": "83b0ac68af044a34849ab1483b54e0f8",
+      "returned": 48,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 1,
+        "warn": 0,
+        "log": 47
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-09-18T07:48:17.6497697Z",
+        "ageMs": 54,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 11,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Admin\\ChatbotAI"
+    },
+    "success": true
+  },
+  "errors": [],
+  "warnings": []
+}

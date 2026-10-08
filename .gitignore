@@ -112,3 +112,41 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Spoken sentences saved for review (SpeechReviewRecorder)
+/SpeechReview/
+
+# Visitor conversations (ConversationLog, menu > Learning) - private, kept on this computer only
+/Conversations/
+
+# Project snapshots (Backups/<version>) - large copies, kept outside git
+/Backups/
+
+# Windows builds (Tools > ChatbotAI > Build Windows App) - one folder per version
+/Builds/
+
+# ---- Big downloadable files: NOT in git (copy them or re-download on a new machine - see memory.txt 2026-10-08 (e)) ----
+# AI models
+/Assets/StreamingAssets/Models/**/*.gguf
+/Assets/StreamingAssets/Models/**/*.gguf.meta
+/Assets/StreamingAssets/Models/**/*.bin
+/Assets/StreamingAssets/Models/**/*.bin.meta
+/TTSServer/models/
+# LLMUnity's engine libraries (LLMUnity downloads them again by itself)
+/Assets/StreamingAssets/LlamaLib-*/
+/Assets/StreamingAssets/LlamaLib-*.meta
+/LLMUnityBuild/
+# Python environments (per machine - a Mac needs its own)
+/TTSServer/venv/
+/TTSServer/indictts-venv/
+/tools/whisper-convert-venv/
+/tools/whisper.cpp/
+__pycache__/
+# Search indexes (rebuilt from the documents)
+/Assets/StreamingAssets/Knowledge/**/.index/
+# Editor leftovers
+/Assets/_Recovery/
+/Assets/_Recovery.meta
+/Assets/--Temp-CCiC-*
+/RL_DataLink/
+/.claude/

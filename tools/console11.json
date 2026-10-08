@@ -1,0 +1,940 @@
+﻿{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {},
+    "result": {
+      "entries": [
+        {
+          "seq": 1,
+          "timestampUtc": "2026-09-18T08:07:24.9607591Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Disabled useGpu on both WhisperManagers (ggml-vulkan crashed on concurrent access) - back to CPU backend.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_eeb4115b:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 2,
+          "timestampUtc": "2026-09-18T08:07:37.5831051Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 3,
+          "timestampUtc": "2026-09-18T08:07:37.5863972Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 4,
+          "timestampUtc": "2026-09-18T08:07:37.6567056Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-medium-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 5,
+          "timestampUtc": "2026-09-18T08:07:38.4097602Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 6,
+          "timestampUtc": "2026-09-18T08:07:38.6679994Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 258 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 7,
+          "timestampUtc": "2026-09-18T08:07:38.868836Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 8,
+          "timestampUtc": "2026-09-18T08:07:39.182703Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 314 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 9,
+          "timestampUtc": "2026-09-18T08:07:39.377649Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 10,
+          "timestampUtc": "2026-09-18T08:07:39.3786516Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-3B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 -ngl 999 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 11,
+          "timestampUtc": "2026-09-18T08:07:39.3796507Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 12,
+          "timestampUtc": "2026-09-18T08:07:39.4675638Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_tinyblas.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 13,
+          "timestampUtc": "2026-09-18T08:09:26.8543677Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 14,
+          "timestampUtc": "2026-09-18T08:09:42.8592694Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 16003 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 15,
+          "timestampUtc": "2026-09-18T08:09:42.8607814Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text:  Do you like me? I'll buy you.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 16,
+          "timestampUtc": "2026-09-18T08:09:42.8612933Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 17,
+          "timestampUtc": "2026-09-18T08:09:52.9908935Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 10128 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 18,
+          "timestampUtc": "2026-09-18T08:09:52.9908935Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text: �ब तक प्रतिदिन एक लाख पचास हजार लोगों को टीके लगाये जा चुके हैं",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 19,
+          "timestampUtc": "2026-09-18T08:10:03.8202961Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 20,
+          "timestampUtc": "2026-09-18T08:10:12.3955194Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 8574 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 21,
+          "timestampUtc": "2026-09-18T08:10:12.3955194Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text: �नरल हेलो",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 22,
+          "timestampUtc": "2026-09-18T08:10:30.1297499Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 23,
+          "timestampUtc": "2026-09-18T08:10:40.5733351Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 10441 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 24,
+          "timestampUtc": "2026-09-18T08:10:40.5738499Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text: �ब तक प्रतिदिन एक लाख तिरेसठ हजार नौ सौ चौबिस लोगों को टीके लगाये जा चुके हैं",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 25,
+          "timestampUtc": "2026-09-18T08:13:29.5506236Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopping server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 26,
+          "timestampUtc": "2026-09-18T08:13:29.5506236Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 27,
+          "timestampUtc": "2026-09-18T08:13:29.5506236Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "shutting down tasks\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 28,
+          "timestampUtc": "2026-09-18T08:13:29.5506236Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped service loop\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 29,
+          "timestampUtc": "2026-09-18T08:13:29.5516305Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "service stopped\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 30,
+          "timestampUtc": "2026-09-18T08:18:57.9052242Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 31,
+          "timestampUtc": "2026-09-18T08:18:57.9298393Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 32,
+          "timestampUtc": "2026-09-18T08:18:57.9485013Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 33,
+          "timestampUtc": "2026-09-18T08:18:57.9689195Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 34,
+          "timestampUtc": "2026-09-18T08:18:57.9898487Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 35,
+          "timestampUtc": "2026-09-18T08:18:58.0105316Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 36,
+          "timestampUtc": "2026-09-18T08:18:58.0373508Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 37,
+          "timestampUtc": "2026-09-18T08:18:58.0373508Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "An infinite import loop has been detected. The following Assets were imported multiple times, but no changes to them have been detected. Please check if any custom code is trying to import them:\nAssets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf(modified date 2026-09-18T08:18:58.0341767Z)\n",
+          "stackTrace": "UnityEditor.AssetDatabase:Refresh ()\nUnity.Pipeline.Editor.Commands.RecompileCommand:Recompile (bool) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/RecompileCommand.cs:95)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 38,
+          "timestampUtc": "2026-09-18T08:19:02.8974923Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 39,
+          "timestampUtc": "2026-09-18T08:19:02.9136725Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 40,
+          "timestampUtc": "2026-09-18T08:19:02.9262453Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 41,
+          "timestampUtc": "2026-09-18T08:19:02.937807Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 42,
+          "timestampUtc": "2026-09-18T08:19:02.9504704Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 43,
+          "timestampUtc": "2026-09-18T08:19:02.9633036Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 44,
+          "timestampUtc": "2026-09-18T08:19:02.9756614Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 45,
+          "timestampUtc": "2026-09-18T08:19:02.9852448Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 46,
+          "timestampUtc": "2026-09-18T08:19:02.9894693Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "An infinite import loop has been detected. The following Assets were imported multiple times, but no changes to them have been detected. Please check if any custom code is trying to import them:\nAssets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf(modified date 2026-09-18T08:19:02.9852448Z)\n",
+          "stackTrace": "",
+          "seeded": false
+        },
+        {
+          "seq": 47,
+          "timestampUtc": "2026-09-18T08:19:20.5354598Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 48,
+          "timestampUtc": "2026-09-18T08:19:20.5470538Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 49,
+          "timestampUtc": "2026-09-18T08:19:20.5576327Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 50,
+          "timestampUtc": "2026-09-18T08:19:20.5687057Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 51,
+          "timestampUtc": "2026-09-18T08:19:20.5784983Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 52,
+          "timestampUtc": "2026-09-18T08:19:20.5890365Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 53,
+          "timestampUtc": "2026-09-18T08:19:20.6000711Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 54,
+          "timestampUtc": "2026-09-18T08:19:20.6000711Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "An infinite import loop has been detected. The following Assets were imported multiple times, but no changes to them have been detected. Please check if any custom code is trying to import them:\nAssets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf(modified date 2026-09-18T08:19:20.5980663Z)\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 55,
+          "timestampUtc": "2026-09-18T08:19:20.6489689Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 56,
+          "timestampUtc": "2026-09-18T08:19:20.6606161Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 57,
+          "timestampUtc": "2026-09-18T08:19:20.670583Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 58,
+          "timestampUtc": "2026-09-18T08:19:20.6830138Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 59,
+          "timestampUtc": "2026-09-18T08:19:20.6935607Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 60,
+          "timestampUtc": "2026-09-18T08:19:20.7056025Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 61,
+          "timestampUtc": "2026-09-18T08:19:20.7159072Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 62,
+          "timestampUtc": "2026-09-18T08:19:20.7170281Z",
+          "level": "error",
+          "logType": "Error",
+          "message": "An infinite import loop has been detected. The following Assets were imported multiple times, but no changes to them have been detected. Please check if any custom code is trying to import them:\nAssets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf(modified date 2026-09-18T08:19:20.7115912Z)\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 63,
+          "timestampUtc": "2026-09-18T08:19:20.7991747Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "WhisperEnglish set to auto-detect language; numPredict capped at 120 for faster replies.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_8dc306b5:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 64,
+          "timestampUtc": "2026-09-18T08:27:07.4280118Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Editor is already in edit mode",
+          "stackTrace": "UnityEngine.Debug:LogWarning (object)\nUnity.Pipeline.Editor.Commands.PlayModeCommands:ExitPlayMode () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Editor/Commands/PlayModeCommands.cs:33)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 65,
+          "timestampUtc": "2026-09-18T08:27:25.9132174Z",
+          "level": "warn",
+          "logType": "Warning",
+          "message": "Import Error Code:(5)\nMessage: Build asset version error: assets/streamingassets/models/llm/qwen2.5-1.5b-instruct-q4_k_m.gguf does not exit in SourceAssetDB\n",
+          "stackTrace": "UnityEditor.SceneManagement.EditorSceneManager:SaveScene (UnityEngine.SceneManagement.Scene)\nPipelineEvaluation.PipelineEval_54690547:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 66,
+          "timestampUtc": "2026-09-18T08:27:26.1353883Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Swapped LLM to Qwen2.5-1.5B-Instruct: Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_54690547:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 67,
+          "timestampUtc": "2026-09-18T08:27:37.5774329Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-medium-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 68,
+          "timestampUtc": "2026-09-18T08:27:37.7207183Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 69,
+          "timestampUtc": "2026-09-18T08:27:37.7537462Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 70,
+          "timestampUtc": "2026-09-18T08:27:38.1527239Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 71,
+          "timestampUtc": "2026-09-18T08:27:38.2828353Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 128 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 72,
+          "timestampUtc": "2026-09-18T08:27:38.559085Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 73,
+          "timestampUtc": "2026-09-18T08:27:38.8542382Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 294 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 74,
+          "timestampUtc": "2026-09-18T08:27:38.888999Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 75,
+          "timestampUtc": "2026-09-18T08:27:38.888999Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 -ngl 999 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 76,
+          "timestampUtc": "2026-09-18T08:27:38.8900066Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 77,
+          "timestampUtc": "2026-09-18T08:27:38.9629919Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_tinyblas.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 78,
+          "timestampUtc": "2026-09-18T08:28:47.6916649Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Ask() triggered.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_7afd1f86:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 79,
+          "timestampUtc": "2026-09-18T08:29:10.6072904Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "TEST_REPLY (22919ms): Not my department! I only cover Store hours, Products, Pricing, Warranty, Repairs.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_7afd1f86/<>c__DisplayClass0_0:<Execute>b__0 (string)\nChatbotAI.Dialogue.DialogueController/<Ask>d__8:MoveNext () (at Assets/Scripts/Dialogue/DialogueController.cs:62)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nLLMUnity.LLMAgent/<Chat>d__33:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMAgent.cs:300)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nUndreamAI.LlamaLib.LLMAgent/<ChatAsync>d__24:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LlamaLib/LLMAgent.cs:272)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 80,
+          "timestampUtc": "2026-09-18T08:31:32.8198147Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Raw Chat() triggered.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_a8196e22:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 81,
+          "timestampUtc": "2026-09-18T08:31:35.1201877Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "RAW_LLM_REPLY (2300ms): [We're open Monday through Friday from 9 AM to 5 PM, and Saturdays from 8 AM to 2 PM. Enjoy your visit!]",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_a8196e22/<>c__DisplayClass0_0:<Execute>b__1 ()\nLLMUnity.LLMAgent/<Chat>d__33:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMAgent.cs:293)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nUndreamAI.LlamaLib.LLMAgent/<ChatAsync>d__24:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LlamaLib/LLMAgent.cs:272)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 82,
+          "timestampUtc": "2026-09-18T08:33:48.2960439Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopping server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 83,
+          "timestampUtc": "2026-09-18T08:33:48.2970488Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped server\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 84,
+          "timestampUtc": "2026-09-18T08:33:48.2970488Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "shutting down tasks\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 85,
+          "timestampUtc": "2026-09-18T08:33:48.2970488Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "stopped service loop\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 86,
+          "timestampUtc": "2026-09-18T08:33:48.2970488Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "service stopped\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 87,
+          "timestampUtc": "2026-09-18T08:34:15.7961489Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "numGPULayers reset to 0 (avoids tinyblas regression); AvatarProfile regenerated with fixed gate.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_d956cf4d:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 88,
+          "timestampUtc": "2026-09-18T08:34:27.4498623Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-hindi-medium-f16.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 89,
+          "timestampUtc": "2026-09-18T08:34:27.4604152Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "system info: n_threads = 16, n_threads_batch = 16, total_threads = 16\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 90,
+          "timestampUtc": "2026-09-18T08:34:27.7825535Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from C:/Users/Admin/ChatbotAI/Assets/StreamingAssets\\Models/Whisper/ggml-large-v3-turbo-q5_0.bin...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper/<InitFromFileAsync>d__27:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:303)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperWrapper>:Start<Whisper.WhisperWrapper/<InitFromFileAsync>d__27> (Whisper.WhisperWrapper/<InitFromFileAsync>d__27&)\nWhisper.WhisperWrapper:InitFromFileAsync (string,Whisper.WhisperContextParams)\nWhisper.WhisperManager/<InitModel>d__45:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:192)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start<Whisper.WhisperManager/<InitModel>d__45> (Whisper.WhisperManager/<InitModel>d__45&)\nWhisper.WhisperManager:InitModel ()\nWhisper.WhisperManager/<Awake>d__42:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:152)\nSystem.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start<Whisper.WhisperManager/<Awake>d__42> (Whisper.WhisperManager/<Awake>d__42&)\nWhisper.WhisperManager:Awake ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 91,
+          "timestampUtc": "2026-09-18T08:34:28.5281607Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 92,
+          "timestampUtc": "2026-09-18T08:34:28.6403692Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Trying to load Whisper model from buffer...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:328)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 93,
+          "timestampUtc": "2026-09-18T08:34:28.9006524Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 259 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 94,
+          "timestampUtc": "2026-09-18T08:34:28.9844706Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper model is loaded, total time: 455 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InitFromBuffer (byte[],Whisper.WhisperContextParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:359)\nWhisper.WhisperWrapper/<>c__DisplayClass31_0:<InitFromBufferAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:380)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 95,
+          "timestampUtc": "2026-09-18T08:34:29.3405715Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 96,
+          "timestampUtc": "2026-09-18T08:34:29.341575Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 97,
+          "timestampUtc": "2026-09-18T08:34:29.3430944Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 98,
+          "timestampUtc": "2026-09-18T08:34:29.3517069Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_avx512.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 99,
+          "timestampUtc": "2026-09-18T08:35:05.9334999Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Ask2() triggered.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_7a497a7f:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 100,
+          "timestampUtc": "2026-09-18T08:35:06.6441874Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "TEST_REPLY2 (711ms): Our shop is open from 9 AM to 5 PM daily. That should cover most of the day!",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_7a497a7f/<>c__DisplayClass0_0:<Execute>b__0 (string)\nChatbotAI.Dialogue.DialogueController/<Ask>d__9:MoveNext () (at Assets/Scripts/Dialogue/DialogueController.cs:72)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nLLMUnity.LLMAgent/<Chat>d__33:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMAgent.cs:300)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>:SetResult (string)\nUndreamAI.LlamaLib.LLMAgent/<ChatAsync>d__24:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LlamaLib/LLMAgent.cs:272)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 100,
+      "session": "aaa1860c33924c099cfa73569cfee43d",
+      "returned": 100,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 4,
+        "warn": 31,
+        "log": 65
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-09-18T08:35:24.3732858Z",
+        "ageMs": 166,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 13,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Admin\\ChatbotAI"
+    },
+    "success": true
+  },
+  "errors": [],
+  "warnings": []
+}

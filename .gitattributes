@@ -169,3 +169,12 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# ChatbotAI: CC4 exports use ".Fbx"; owner documents; big CC texture arrays / extracted meshes
+*.Fbx                   lfs
+*.docx                  lfs
+*.pptx                  lfs
+*.xlsx                  lfs
+*.ico                   lfs
+*.mesh                  lfs
+*Array.asset            lfs

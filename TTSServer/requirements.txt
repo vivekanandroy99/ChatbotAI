@@ -1,0 +1,23 @@
+# Install order matters on Windows (use `python -m pip`, the pip.exe shim is blocked by Application Control):
+#   1. python -m pip install torch --index-url https://download.pytorch.org/whl/cu128
+#   2. python -m pip install -r requirements.txt
+#   3. python -m pip uninstall -y onnxruntime && python -m pip install onnxruntime-gpu==1.22.0
+#      (kokoro-onnx pulls in the CPU build; 1.22 is the last GPU build for CUDA 12, matching torch)
+# Model files (TTSServer/models/): kokoro-v1.0.onnx + voices-v1.0.bin from
+#   https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0
+fastapi
+uvicorn
+soundfile
+numpy
+huggingface_hub[hf_xet]
+transformers==4.46.1
+kokoro-onnx
+phonemizer==3.4.0
+pypdf
+python-docx
+python-pptx
+# Optional Hindi engine Veena (veena_engine.py): the CUDA build of llama-cpp-python 0.3.35
+# (a prebuilt win_amd64 CUDA wheel - the PyPI source build has no GPU support) and the SNAC decoder.
+# Model: download_voice.py veena (Veena-q4_k_m.gguf into models/ + hubertsiuzdak/snac_24khz).
+#   python -m pip install <llama_cpp_python-0.3.35 CUDA wheel> diskcache
+snac==1.2.1

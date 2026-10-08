@@ -1,0 +1,38 @@
+{
+  "_about": "Reference clips IndicF5 copies the voice from - a clean 5-10 s clip + its exact transcript. The model copies the recording too: background noise or room echo in the clip comes out in every reply, so use studio-clean clips. indicf5_hin_* are native Hindi studio recordings from IIT Madras' IndicTTS database (via huggingface.co/datasets/SPRINGLab/IndicTTS-Hindi; check its terms before any commercial use). indicf5_female/male are AI4Bharat's Marathi sample prompts - noisier recordings. indicf5_hindi is the model's own Hindi sample. To add a voice: drop a .wav here and add an entry.",
+  "indicf5_hin_female": {
+    "file": "HIN_F_IITM_11799.wav",
+    "text": "मेरा परफ़ॉर्मेंस सही ना होने की वजह से, मैं कुछ स्टेट के मैचों के लिए नहीं चुना गया था.",
+    "female": true
+  },
+  "indicf5_hin_female2": {
+    "file": "HIN_F_IITM_11714.wav",
+    "text": "अक्सर फ़िलिप को, कार पार्किंग में, अपनी कार खोजने में परेशानी होती थी.",
+    "female": true
+  },
+  "indicf5_hin_male": {
+    "file": "HIN_M_IITM_06060.wav",
+    "text": "वहाँ भी अब, मैकडॉनल्ड, पिट्ज़ा हट्स, और फ़ास्ट फ़ूड की कई चेन्स खुल गई हैं",
+    "female": false
+  },
+  "indicf5_hin_male2": {
+    "file": "HIN_M_IITM_06062.wav",
+    "text": "उन्होने घबराकर पूछा, तो मैंने फ़टा फ़ट आँसूं पोछते हुए, ऐसे ही झूठ मूठ कह दिया, नहीं कोई बात नहीं है",
+    "female": false
+  },
+  "indicf5_female": {
+    "file": "MAR_F_WIKI_00001.wav",
+    "text": "दिगंतराव्दारे अंतराळ कक्षेतला कचरा चिन्हित करण्यासाठी प्रयत्न केले जात आहे.",
+    "female": true
+  },
+  "indicf5_male": {
+    "file": "MAR_M_WIKI_00001.wav",
+    "text": "या प्रथाला एकोणीसशे पंचातर ईसवी पासून भारतीय दंड संहिताची धारा चारशे अठ्ठावीस आणि चारशे एकोणतीसच्या अन्तर्गत निषेध केला.",
+    "female": false
+  },
+  "indicf5_hindi": {
+    "file": "HIN_F_SAMPLE_namaste.wav",
+    "text": "नमस्ते! संगीत की तरह जीवन भी खूबसूरत होता है, बस इसे सही ताल में जीना आना चाहिए.",
+    "female": true
+  }
+}

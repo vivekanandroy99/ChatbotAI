@@ -1,0 +1,11 @@
+var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+UnityEngine.GameObject llmGO = null;
+foreach (var go in scene.GetRootGameObjects()) if (go.name == "LLM") llmGO = go;
+var selector = llmGO.GetComponent<ChatbotAI.Dialogue.LLMModelSelector>();
+selector.Select("gemma-3-4b-it-Q4_K_M.gguf");
+UnityEditor.EditorUtility.SetDirty(llmGO);
+UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+var sb = new System.Text.StringBuilder("SETUP: model=" + llmGO.GetComponent<LLMUnity.LLM>().model + "\n");
+foreach (var e in LLMUnity.LLMManager.modelEntries) sb.Append($"  {e.filename} includeInBuild={e.includeInBuild}\n");
+foreach (var m in ChatbotAI.Dialogue.LLMModelLibrary.List()) sb.Append($"  file {m.fileName} {m.SizeText} - {m.Label}\n");
+UnityEngine.Debug.Log(sb.ToString());

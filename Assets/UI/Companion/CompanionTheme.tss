@@ -1,0 +1,4 @@
+/* Panel theme: only makes the document fill the window - the screen's own look is Companion.uss (linked from Companion.uxml). */
+.unity-ui-document__root {
+    flex-grow: 1;
+}

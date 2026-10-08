@@ -1,0 +1,14 @@
+var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+UnityEngine.GameObject llmGO = null;
+foreach (var go in scene.GetRootGameObjects()) if (go.name == "LLM") llmGO = go;
+LLMUnity.LLMManager.LoadModel(UnityEngine.Application.streamingAssetsPath + "/Models/LLM/Qwen3.5-9B-Q4_K_M.gguf", true, "Qwen3.5-9B");
+LLMUnity.LLMManager.LoadModel(UnityEngine.Application.streamingAssetsPath + "/Models/LLM/Qwen3.5-4B-Q4_K_M.gguf", true, "Qwen3.5-4B");
+var selector = llmGO.GetComponent<ChatbotAI.Dialogue.LLMModelSelector>();
+var so = new UnityEditor.SerializedObject(selector);
+so.FindProperty("model").enumValueIndex = (int)ChatbotAI.Dialogue.LLMModelSelector.ModelChoice.Gemma3Small;
+so.ApplyModifiedProperties();
+var llm = llmGO.GetComponent<LLMUnity.LLM>();
+llm.model = selector.SelectedModelPath;
+UnityEditor.EditorUtility.SetDirty(llmGO);
+UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+UnityEngine.Debug.Log("SETUP: model=" + llm.model);LLMUnity.LLMManager.LoadModel(UnityEngine.Application.streamingAssetsPath + "/Models/LLM/gemma-3-4b-it-Q4_K_M.gguf", true, "Gemma-3-4B");

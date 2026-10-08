@@ -1,0 +1,99 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="Companion.uss" />
+    <ui:VisualElement name="app" class="app theme-dark" picking-mode="Ignore">
+
+        <ui:VisualElement name="body" class="body" picking-mode="Ignore">
+            <ui:VisualElement name="column" class="column" picking-mode="Ignore">
+                <ui:VisualElement name="chatKeyboard" class="osk-panel" />
+                <ui:VisualElement name="dock" class="dock">
+                    <ui:ScrollView name="transcript" class="transcript">
+                        <ui:Label name="hint" class="hint" />
+                        <ui:VisualElement name="youBlock" class="message">
+                            <ui:Label class="message__who" text="YOU" />
+                            <ui:Label name="youText" class="message__text" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="replyDivider" class="message-divider" />
+                        <ui:VisualElement name="replyBlock" class="message">
+                            <ui:Label name="replyWho" class="message__who message__who--avatar" />
+                            <ui:Label name="replyText" class="message__text" />
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                    <ui:VisualElement name="typeRow" class="type-row">
+                        <ui:TextField name="typeField" class="type-field" />
+                        <ui:Button name="sendButton" class="send-button" tooltip="Send" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="controls" class="controls" picking-mode="Ignore">
+                        <ui:VisualElement class="controls__row" picking-mode="Ignore">
+                            <ui:VisualElement class="controls__side" picking-mode="Ignore">
+                                <ui:Button name="keyboardButton" class="round-button keyboard-button" tooltip="Type a message" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="main-wrap" picking-mode="Ignore">
+                                <ui:VisualElement name="micPulse" class="mic-pulse" picking-mode="Ignore" />
+                                <ui:VisualElement name="mainGlow" class="main-glow" picking-mode="Ignore" />
+                                <ui:Button name="mainButton" class="main-button" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="controls__side" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label name="stateCaption" class="state-caption" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="debugCard" class="debug-card">
+                <ui:VisualElement class="debug-card__header">
+                    <ui:Label class="debug-card__title" text="Debug" />
+                    <ui:Button name="debugStopVoice" class="pill-button" text="Stop voice" />
+                    <ui:Button name="debugClear" class="pill-button" text="Clear log" />
+                </ui:VisualElement>
+                <ui:ScrollView name="debugScroll" class="debug-card__scroll" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="loading" class="loading">
+            <ui:VisualElement class="loading__center" picking-mode="Ignore">
+                <ui:VisualElement name="loadingLogo" class="loading__logo" picking-mode="Ignore" />
+                <ui:Label name="loadingTitle" class="loading__title" text="Getting ready" picking-mode="Ignore" />
+                <ui:Label name="loadingStage" class="loading__stage" text="Starting…" picking-mode="Ignore" />
+                <ui:VisualElement class="loading__bar-row" picking-mode="Ignore">
+                    <ui:VisualElement class="loading__bar" picking-mode="Ignore">
+                        <ui:VisualElement name="loadingFill" class="loading__fill" picking-mode="Ignore">
+                            <ui:VisualElement name="loadingSheen" class="loading__sheen" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Label name="loadingPercent" class="loading__percent" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement name="loadingSteps" class="loading__steps" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:Label name="loadingNote" class="loading__note" text="Everything runs offline on this computer - the first start can take a minute." picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="menuCorner" class="menu-corner" picking-mode="Ignore">
+            <ui:Button name="menuButton" class="icon-button" tooltip="Menu" />
+        </ui:VisualElement>
+        <ui:VisualElement name="scrim" class="scrim" picking-mode="Ignore" />
+        <ui:VisualElement name="sheet" class="sheet">
+            <ui:VisualElement class="sheet__header">
+                <ui:Button name="sheetBack" class="sheet__header-button sheet__header-button--back sheet__header-button--hidden" />
+                <ui:VisualElement name="sheetLogo" class="sheet__logo" picking-mode="Ignore" />
+                <ui:Label name="sheetTitle" class="sheet__title" text="Settings" />
+                <ui:Button name="sheetHelp" class="sheet__header-button sheet__header-button--help" />
+                <ui:Button name="sheetClose" class="sheet__header-button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="sheetAccent" class="sheet__accent brand-fill" picking-mode="Ignore" />
+            <ui:ScrollView name="sheetScroll" class="sheet__scroll" />
+        </ui:VisualElement>
+        <ui:VisualElement name="login" class="login">
+            <ui:VisualElement name="loginCard" class="login__card">
+                <ui:Button name="loginKeyboardToggle" class="login__keyboard-toggle" tooltip="On-screen keyboard" />
+                <ui:VisualElement class="login__logo" picking-mode="Ignore" />
+                <ui:Label class="login__title" text="Sign in" />
+                <ui:Label class="login__subtitle" text="Settings are for staff only." />
+                <ui:TextField name="loginUser" class="text-line login__field" />
+                <ui:TextField name="loginPassword" class="text-line login__field" />
+                <ui:Label name="loginError" class="login__error" />
+                <ui:VisualElement class="login__buttons">
+                    <ui:Button name="loginCancel" class="login__button" text="Cancel" />
+                    <ui:Button name="loginSubmit" class="login__button login__button--primary" text="Sign in" />
+                </ui:VisualElement>
+                <ui:VisualElement name="loginKeyboard" class="login__keyboard" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

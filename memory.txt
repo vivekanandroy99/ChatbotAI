@@ -1,0 +1,784 @@
+PROJECT MEMORY - Offline Voice Companion (Unity)
+================================================
+For people and AI assistants picking up this project. Read this first, then CLAUDE.md (the detailed
+technical brief - Claude Code loads it automatically). This file is the history: what changed, why,
+and what it affected. ADD AN ENTRY AT THE TOP OF THE CHANGE LOG FOR EVERY CHANGE YOU MAKE.
+
+
+1. WHAT IT IS
+-------------
+A 3D talking character for a portrait 2K/4K TV (also works on 16:9). You speak (English or Hindi), it
+answers out loud and lip-syncs. Everything runs OFFLINE on the machine - no cloud APIs, ever.
+Four bots, picked from the menu (top-right hamburger):
+  Maya  (female) - Altcore/Altscape bot, answers ONLY from its documents, refuses off-topic questions
+  Ethan (male)   - same knowledge as Maya
+  Iris  (female) - "open chat": talks about anything with its own personality
+  Leo   (male)   - "open chat"
+
+
+2. HOW IT WORKS (one line per part)
+-----------------------------------
+Ears   : whisper.unity + ggml-large-v3-turbo (Unity-native). Detects English vs Hindi itself.
+Brain  : LLMUnity + Gemma-3-4B (GGUF). Knowledge bots: router -> document search (bge-m3) -> answer from
+         passages only -> grounding check. Hindi questions are answered in English, then translated.
+Voice  : Python sidecar TTSServer/server.py on 127.0.0.1:8765 (Kokoro voices; Veena for Indian Hindi).
+         Also hosts the document search. Unity starts/stops it (TTSProcessManager).
+Body   : Reallusion CC4 actors (Assets/ActorCore Model/Actors), motions in Assets/ActorCore Model/Motion,
+         built into Assets/Characters by tools/setup_four_bots.cs. Lip-sync = uLipSync, per-voice profiles.
+Screen : UI Toolkit (Assets/UI/Companion + Scripts/UI/CompanionUI.cs, CompanionMenu.cs).
+Scene  : Assets/Scenes/DialogueTest.unity.
+
+Main folders:
+  Assets/Scripts/{Dialogue,Audio,Avatar,UI}   the app's code
+  Assets/Resources/Avatars                    the 4 bot profiles (voices, persona, mode, documents)
+  Assets/KnowledgeDocuments/<bot id>          the documents a knowledge bot answers from
+  Assets/StreamingAssets/Models               LLM + Whisper model files (ship with the build)
+  TTSServer/                                  voice + document-search sidecar (Python venv in TTSServer/venv)
+  tools/*.cs                                  editor scripts run with `unity command eval_file <file>`
+  SpeechReview/<session>/                     every spoken sentence is recorded here (WAV + text) for review
+
+
+3. HOW TO CHECK THINGS
+----------------------
+- Play the DialogueTest scene. Hold Space (or tap the mic) to talk. F1 = debug panel (timings, gate scores).
+- Hear-back check of recorded speech: TTSServer\venv\Scripts\python.exe TTSServer\speech_check.py <session folder>
+  (clarity % per sentence and unclear words; naturalness 1-5). Veena Hindi is normally ~78-82% clarity.
+- "the voice fell behind" warnings in the Console = audio breaking (generation slower than playback).
+- Motions: drop an export in Motion/<Idle|Talk><n>_<Male|Female>/ and re-run tools/setup_four_bots.cs.
+  CC export: FBX, Unity 3D preset, Motion, Include Motion = Current Animation.
+
+
+4. RULES THE OWNER HAS SET
+--------------------------
+- Fully offline at runtime. Ask before downloading anything.
+- Dark mode is the default. Apple-like, clean UI. No bot name headline, no title bar.
+- The bots never mention file names or "documents" in replies.
+- Knowledge bots must not invent facts (the topic gate is the core product feature).
+- Female motions only on female characters, male only on male.
+- Owner likes Veena's Indian accent, but values clear pronunciation over accent.
+- Keep answers to the owner short.
+
+
+5. CHANGE LOG (newest first)
+----------------------------
+
+2026-10-08 (d) - Lighting page in the menu (like Camera), menu keeps its scroll position, new Pearl model
+  * Menu > [bot] > Lighting: 7 looks (Natural = as delivered, Soft, Bright, Dramatic, Warm, Cool, Glow) + MAIN LIGHT
+    sliders (Brightness x, Direction -90..90 deg, Height, Warmth) + OTHER LIGHTS (Soft light = fill, Back light = rim,
+    Studio glow = HDRI strength, Shadows) + Reset. Per bot, PlayerPrefs "light/<avatarId>" (StageBackdrop.Lighting /
+    LoadLighting / SaveLighting; travels in .altbot exports (lightingChoice) and is forgotten when a bot is deleted).
+    Live while dragging (StageBackdrop.PreviewLighting), saved on release; the page sits low like Camera (sheet--camera).
+    Every value is a multiplier on the scene's own light (base captured when the key light is found) and on the Advanced
+    "Fill light" / "Studio light strength", so 1 / 0 = as delivered. Applied in Play mode only - the Editor scene's
+    Directional Light is never changed. Rim is capped under the key (URP main light must stay the key). Direction + =
+    from the viewer's right. Guide "Lighting" added (HelpGuides, capture re-run: only step 1 is outlined - page too tall).
+  * Menu scroll: CompanionMenu.Push saves the scroll offset of the page left (resumeAt stack); Back restores it
+    (re-applied at 30/120/300 ms - a freshly built ScrollView clamps to 0 until laid out); a page opened from another
+    starts at the top; a page redrawing itself (a switch) keeps its offset. Tested 400 -> page -> back = 400.
+  * Pearl: new export (Downloads\CC4 Char\Pearl, 59 MB, coat + shirt + skirt) copied into Actors/Pearl, prefab rebuilt by
+    tools/import_actors.cs, fix_cc5_materials.cs, tools/setup_pni_bots.cs re-linked Characters/Pearl.asset (the copy had
+    deleted the old prefab, so the asset's prefab became null and the stage fell back to Ethan - re-run setup_pni_bots
+    after replacing an actor's folder). Waist: a small dark zig-zag where the shirt hem meets the skirt waistband is still
+    there; tried 5 mm skirt inset and 5 mm shirt-hem outset (Pearl/*_adjusted.asset, originals kept as *_original.asset;
+    these were on the old prefab and are not used now) - no change; next options: skirt back-face culling or a CC re-export
+    with the waistband tucked/removed.
+
+2026-10-08 (c) - Help & guides in the menu (a ? on every page), with marked screenshots
+  * Owner asked for a first-timer guide like the one in their launcher app: short points, screenshots with the options
+    marked. 21 guides in Assets/Scripts/UI/HelpGuides.cs (kiosk, menu, bots, new bot, look & voice, personality,
+    conversation, documents, camera, backdrop, copy/export, listening, questions & answers, report, microphone,
+    speaker, screen, display, AI models, staff sign-in, fine-tuning): title, one-line intro, 2-5 numbered steps (each
+    may point at a row / caption / button on its page, or #element on the main screen), "Good to know" tips.
+  * Menu: new header button ? (Glyph.Kind.Help, sheetHelp in Companion.uxml) opens the guide of the page on screen -
+    CompanionMenu keeps a guide per page (pageGuides, beside the page stack; HelpGuides.For(title, Build method);
+    sub-pages inherit their parent's; Advanced pages -> fine-tuning). Root: "Help & guides" row at the top -> guide list
+    (sections Getting started / The bot on screen / Visitors / This PC / Advanced). A guide page: All guides pill,
+    title, intro, screenshot with outlined + numbered marks, steps, tips box, and "Go to this page" when opened from
+    the list. Styles: .guide__* at the end of Companion.uss.
+  * Screenshots: tools/capture_help_shots.cs (Play mode; Game view 2160x3840 = the portrait 4K TV, put back after;
+    made-up example questions in memory instead of the real Conversations log, so no visitor data ships) ->
+    Assets/Resources/Help/<id>.png + <id>-marks.json; then tools/import_help_shots.cs (BC7, no mipmaps, max 4096).
+    10 MB of PNGs. Re-run both after menu changes. Some steps have no mark where the option is off the picture (camera
+    page sits low in portrait; long pages).
+  * Tested in Play mode: ? on Look & voice / root / Eyes opens Look & voice / The menu at a glance / Fine-tuning; all
+    21 guides and the list: 0 overflow; Go to this page -> Documents, whose ? opens Documents again.
+
+2026-10-08 (b) - Splash screen without the Unity logo, app icon
+  * Owner's files: icon (400x400 PNG, transparent; same as Downloads\altscape icon.ico) -> Assets/UI/Companion/Brand/
+    app-icon.png (uncompressed, no mipmaps) = default + all Standalone icon sizes. Logo (2000x800 webp) cropped to its
+    content -> Brand/splash-logo.png (Sprite).
+  * Player Settings > Splash: Unity logo OFF, one logo (splash-logo, 2 s, Dolly), background #161413 = the dark theme's
+    --bg, so the splash flows into the app's own loading screen. Company name was already "Altcore" (exe Publisher),
+    product "AltcoreBot", version 0.1.0. Shows in the next build only (not in Play mode).
+
+2026-10-08 (a) - "P and I" heard as DNA; smooth bot switch again; clothes hem issue diagnosed
+  * Speech recognition: Whisper's English hint (SpeechInputController.RefreshVocabularyHint, built when the mic starts
+    listening) now starts with the bot's topic names + heardAs names ("P&I, Pavilions & Interiors, ...") - the document
+    vocabulary had no "P&I" at all. knowledge.vocabulary() skips record codes (CL03, SV01), ordinals and 13+ character
+    tokens. Test (spoken by the voice engine + noise, scratchpad whisper_pni*.cs): "P&I" written in 4 of 5 noisy clips
+    with the new hint vs 1 of 5 with the old (old gave B&I / BNI). P&I heardAs + "DNA", "PNE", "P and E", "B&I", "P&E".
+  * Bot switch: the new character used to appear folded on the floor (head 0.64 m), shoot up to standing in ~0.15 s,
+    and the camera jumped 3 times (the 2026-10-06 head-move re-framing). AvatarStage.Show (Play mode, a character
+    already on stage) -> Reveal coroutine: new model's renderers off, AvatarAnimator.PoseNow() (motion for the current
+    state at full weight + graph.Evaluate), shown once the head holds still (max 1 s), old one removed, ONE FrameCamera.
+    Traced: new character visible ~0.17 s after the tap, already standing (head 1.62), one camera move.
+  * Clothes: the jagged dark "zig-zag" at the waist (Pearl's shirt into her skirt, Maya's sweater over her skirt) is the
+    top's hem interpenetrating the skirt - CC4 layered/tucked garments exported with their hidden faces; materials are
+    double-sided (cull off), so the inside of the hem shows dark through the waistband and shifts as the body moves.
+    Fix is in CC4 (owner): export with "Delete Hidden Faces"/hidden mesh removed, or tuck/layer the garments (skirt over
+    shirt) before export. Not changed in Unity (back-face culling would open holes in collars/coat linings).
+  * Splash/icon: not done yet - asked the owner for images. Current: Unity splash with Unity logo, no app icon.
+
+2026-10-07 (d) - Two new bots: Pearl and Peter for P&I (Pavilions & Interiors); "PNI" understood; document search fixes
+  * The "error" the owner saw: the only Console error was from a bad `unity command list` call (mine) - cleared.
+  * Characters: CC4 actors Assets/ActorCore Model/Actors/{Pearl,Peter} built by tools/import_actors.cs (names now
+    Pearl, Peter) + tools/fix_cc5_materials.cs (Pearl: brow base + scalp see-through; Peter: hair cap hidden, brow base
+    see-through - his hair strands/glasses fine, checked in screenshots). tools/setup_pni_bots.cs (new, re-runnable):
+    Assets/Characters/Pearl|Peter (+ Lip Sync), framing copied from Maya/Ethan, shared Female/Male Motions; profiles
+    Resources/Avatars/PNI Female - Pearl (pni_female, af_heart / veena_kavya) and PNI Male - Peter (pni_male, am_michael
+    / veena_vinaya), copied from Maya; knowledge only, topics "P&I", persona + alwaysDo/neverDo from the document's
+    chatbot rules; registry: Maya, Ethan, Iris, Leo, Pearl, Peter.
+  * Knowledge: the owner's P&I_Chatbot_Training_Knowledge_Base.docx (Downloads, untouched) minus its sections for the
+    chatbot team (Contents, 1, 2, 13, 14, 15 - Gemma read their notes out) = Assets/KnowledgeDocuments/pni_female/
+    Pavilions and Interiors Knowledge Base.docx, made by tools/make_pni_document.py; both bots use it.
+  * "PNI": AvatarProfile.heardAs (NameVariants: name + variants) - DialogueController.Ask replaces variants before
+    anything else (log "Heard ... understood as ..."). All-caps variants match spaced/dotted letters (P N I, P.N.I.).
+    P&I variants: PNI, PNA, PNY, P and I, P & I, P and Eye, Pee and eye, Pandai, BNI, B and I, पीएनआई, पी एंड आई, पी और
+    आई... (not "pani" - पानी); Pavilions & Interiors variants (Pavilion and Interiors, Pavillion...). Spoken: P&I ->
+    "P and I" / "पी एंड आई" (pronunciations). Inspector only (not in the menu).
+  * knowledge.py (INDEX_FORMAT 6, all indexes rebuild once): .docx read in document order, one unit per heading
+    section (tables used to be appended at the end, away from their headings); long tables repeat their heading every 8
+    rows; columns with the same value on every row ("Project page") or record IDs (P037) are dropped. Maya's docx scores
+    unchanged (0.550 vs 0.551).
+  * Search: the models don't read "P&I" as Pavilions & Interiors (reranker scored the museum list 0.01 with "P&I", 0.57
+    with the full name). AvatarProfile.searchWithoutTopicNames -> the ranking query says "the company" instead
+    (KnowledgeClient rank_text; gate scores still from the question as asked): right passage among 6 in 25/26 P&I
+    questions vs 17/26. Hurts Maya (30 -> 25/35), so per bot: on for Pearl/Peter only. AvatarProfile.rerankPassages:
+    off for Pearl/Peter (reranker 23 vs 25/26 there), on for the rest.
+  * Answer agent (DialogueController): new worked examples - document notes are never repeated; a "branch in my city"
+    template answers from the matching row, or the fallback when there's none (made-up towns: with Pune/Nashik in the
+    example Pearl "had" a Pune office). WithoutDocumentNotes drops reply sentences with record codes (SV01, CO02, P037),
+    "Sources:", "Do not ...", "Retrieve/Provide/Treat ...", placeholders ("[insert website address here]"), raw table rows
+    (" | ") and the examples' "Riverside" library (it leaked into a museum list; the translator filled a placeholder
+    with riverside.example - TranslateSentence now retries such output). BuildPrompt adds "(The CONTEXT doesn't mention
+    Pune.)" for capitalised question words found in no passage - fixed "Is there an office in Pune?" (was answered with
+    the Mumbai office).
+  * Play-mode tests (Conversations/ backed up and restored): Pearl answers What is PNI / P and I, museums (full list),
+    offices (Kolkata, Mumbai, Kochi right; Pune, Chennai "no verified listing", also in Hindi), founder, MD, Statue of
+    Unity limits, Tata Steel, Infosys (no record), prices/deadlines refused politely, hiring, G20 in Hindi, cricket
+    refused. Maya re-checked after each change (established, location, CEO, altX, VR, interior designers).
+    Weak spot left: Baker Hughes -> "Baker Hughes was India Energy Week 2023 stall." (right fact, clumsy wording).
+
+2026-10-07 (c) - Reranker for document search (with menu switch), Topics in the menu, conversation clears after 6 s
+  * Downloaded (owner approved) BAAI/bge-reranker-v2-m3 (2.14 GB, Apache 2.0) into the HF cache; PortableBuild.HubModels
+    copies it into builds (-> v5 build ~19.6 GB). knowledge.py: bge-m3 picks the RERANK_CANDIDATES (12) closest passages,
+    the reranker reads question + passage together and reorders them; top_k go to the brain. The gate scores (best
+    passage / best sentence) stay bge-m3's - refusals unchanged. /retrieve takes rerank (default true); Unity's top-1
+    lookups (reply grounding check, open-chat taught answers) send rerank:false (KnowledgeClient.Retrieve rerank arg).
+    Server env RERANKER_OFF=1 -> never loaded (TTSProcessManager.useReranker / ModelChoices.RerankerOff, Menu > Advanced >
+    AI models > "DOCUMENT SEARCH - ANSWER CHECKER", from the next start).
+  * Test (35 visitor questions on Maya's 277 passages, incl. Hindi/Hinglish; scratchpad eval_rerank.py): right passage
+    FIRST 16 -> 21, among the 4 the brain sees 30 -> 31, MRR 0.61 -> 0.70, +~45 ms per question. Blends with the bge-m3
+    score and "reranker top N + search fills the rest" were tried - none beat the plain reranker. One loss: "What are
+    Altcore's values?" (VALUES passage dropped out of the 4 - Maya then listed the "Why choose us" points). Play mode
+    end-to-end (9 questions, Conversations/ backed up and restored): correct answers, 1.0-1.6 s to reply, cricket refused.
+  * Menu > [bot] > Personality: TOPICS field (knowledge bots) - comma-separated; drives "Ask me anything about ..." (welcome
+    line, greeting reply) and off-topic refusals; empty = detected from the documents (placeholder shows them).
+    AvatarSettingsStore now saves List<string> fields (one item per line) - so bot copies/exports also carry topics and
+    refusal lines.
+  * "Clear the conversation after" (Menu > Advanced > Display & performance): 0-120 s in 2 s steps (was 0-600 in 15 s),
+    now 6 s (was 90; set in the v5 scene + field default). Counts from when the bot is idle again (not while it speaks,
+    listens or thinks, or while the menu/keyboard is open).
+
+2026-10-07 (b) - v5: Hindi voices from Veena only (Svara, AI4Bharat, Piper removed) - smaller build
+  * Backup first: Backups/AltcoreBot_v4-4 (2.6 GB, final v4 code/assets, RESTORE.txt). The removed engines were MOVED
+    (not deleted) into Backups/AltcoreBot_v4-4/Removed voice engines: svara-tts-v1.Q4_K_M.gguf (1.95 GB), models/indictts
+    (1.54), models/piper (0.18), TTSServer/indictts-venv (3.7), voices/svara, svara_engine.py, indictts_engine.py,
+    indictts_worker.py, piper_engine.py. ~7.4 GB less in TTSServer -> the next build should be ~17.5 GB (was 25.0).
+  * New working scene Assets/Scenes/AltcoreBot_v5.unity (copy of v4, now frozen); build list = v5 only; tools/*.cs and
+    PortableBuild's comment -> v5. Builds go to Builds/AltcoreBot_v5 (not built yet). Builds/AltcoreBot_v4 still has
+    every engine.
+  * Bots: Maya Hindi svara_hindi_female -> veena_kavya, Ethan svara_hindi_male -> veena_vinaya, Leo indictts_male ->
+    veena_vinaya (both lip-sync profiles already calibrated). Iris unchanged (Kokoro hf_alpha - part of Kokoro, no size).
+  * Code: VoiceCatalog lost the Svara/AI4Bharat/Piper voices; VoiceCatalog.Current() maps their old ids to the same-gender
+    Veena voice (Svara English male -> am_michael), applied by AvatarSettingsStore.Load/Apply (saved settings, imported
+    .altbot bots). VoiceModelLibrary.Engine = Kokoro, KokoroV11, Veena, IndicF5; VoiceEngineDownloads, TTSProcessManager
+    (no SVARA_MODEL, only venv is pointed at the bundled Python), ModelChoices.Svara, CompanionMenu (AI models groups,
+    footnotes, Pretty) cleaned up. server.py: no svara/piper/indictts imports; RETIRED_VOICES does the same mapping.
+  * Document search (bge-m3) unchanged - it already runs the full model in fp16 on the GPU (nothing shrunk). A reranker
+    (bge-reranker-v2-m3) would improve passage ranking but needs a ~1-2 GB download - offered, not done.
+  * Tested: compiles (no errors); sidecar started by hand: Veena kavya 0.92x, svara_hindi_male / indictts_male requests
+    spoke with Veena (0.60x real time); /voice_engines lists only indicf5 + veena; sidecar stopped afterwards.
+
+2026-10-07 (a) - Slider knob hung out of its row at 100% - fixed; every menu page audited
+  * ValueSlider placed the knob's LEFT edge at t*100% of the slider (the track is inset 14 = half a knob), so at 100%
+    the knob stuck out ~14 units past the row. Now translate -t*28 as well: the knob's centre sits on the track at
+    every value (matches SetFrom's mapping).
+  * Audit (scratchpad ui_audit.cs, in Play): opens every menu page (root, all bot pages, visitors, devices, AI models,
+    online AI, voices, tone, all 7 tuning pages), top and bottom, and flags anything sticking out of its group/the sheet
+    or nowrap text that's cut. After the fix: all pages ok.
+
+2026-10-06 (e) - Speak / Keyboard buttons under every menu text box (touch)
+  * The "Speak the answer" text link was poor UI. CompanionMenu.InputTools(row, field, speak): two 46-unit pill buttons
+    (.tool-pill, icon + label) under the box - Mic "Speak" (red "Stop" while listening, spinner "Writing…", then the
+    words go into the box) and Keyboard (opens/closes the menu's on-screen keyboard for that box, gradient while open;
+    cursor put at the end). Added to: taught-answer question + answer (both pages), name, persona and the personality
+    boxes (TextBox helper), topics to avoid, new bot name, staff name; password boxes keyboard only (never spoken).
+  * Menu text boxes no longer select everything on focus (the first key from the on-screen keyboard wiped the text).
+  * Checked in Play with screenshots: normal, keyboard open, listening.
+
+2026-10-06 (d) - Reliability (auto-restart, noise filter, startup check), automatic listening, dictation, staff
+                 sign-ins, report + Excel, bot export/import
+  * AUTO-RESTART: (1) voice server - TTSProcessManager.Watch(): every 5 s, process gone or 4 missed /health ->
+    started again (max 3 in 10 min, then the error screen). Tested: server killed mid-session, noticed in 2 s, back in
+    7 s, spoke again. (2) the app - AppHeartbeat (builds only) touches heartbeat.txt next to the exe every 5 s, writes
+    "closed" on a normal quit; PortableBuild writes "Start <app>.cmd" (runs "<app> Watchdog.ps1" hidden, PowerShell
+    5.1, -ExecutionPolicy Bypass for that process only): restarts after a crash (exit code != 0) or a freeze (no
+    heartbeat for 120 s), stops after a normal close, gives up after 5 restarts in 10 min; watchdog.log. Tested with a
+    stand-in app: crash -> restarted, close -> stopped; parse-checked. README: use the .cmd, shell:startup for kiosks.
+  * STARTUP CHECK (StartupCheck.cs): no / unplugged microphone, no / unplugged chosen speaker, non-NVIDIA GPU, < 12 GB
+    VRAM, < 16 GB RAM -> amber lines on the loading screen (.loading__note--warning) and a "CHECK THIS PC" section at
+    the top of the menu (re-checked on open). On this PC it found: the chosen mic (Ingenic webcam) isn't connected.
+  * NOISE FILTER (SpeechInputController, Tunables "Background noise filter" + "Voice must stand out ... (dB)" 6): 100 Hz
+    high-pass; ignored if the loudest 5% isn't >= 6 dB over the quietest 20% (or quieter than -50 dB); ignored if
+    neither English nor Hindi is >= 25% likely; Whisper's silence inventions ("Thank you very much.", "Amen.", "you"...)
+    ignored unless the voice was clearly there (>= 20 dB, -30 dB). Tested: noise -> nothing; speech, also with noise
+    mixed in -> correct text.
+  * AUTOMATIC LISTENING (menu > Visitors > Listening & language: Tap the button / Automatic; companion/listen-mode):
+    mic open while CompanionUI.AutoAllowed (Ready, menu/sign-in/keyboard closed, 1 s after the bot spoke); own detector
+    on 0.1 s chunks (MicrophoneRecord.OnChunkReady): voice = 3 chunks > room level x "Automatic: how loud a voice must
+    be" (3) and > -46 dB; ends after "Automatic: pause that ends a question" (1 s) below max(room x ratio x 0.6, speaker
+    peak x 0.18); audio trimmed to 0.35+0.5 s before the voice; re-opened every 20 s while waiting; a tap while waiting
+    = question starts now (2 s grace). Nothing heard in automatic mode = silently back to waiting. Caption "Just start
+    talking". Stop happens in Update (not inside the recorder's chunk loop - it destroys its clip). Tested with synthetic
+    chunks: detect, end on pause, re-arm, off while the bot speaks, tap. NOTE: a busy room will set it off often - tap
+    mode is better there.
+  * DICTATION: SpeechInputController.Dictate(callback) - records without OnListeningStarted/Stopped/OnTranscribed
+    (stops after a 2 s pause or a tap); CompanionMenu.DictateRow under the taught-answer boxes ("Speak the answer"):
+    replaces the text the page opened with, adds to anything new.
+  * STAFF SIGN-IN (StaffAccounts.cs, menu > Advanced > Staff sign-in): add people, change passwords, remove (never the
+    last); PBKDF2 (20000 rounds, salted) in PlayerPrefs "staff/accounts" (travels with builds); until the first change
+    the Inspector's users apply (shown with "still the default admin"). Tested: add, sign in, wrong password refused.
+  * REPORT (menu > Visitors > Report; ConversationReport.cs): today / 7 / 30 days, % answered, last 7 days per day,
+    most asked (small talk excluded), link to questions to review; Export to Excel (Desktop / USB drives) = a real
+    .xlsx (SimpleXlsx.cs, inline strings, bold header): Questions per day, Per bot, Most asked, Couldn't answer, All
+    questions. Opened in Excel on this PC: all 5 sheets filled.
+  * BOT EXPORT / IMPORT (BotPackage.cs, ".altbot" zip): manifest (name, basedOn, look, mode, every setting via
+    AvatarSettingsStore.Snapshot/Apply, backdrop choice) + documents/ (taught answers, .index). Menu: bot page > Copy,
+    export, reset or delete > "Export <bot> to Desktop/USB"; Bots > Import a bot… (makes a new made-bot, "Name 2" if
+    the name is taken). Tested: Iris (820 bytes) and Maya (82 MB with documents) out and back in, then deleted.
+  * TEST HYGIENE: two Play test runs didn't back up Conversations - 3 test entries (18:42-18:46, incl. a headset
+    "Thank you very much." invention) were removed from Conversations/2026-10-06.jsonl (copy kept in the scratchpad).
+
+2026-10-06 (c) - Blurry "Dark" (selected option) and mic icon fixed
+  * UI Toolkit `filter: drop-shadow` renders the element INCLUDING its text/icon through an off-screen image - the
+    selected segmented option's label looked soft. .segmented__item--selected: hairline border instead of the filter.
+    The mic button's glow moved to its own circle behind it (.main-glow in Companion.uxml/.uss; red while listening,
+    hidden when busy), so the icon is drawn directly. Checked zoomed screenshots: both sharp, glow unchanged.
+  * Rule: never put `filter:` on an element that contains text or an icon (the switch/slider knobs are fine).
+
+2026-10-06 (b) - Touch drag-scrolling, bots made in the app, new menu layout
+  * TOUCH: tested with synthetic touch events (PointerDownEvent.GetPooled(Touch) with PANEL coordinates as the
+    position, sent to the root): taps work with up to ~10 units of finger wobble, but a swipe never scrolled Unity's
+    ScrollView (offset unchanged for 40 units). New DragScroll (CompanionControls) on the menu, the conversation text
+    and the debug card: a press becomes a drag after 14 units (so wobbly taps still tap), the list keeps the finger
+    (no click on the row under it); sliders, the scrollbar and text boxes keep their own drags. Verified: swipe 160 ->
+    scrolled 140, swipe back 80 -> 60, 8-unit wobble tap still opened its page. ValueSlider resets on
+    PointerCaptureOut (was left "dragging" if the finger was taken away).
+  * BOTS MADE IN THE APP (CustomBots.cs): StreamingAssets/Bots/<id>.json = id, name, 3D look (character asset name),
+    mode, basedOn (the built-in bot whose defaults it starts with: the one with that look). AvatarRegistry loads them
+    after the built-in profiles (Instantiate(basedOn) + id/name/look/mode; persona with the base's name replaced; own
+    topic names/documents), CreateBot / Duplicate (copies every changed setting, documents, taught answers and the
+    .index folder - a copy of Maya answered at once) / Delete (made bots only: json + documents to the Recycle Bin,
+    settings forgotten). AvatarSettingsStore now saves the look (`character`, by name via FindCharacter).
+    Tested: new knowledge bot without documents refuses politely; copy of Maya answered "What does Altscape do?";
+    new open-chat "Kabir" on Leo's look introduced himself as Kabir; all test bots deleted again.
+  * MENU (CompanionMenu.BuildRoot): BOTS (list + New bot…) / <ACTIVE BOT> (Look & voice [3D look + voices + speed],
+    Personality, Conversation [mode, reply length, open-chat or knowledge settings], Documents, Camera, Backdrop,
+    Copy, reset or delete) / VISITORS (Language page, Questions & answers) / DEVICES (microphone, speaker, screen) /
+    DISPLAY / ADVANCED (AI models + tuning pages; Reset moved to the bot's Copy/reset/delete page).
+  * Camera after a look change pointed at the legs: the new model stayed unposed ~0.7 s (head 0.6 m) and the 0.75 s
+    reframe came too early. AvatarStage now also re-frames for 3 s whenever the head has moved > 15 cm since framing.
+  * The user: the bot works fine on the other PC now. Deferred (not now): smaller build, attract mode, hands-free /
+    presence greeting, more body language, logo on stage + QR; male talk animation later.
+
+2026-10-06 (a) - Faster on 4K screens (the other PC: 4K TV, ~10 s per turn in the build)
+  * Measured here with the Game view at 2160x3840 (PlayModeWindow.SetCustomRenderingResolution), same clip + question:
+      small Game view : speech 0.50 s, first sound 1.96 s, GPU ~22% busy
+      4K before       : speech 0.86 s, first sound 3.08 s, GPU ~70%
+      4K after fixes  : speech 0.66 s, first sound 2.25 s, GPU ~50%
+    GPU busy at 4K idle by part: full 3D 77%, 3D at 0.67 62%, no glass panel 40%, glass blur 8px 49%, no post 58%,
+    3D at 0.5 58%, 30 fps 43%. The panels' backdrop-filter blur (22 units = ~66 px at 4K) was the biggest single cost -
+    CLAUDE.md's "blur measured ~free" only held at small sizes.
+  * StageBackdrop "3D detail limit (million pixels)" (Tunable, default 3.7): above it URP renderScale = sqrt(limit/screen)
+    (0.5-1) with FSR upscaling; UI Toolkit stays full size. The URP asset's renderScale/filter are restored on disable
+    (Editor asset unchanged).
+  * CompanionUI "Frosted glass" (Tunable: Auto/Full/Light/Off; Auto = Full up to 4.2 MP, Light above): .glass-light
+    (blur 8px) / .glass-off (no blur, --panel-solid) classes on the root, Companion.uss end.
+  * Builds/AltcoreBot_v4 rebuilt with all of 2026-10-05/06 (0 errors, 3 known harmless warnings, 25.0 GB, cuBLAS
+    library + bundled Python + default-settings.json present). Backup of this state: Backups/AltcoreBot_v4-3 (2.66 GB).
+  * The rest of the other PC's ~10 s is NOT explained by 4K alone (+1.1 s here) - needs that PC's Player.log or a debug
+    panel screenshot (transcribed in / first sound times) to see whether it's GPU memory, cuBLAS, the mic waiting, etc.
+
+2026-10-05 (h) - Console cleanup: StageBackdrop's FindObjectsByType<Light>(FindObjectsSortMode.None) -> the new overload
+  (obsolete warning in Unity 6.6). The other console items were history (DisplayChoice CS0122 fixed earlier, CLI
+  timeouts) or not ours (Reallusion editor UAC1001, URP debug shader stripping, Unity CLI pipeline note). After a
+  recompile + 75 s of Play: 0 errors, 0 warnings.
+
+2026-10-05 (g) - Diagnosis only (no change): "thinking a lot" = speech recognition took ~7 s (Whisper inference
+  6989/6981 ms; normally well under 1 s). GPU memory was full: 15.3 of 16.3 GB - Unity Play 6.35 GB, voice server 4.45,
+  Figma 3.44, a second Unity editor (C:\UNITY PROJECTS\My project) 1.68, dwm 1.26 -> Windows pages GPU memory to RAM.
+  Fix = close other GPU apps while testing (a kiosk PC with only this app is fine). VERIFIED after the user closed
+  Figma + the other project (12-13.7 GB used): a 3.2 s clip took 6.1 s once (evicted buffers coming back), then
+  0.56-0.62 s every time, also after 30 s and 90 s idle. Checked: the Hindi Whisper slot is
+  already NOT loaded (WhisperLoading.SetLoadsOnStart false; one "Whisper model is loaded" per Play) - Editor.log holds
+  every Play session of the day, count per "Deploy server command" before concluding something loads twice.
+
+2026-10-05 (f) - Loading screen spacing: .loading__logo margin-bottom 44 -> 150px (logo ~50px higher, "Getting ready",
+  bar and steps ~50px lower; the block stays centred). Note: edit a .uss while Unity isn't focused -> reimport it
+  (AssetDatabase.ImportAsset) before Play, or Play shows the old style.
+
+2026-10-05 (e) - New logo (orange-red gradient wordmark), lavender dropped
+  * Brand/altcore-logo.png replaced with the user's orange->red wordmark (same gradient as the UI). --lavender ->
+    --caption (dark #F26B00, light #B8410A) for section captions and finished loading steps; neutrals now warm
+    charcoal greys (dark sheet #221F1D / groups #2E2A28, bg #161413) instead of plum. Checked: loading screen + menu.
+
+2026-10-05 (d) - Choose the monitor: menu > Display > Screen
+  * UI/DisplayChoice.cs: lists monitors (Screen.GetDisplayLayout - name, resolution, portrait/landscape, Hz), moves the
+    app with Screen.MoveMainWindowTo (full screen: then SetResolution to that monitor's size), saves companion/display
+    ("name|w|h|index", per PC - added to DefaultSettings' Kept list) and moves there again AfterSceneLoad (match by
+    index+name+size, then name+size, then name, then index; unplugged -> left where Windows puts it).
+  * Menu row "Screen" shows when there's more than one monitor (always in the Editor). Built app only - the Editor's
+    Game view can't move (the page says so). Not tested on several monitors here (this PC has one: BenQ GW2790Q).
+    Fallback that always works: start the exe with  -monitor 2  (Unity's own command-line option).
+
+2026-10-05 (c) - Altcore branding on the app screen, menu and loading screen
+  * Assets/UI/Companion/Brand: altcore-logo.png (the user's lavender wordmark, cropped, transparent), brand-gradient.png
+    (#F26B00 -> #B30703, left to right) and brand-gradient-diagonal.png (round buttons) - made by a small Pillow script.
+  * Companion.uss tokens: accent = brand orange (dark #FF7A1F, light #D45A00 for contrast), --lavender for section
+    captions + finished loading steps, warm plum-tinted neutrals (dark sheet #221E27 / groups #2F2A35 - a touch lighter
+    than before; light sheet #EEEAF3 / groups white), selection colour orange. The gradient (USS has none) is a
+    stretched background-image on: mic button (ready), switches on, slider fills, save/primary/send buttons, keyboard
+    Enter, loading bar, a 2px line under the menu header. Pressed = -unity-background-image-tint-color. Mic listening
+    stays solid red, busy states grey (background-image: none).
+  * Logo: loading screen (above "Getting ready"), menu header on the first page (CompanionMenu.Render toggles
+    .sheet--root - title hidden), sign-in card.
+  * Checked in Play (portrait): loading screen, ready screen, menu root, AI models page.
+
+2026-10-05 (b) - Menu > Conversation > Documents: add / remove a bot's documents in the running app
+  * New "Documents" row (count) in the CONVERSATION section -> page listing the bot's documents (its
+    StreamingAssets/Knowledge/<bot> folder, minus taught answers), "Add documents…" (Windows' own Open dialog,
+    multi-select, PDF/DOCX/PPTX/TXT/MD - works with touch and USB drives; UI/WindowsFiles.cs, comdlg32), "Same for
+    Ethan" switch (bots sharing the document set = TaughtAnswers.LearnersWith get the same change, so they keep learning
+    together), "Open the documents folder". Tap a document -> "Remove from Maya and Ethan" (tap twice) -> Recycle Bin
+    (WindowsFiles.Recycle, SHFileOperation FOF_ALLOWUNDO). In the Editor, copies of the Inspector's document list
+    (KnowledgeSync .synced manifest) can't be removed here - they'd come back on the next Play.
+  * After a change: detectedTopicNames reset + PersonaChanged (brand names re-read). knowledge.py re-indexes by itself.
+  * Tested in Play: page lists Maya's 5 documents; a test .txt dropped in was the top match (0.67) 3 s later, recycled ->
+    gone from search; Recycle helper verified. The Open dialog itself is modal - not automated, try it by hand.
+  * Built app: documents added on the kiosk live in AltcoreBot_Data/StreamingAssets/Knowledge/<bot> (a rebuild replaces
+    that folder - add them to the bot's Inspector list in Unity to keep them in future builds).
+
+2026-10-05 (a) - Menu > Advanced > AI models: one group per voice engine, each with its own on/off switch
+  * Before: one VOICE list with every engine's file ticked (Veena AND Svara looked like a single choice with two
+    ticks) and a switch only for Veena. The ticks were per engine (which file it runs), not "the one voice model".
+  * Now: "VOICE - KOKORO · ENGLISH (ALWAYS ON)", then a captioned group per downloaded optional engine (Veena, Svara,
+    Piper, AI4Bharat Indic-TTS; IndicF5 / Kokoro v1.1 if present): On/Off switch, "Used by <bot> (<language>)" from the
+    registry, size, "from the next start" when changed. File ticks only when an engine has several files.
+    Off = never loaded, its voices speak with a same-gender Kokoro voice (the server's VOICE_ENGINES_OFF already
+    handled every engine id). Saved as models/<engine id>-off (models/veena-off unchanged), read by
+    TTSProcessManager.ApplyMenuChoices at startup; "Use the models set in the Inspector" clears them.
+  * VoiceModelLibrary.Engine gained Piper, IndicTts (appended - serialized lists unchanged) + Optional list; EngineOf
+    now maps Piper/AI4Bharat voices to their engines (they counted as Kokoro); List() shows their folders.
+  * Suggested next improvements (user: later): crash auto-restart, change admin/admin, noisy-room mic filtering,
+    startup hardware check, smaller build, attract mode, hands-free/presence greeting, more body language,
+    owner report page, knowledge updates without rebuild, logo/QR, TAA/supersampling + 3D set.
+
+2026-09-30 (o) - Backup v4; caption, speaker choice, idle screen clears
+  * Backup: Backups/AltcoreBot_v4 (RESTORE.txt). Work continues in the v4 scene.
+  * Mic caption is just "Tap to talk" - Space push-to-talk still works, it's no longer advertised.
+  * Speaker choice: menu > Language & listening > Speaker (under Microphone). AudioOutputDevice.cs: lists active
+    playback devices (MMDevice API) and routes ONLY this app via Windows' per-app routing (undocumented
+    Windows.Media.Internal.AudioPolicyConfig factory, vtable slots 25/26 = Set/GetPersistedDefaultAudioEndpoint, as
+    EarTrumpet; device path \\?\SWD#MMDEVAPI#<id>#{e6327cad-...}), then AudioSettings.Reset. Saved as companion/speaker
+    (per PC - not in default-settings.json), re-applied AfterSceneLoad if the device is connected. Tested: 4 devices
+    listed, routed + read back from Windows, then reset to system default. NOTE: in the Editor this routes Unity.exe.
+  * Idle clears the screen: CompanionUI "Clear the conversation after" (Tunable, Display & performance, default 90 s,
+    0 = never) - after that long Ready with no menu/typing, the question and answer go and the welcome line returns.
+    Tested with 8 s: still shown at 4 s, cleared by 10 s.
+  * Builds/AltcoreBot_v4 rebuilt with these (0 errors, 25 GB). Backup of this state: Backups/AltcoreBot_v4-2.
+
+2026-09-30 (n) - Builds folder, first real build checked, 3 build bugs fixed
+  * Builds go ONLY to <project>/Builds/<working scene>/ (owner's rule), e.g. Builds/AltcoreBot_v4/AltcoreBot.exe:
+    Tools > ChatbotAI > Build Windows App (Builds folder), or `unity command build --target StandaloneWindows64
+    --outputPath <project>\Builds\AltcoreBot_v4\AltcoreBot.exe --confirm true`. /Builds/ is in .gitignore. The
+    owner's first build (loose files in Builds/ itself, 24 GB) was moved to the Recycle Bin at the owner's request;
+    Builds/ now holds only AltcoreBot_v4/.
+  * Checked the owner's build: v4 scene, TTSServer/TTSRuntime/models/README all there, BUT (1) the brain shipped with
+    tinyBLAS instead of cuBLAS, (2) only 5 settings exported. Cause of both: renaming company/product makes the
+    Editor start from an empty PlayerPrefs key; values copied into the registry afterwards (reg copy) are NOT seen by
+    the Editor's in-memory PlayerPrefs, and the Editor's next save REWROTE the key without them. LLMUnity read CUBLAS=0
+    -> "Light build" (tinyBLAS) and flash attention is on (tinyBLAS doesn't support it). Fixed: LLMUnitySetup.SetCUBLAS
+    (true); lost settings restored via the PlayerPrefs API from the old DefaultCompany\ChatbotAI key; PortableBuild
+    now reads values through PlayerPrefs. LESSON: never copy PlayerPrefs through the registry while the Editor runs.
+  * (3) The AI4Bharat worker outlived the voice server (the app kills the server outright - atexit never runs): the
+    worker now gets the server's PID and exits when it's gone (tested: gone within 4 s). DefaultSettings no longer
+    carries companion/debug (a kiosk must not start with the debug panel).
+  * Tested Builds/AltcoreBot_v4 as a user would: exe started, 8 settings imported on first start, brain on
+    llamalib_win-x64_cublas.dll, both Python environments re-pointed to TTSRuntime/python, voice server ready in ~36 s,
+    closing the window ended the brain and voice server. Build: 25 GB, 6.5 GB of it Unity's.
+
+2026-09-30 (m) - Plug-and-play Windows builds, Close the app, player settings
+  * Player settings: owner set company Altcore / product AltcoreBot / Force Single Instance ON; Allow Fullscreen
+    Switch now OFF. Editor PlayerPrefs copied (reg copy) from DefaultCompany\ChatbotAI to Altcore\AltcoreBot.
+  * Menu: "Close the app" under Sign out (second tap within 4 s confirms). No other menu changes (owner's request).
+  * PortableBuild.cs (Editor, IPostprocessBuildWithReport + Tools/ChatbotAI/Make a Windows Build Portable...): after a
+    Windows build robocopies TTSServer (incl. venv, indictts-venv, models) -> <build>/TTSServer, the base Python 3.11 ->
+    <build>/TTSRuntime/python, HF models bge-m3 + snac_24khz -> <build>/TTSRuntime/hf_cache, exports the Editor's
+    PlayerPrefs (DefaultSettings.Travels: companion/ avatar-settings/ camera/ stage/ tune/ models/ learning/, not the
+    microphone) -> <App>_Data/StreamingAssets/default-settings.json, removes the build's copy of zz_test_brand, writes
+    README.txt. ~28 GB total.
+  * TTSProcessManager: if <root>/TTSRuntime/python exists, rewrites pyvenv.cfg home/executable of both venvs to it
+    (tested: a relocated venv runs on a moved base Python) and sets HF_HOME to TTSRuntime/hf_cache, offline flags.
+  * DefaultSettings.cs: first start of a build on a PC imports default-settings.json (once, never over existing keys).
+  * NOT YET TESTED: a real build. Next: unity command build --target StandaloneWindows64 --outputPath
+    C:\AltcoreBuild\AltcoreBot.exe --confirm true (the --scenes option needs an array; the build list already has
+    only v4), then run the exe and check the sidecar starts from the build's TTSRuntime python.
+
+2026-09-30 (l) - v3 frozen, work moves to AltcoreBot_v4: studio HDRI lighting + sharper shadows
+  * Backup: Backups/AltcoreBot_v3-final (the v3 scene saved first - its only unsaved changes were this session's own
+    setup steps). New working scene Assets/Scenes/AltcoreBot_v4.unity (copy of v3); build list v4 on; tools/*.cs -> v4.
+  * Studio lighting (StageBackdrop, Play mode only): draws an HDR studio panorama in code (no download) - dark room
+    (light theme: pale), a warm softbox where the key light comes from, a cool fill softbox mirrored across the
+    character's facing, two tall rim strips behind, a soft overhead - into Assets/Stage/Studio Environment.mat
+    (Skybox/Panoramic, lat-long). It becomes RenderSettings.skybox for LIGHTING only (the camera still clears to a
+    colour, the stage hides it), ambient + reflections from it via DynamicGI.UpdateEnvironment(); restored in
+    OnDisable. Redrawn only when theme / strength / key direction changes. Ambient went from the default sky's blue
+    (0.18,0.23,0.30) to neutral studio (0.16,0.16,0.16). First version was 2.5x brighter - faces flat, light theme
+    washed out: softboxes dimmed, light-theme room darkened, strength 0.7. Settings (Display & performance):
+    "Studio lighting (reflections & soft light)", "Studio light strength".
+  * Sharper shadows (tools/setup_studio_lighting.cs): URP asset PC_RPAsset 4096 px (was 2048), distance 12 m (was 50),
+    2 cascades split 0.5 (was 4), normal bias 0.3 (was 0.5); key light soft-shadow quality High, bias 0.04, normal
+    bias 0.25. NOTE: the URP asset is project-wide - v1-v3 scenes get the sharper shadows too.
+  * Svara in the app with all of it: 0.90x real time. (A test file saved by PowerShell Set-Content garbled the Hindi
+    to mojibake and Svara babbled 13-17 s per sentence - write test scripts with the Write tool / UTF-8.)
+  * Owner was told the recommended build settings: Fullscreen Window, native resolution (TV set to portrait in Windows),
+    Allow Fullscreen Switch OFF, Force Single Instance ON, Mono + stripping disabled, D3D11, Linear, no dev build,
+    company "Altcore"; delete zz_test_brand; TTSServer next to the exe (still needs packaging for other PCs).
+
+2026-09-30 (k) - Backup v3-2, Hindi voices picked, male talk stand-in, close-ups, premium look, bots stay in place
+  * Backup first: Backups/AltcoreBot_v3-2 (2.7 GB, RESTORE.txt).
+  * Hindi voices (each bot distinct): Maya svara_hindi_female, Ethan svara_hindi_male, Leo indictts_male (AI4Bharat),
+    Iris keeps hf_alpha (Kokoro: clearest; Svara has one female voice only). Lip-sync calibrated for the three new
+    voices (make_lipsync_calibration.py now gives svara_hindi/indictts/piper voices Hindi sounds; calibrate_lipsync.cs):
+    own profiles 93% / 92% / 90% vs 30-37% on Kavya's; added to LipSyncVoiceProfiles in the v3 scene.
+    AI4Bharat spoke ~half as loud (lip-sync heard silence: Kavya profile 0%, A 0%) -> indictts_engine._level brings
+    it to RMS 0.11. In-app: Svara first sound 3.8-4.0 s (Veena was 3.1-3.8), mouth open 49-60% of speaking frames.
+  * Male talk: no male talk motion exists on this PC (Downloads' ActorCore "stand-talk" is on the female actor), so the
+    owner must export one from Character Creator (steps in the reply). Stand-in: Talk_Male_Motion.Fbx imported
+    MIRRORED + Male Motions Talk speed 0.92 - the men no longer gesture exactly like the women.
+  * Bots walked / turned out of frame during idle (Ethan ended in side profile): the clips had root rotation and XZ
+    position baked into the pose. All 8 idle/talk clips now: lockRootRotation false, lockRootPositionXZ false,
+    lockRootHeightY true; AvatarAnimator already discards root motion -> body turns <= 5 deg, head stays centred.
+  * Camera shots added: Chest up, Close-up angled, Close-up low, Close-up cinematic (18 deg lens, follows), Face.
+  * Premium look (StageBackdrop, Menu > Advanced > Display & performance): post-processing volume "Post Processing"
+    (Assets/Stage/Studio Post.asset: Neutral tonemapping, contrast +10, saturation +6, warm +4, soft bloom, vignette
+    0.22, Gaussian background blur whose start follows the camera-to-face distance), SMAA edges, and a FILL light
+    (directional from the camera side away from the key, fraction of the key). Settings: Premium look, Background
+    blur, Smooth edges, Fill light. setup_stage.cs creates the profile/volume and sets the camera.
+
+2026-09-30 (j) - Backup v3, realistic studio, camera shots, AI fixes from a full test
+  * Backup first: Backups/AltcoreBot_v3 (2.7 GB, RESTORE.txt) = v3 with the first (unlit) stage.
+  * Studio made realistic (StageBackdrop/StageLook): one seamless sheet of paper in a URP Lit material
+    (Assets/Stage/Studio Paper.mat instance) with a procedural paper grain (tileable value noise, strength =
+    StageLook.paperTexture), the wall StageLook.wallDistance (4 m) behind the character (the round studio is
+    centred in front of it), a hidden BACKGROUND SPOT light low behind the character aimed at the wall behind the
+    head as seen from the camera, the key light's real shadow on the floor (receiveShadows), SSAO in the cove. Sky
+    reflections off on the paper (they tinted the floor blue). Dark paper #1B1C20 + spot 26, light #C4C6CB + 8
+    (the key light also lights the wall, so dark mode needs dark paper for the glow to show). Gradient/Picture keep
+    the unlit shader. StageLook.Colours: paper, backgroundLight(+Strength) for Studio; wallTop/Bottom/floor for
+    Gradient. Veena with the lit studio: 0.88x real time.
+  * Camera: CameraFraming.Shots - Relaxed (default), Straight on, Close-up, Three-quarter, Low angle, Across the
+    desk, Cinematic (20 deg lens, follow), Full body; Menu > Camera lists them (ticked when the framing matches).
+    AvatarCharacter.cameraAngle / cameraTilt (default 10 / 4) = the characters' default angle; the four characters'
+    distances set to the Relaxed shot (tall 3.3 m / 0.5, wide 2.2 / 0.25) - the face sat at the very top before.
+    Maya keeps the owner's own saved framing (menu). AvatarStage frames again 0.75 s after a character appears
+    (framed in the bind pose, an idle standing to one side left it off-centre).
+  * AI test (4 bots, 19 questions, en + hi; Conversations/ backed up and restored so the test isn't in Learning):
+    - "Does it work on mobile phones?" after "What is Altscape?" was routed as "...? (Follow-up to: What is
+      Altscape?)" and the answer agent answered the OLD question. WithFollowUpContext now replaces it/its/they/
+      them/their with the topic named before ("Does Altscape work on mobile phones?") - fixed.
+    - "How much does it cost?" answered what home buyers pay -> GroundingRules: answer the exact question; for
+      does-it / can-I / price questions the documents don't cover, begin "I don't have details on <that>" and
+      point to contact details if given. Now: "I don't have details on how much Altscape costs."
+    - Iris refused "a fun fact about India" (OpenChatRules said never state facts unless sure) -> share well-known
+      facts freely, only avoid made-up specifics/live news. (Gemma 4B's facts can still be wrong.)
+    - Fine: small talk, refusals (weather, poem), demo booking, memory, live-score honesty, Hindi 2.5-3.5 s first sound.
+    - Known: a Hindi-translated joke loses its pun (translation pipeline). "Replies in" is now Same as asked.
+  * Caption: "or hold Space" only when a keyboard is connected (touch kiosks have none).
+
+2026-09-30 (i) - v2 frozen, work moves to AltcoreBot_v3; stage backdrop instead of the flat colour
+  * Backup: Backups/AltcoreBot_v2 (2.7 GB, RESTORE.txt; big models/venvs left out like v1). New working scene
+    Assets/Scenes/AltcoreBot_v3.unity (copy of v2); build list: v3 on, v2 off. tools/*.cs now open v3. The v2 scene
+    has no stage (flat colour) and should not be edited.
+  * Stage (v3 scene object "Stage", StageBackdrop.cs + Assets/Stage/StageBackdrop.shader, look asset
+    Assets/Stage/Studio Stage.asset = StageLook.cs). Styles: Studio (default) / Gradient / Picture / Flat colour.
+    - Studio: a ROUND photo studio built in code (floor -> curved cove -> wall, radius 9 m, 14 m high) so no
+      camera distance, turn or lens ever shows an edge; unlit shader (cheap): wall gradient, a glow on the wall
+      behind the head AS SEEN FROM THE CAMERA, a pool of light + soft contact shadow at the hips' floor position,
+      display-space dither against banding. Nothing saved in the scene (HideAndDontSave objects).
+    - Picture: a plane that covers the view behind the character ("cover" crop), out-of-focus look (8 taps from a
+      lower mip). Pictures: StageLook.picture in Unity, or any .jpg/.png in StreamingAssets/Stage Pictures (also in
+      a built app's Data folder).
+    - Rim light: a directional light from behind (kept below the key light's intensity so the key stays URP's main,
+      shadow-casting light).
+    - Colours per theme on the StageLook (dark / light: wall top, wall bottom, floor, glow, rim); CompanionUI.Dark
+      sets StageBackdrop.Dark. Flat colour = old behaviour (camera clears to --bg).
+    - Per bot: AvatarProfile.stage (empty = Stage Backdrop's Default Look). App: Menu > Camera & Stage > Backdrop
+      (style, picture, brightness; PlayerPrefs "stage/<avatarId>"; "Use the stage set in Unity" forgets it). The
+      scene stays undimmed on that page, like Camera.
+    - Setup: tools/setup_stage.cs (adds only what's missing).
+  * Tested in Play: studio dark/light, full body, camera turned 35 deg, gradient, picture, flat. Veena in the app with
+    the studio: 0.88x real time (fine; 0.94x measured 2026-09-29).
+
+2026-09-30 (h) - Edit-mode preview of the screen
+  * Outside Play mode the Game view shows Companion.uxml as written (no code runs): the loading screen, the menu
+    button without its icon. It was in the LIGHT theme (UXML default class) and showed a fake 25% bar (the
+    sheen's 80px default width, visible since the bar stopped clipping in (g)). Now: UXML default .theme-dark,
+    .loading__sheen width 0 (code sizes it). Nothing changes in Play mode.
+  * Owner asked where to edit things - answered: UI Toolkit (no Canvas) - Assets/UI/Companion (uxml/uss/tss/
+    PanelSettings), UI Builder; menu pages in CompanionMenu.cs; camera = Characters/<name>.asset Framing + in-app
+    Menu > Camera (PlayerPrefs, overrides the asset); background colour = --bg in Companion.uss per theme.
+
+2026-09-30 (g) - BROKEN UI FIXED (white menu groups, frozen "Getting ready" over the avatar) + touch gaps
+  * CAUSE: the "Companion UI" object in AltcoreBot_v2 had a PanelRenderer (Unity 6.6's newer UI component) NEXT TO
+    its UIDocument, both loading Companion.uxml on the same panel settings. The PanelRenderer's copy is never
+    touched by code, so it stayed at its first frame - light theme, "Getting ready / Starting..." - drawn over the
+    avatar, and the two copies broke each other's rounded clipping (menu groups/loading bar solid white). Not in
+    AltcoreBot_v1 - it was added to v2 at some point and saved (not by our scripts). Found by listing the panel's
+    visualTree: 2 roots ("Companion UI-container" + "PanelRendererRootElement-...").
+    Fix: removed it from the scene (saved); CompanionUI.Awake destroys any PanelRenderer on its object (warning).
+  * Earlier wrong guesses today (for the record): "editor/graphics state after the reboot", HDR, camera options,
+    game view size, Low Resolution Aspect Ratios, my scrollbar - all ruled out. Drawing the panel to a RenderTexture
+    looked perfect, which pointed at a second drawer on screen.
+  * CompanionUI no longer makes a runtime COPY of the PanelSettings: it sets the tall-screen scaling on the asset
+    and puts the 3 values back in OnDestroy (checked: asset file unchanged after Play).
+  * Rounded clipping (overflow: hidden + radius, uses the stencil buffer) removed where not needed: .group corners
+    now on .row--first/.row--last; loading bar/fill unclipped, CompanionUI trims the sheen to the fill in code.
+  * Touch: settings menu gets an OnScreenKeyboard (docked under the list, .sheet--typing) when a text box is
+    focused and a Touchscreen exists or Display > Show keyboard is on; Enter = new line in multi-line boxes, "Done"
+    hides it (OnScreenKeyboard.DoneKey). :hover rules only apply under .pointer-mouse (root class, set from the last
+    pointer's type). TouchScrollbar now sits inside its ScrollView (TouchScrollbar.AddTo) - menu AND chat transcript.
+  * Tested in Play: one UI tree, loading bar, menu, keyboard typing/Done, main screen with avatar + frosted glass.
+
+2026-09-30 (f) - Menu scrollbar for touch screens (target: large touch monitors, no scroll wheel)
+  * `TouchScrollbar` (CompanionControls.cs) on the settings sheet: drag the thumb or tap the track to jump; hidden
+    when a page fits; the list gets .has-scrollbar (right padding 30) so rows don't sit under it. Styles .scrollbar*
+    in Companion.uss. Tested with UI events: drag, tap bottom/top, hidden on short pages, rows still tappable.
+  * Could NOT test real touch input: simulated Input System touches don't reach Unity while the editor window is
+    in the background (and ScreenCapture then shows stale frames - white menu groups, the old loading screen).
+  * Touch gaps found: menu text boxes had no on-screen keyboard; :hover stayed lit after a tap; the chat transcript
+    had no scrollbar. All fixed in (g).
+
+2026-09-30 (e) - Avatar reset moved off the menu's main page
+  * "Reset <bot>'s settings" sat alone at the bottom of the main menu page and was easy to tap by mistake. It is now
+    Advanced > Reset settings (its own page, with a note on what it resets; goes back after resetting).
+    CompanionMenu.BuildReset.
+
+2026-09-30 (d) - Three new Hindi voice engines (owner: not for commercial use for now)
+  * Svara-TTS v1 (Kenpath, Apache-2.0): svara_engine.py, TTSServer/models/svara-tts-v1.Q4_K_M.gguf (2.1 GB, GPU like
+    Veena, ~0.6x real time). Voices svara_hindi_female / svara_hindi_male (+ svara_english_female/male, Indian English).
+    Without help it sometimes spoke a sentence as near-silence (1 of 7 in-app, 3 more whisper-quiet) -> every sentence
+    now continues from a verified sample of its voice (voices/svara/anchors.json, `python svara_engine.py anchors`),
+    loudness evened out per voice, numbers in Hindi spoken as Hindi words (phone numbers digit by digit).
+    After: 0 of 30 near-silent; clarity female 83% / naturalness 4.26 (most natural Indian voice), male 80% / 3.92.
+  * Piper Hindi (rhasspy, CC BY-NC-SA / IIT Madras licences - NON-COMMERCIAL): piper_engine.py, models/piper/
+    hi_IN-{priyamvada,pratham,rohan}-medium (60 MB each, CPU, 0.04x real time): clarity 79-84%, naturalness 3.8-4.0.
+  * AI4Bharat Indic-TTS Hindi (FastPitch + HiFi-GAN, IndicTTS data - NON-COMMERCIAL): runs in its OWN Python env
+    TTSServer/indictts-venv (coqui-tts 0.27.5, torch 2.8 CPU, transformers 4.57 - newer versions break it) as a
+    worker process on port 8766 (indictts_worker.py, started by indictts_engine.py on first use, ~8 s). CPU,
+    0.09x real time, no GPU memory. Reads Devanagari only - English words are respelled first. Clarity 85-86%
+    (steadiest: 81-90% on every in-app sentence), naturalness 3.6 (flatter).
+  * For reference (same 8 sentences): Kokoro Hindi 86-90% / 4.1-4.2, Veena 75-79% / 3.2-3.8.
+  * All selectable per bot in the menu (Voice > Hindi voice); descriptions show the trade-offs. Comparison
+    recordings were sent to the owner. Bots' voices NOT changed yet - owner picks by ear.
+  * GPU memory: Svara ~2 GB (like Veena; an engine loads only when a bot uses it). Piper / AI4Bharat use none -
+    choosing them (or Kokoro) for Hindi frees ~2.4 GB, e.g. for NVIDIA Audio2Face later.
+  * Note: "Replies in" was found set to English (the owner's choice) - so Hindi questions get English answers.
+
+2026-09-30 (c) - v1 backup, scene v2, menu text boxes, model adding, online-AI preview, learning export
+  * BACKUP: Backups/AltcoreBot_v1/ = snapshot of the project at v1 (everything but the big model downloads -
+    see its RESTORE.txt). In Unity: Assets/Scenes/AltcoreBot_v1.unity = the v1 scene (don't edit - it uses the
+    live scripts, so the true frozen copy is the Backups folder); work continues in AltcoreBot_v2.unity (was
+    DialogueTest.unity - same scene file, renamed, so build settings follow it).
+  * Menu text boxes (name, persona, how it talks, always/never, teach...) were a box inside a box with uneven
+    spacing; inside a settings group the text box is now the row itself, lined up with other rows, with grey
+    example text when empty.
+  * AI models: "Add a ... model" opens the model folder (drop the file in, come back - it's listed).
+  * ONLINE AI - PREVIEW ONLY (menu > Advanced > AI models > Online models & API keys): per part (brain, ears,
+    voice) Offline/Online, provider, API key, offline fallback. Nothing is saved or connected yet. Estimate to
+    make it real: ~1-1.5 weeks (see the reply of 2026-09-30).
+  * LEARNING FROM OTHER COMPUTERS: menu > Learning > "Export learning to Desktop / USB drive" makes one zip
+    (conversations, taught answers, report). On the dev PC: Unity menu Tools > ChatbotAI > Import Learning...
+    merges it (conversations show on the Learning page; taught answers go into the bots' knowledge folders and
+    the next build). Re-importing the same zip doesn't double anything.
+  * Build settings: the exe now starts with AltcoreBot_v2 (only Unity's SampleScene was listed - an exe built
+    before would not have contained the bot at all). SampleScene kept but off.
+  * Tested: text boxes, teach page, AI models (add buttons), online preview, Learning export -> import round trip
+    (twice = no doubles; test files removed).
+  * HINDI VOICE CANDIDATES checked (licences matter - Altcore is commercial):
+    - Piper Hindi (pratham, priyamvada: CC BY-NC-SA = NON-COMMERCIAL; rohan: IIT Madras IndicTTS licence) - not usable.
+      AI4Bharat Indic-TTS is trained on the same restricted data.
+    - Svara-TTS v1 (Kenpath, Apache-2.0, 19 Indian languages incl. Hindi + Indian English, ~50 speakers, Orpheus/SNAC
+      like Veena): GGUF Q4_K_M 2.09 GB at huggingface.co/mradermacher/svara-tts-v1-GGUF. Prompt: BOS, SOH(128259),
+      AUDIO(156939), "Hindi (Female): text", EOH(128260), EOT(128009), SOAI(128261), SOS(128257); audio codes from 128266,
+      7 per frame. Next: download (with permission), plug into the Veena engine, speech_check vs Veena/Kokoro.
+  * Also recycled 11.8 GB more unused model files in tools/ (Hindi Whisper training checkpoints, a broken
+    converted model).
+  * Audio2Face-3D (NVIDIA) checked: possible - SDK MIT, models NVIDIA Open Model License (commercial OK, gated
+    download on Hugging Face), Windows + CUDA 12.8/12.9 + TensorRT 10.13, 4 GB+ GPU memory recommended, 180M-param
+    model, outputs ARKit 52 + tongue blendshape weights faster than real time. Graphics memory is the risk
+    (~15 of 16 GB in use with Veena on).
+
+2026-09-30 (b) - Sign-in fix, AI models, language, more settings
+  * Sign-in card: text sat at the top of the fields (fixed-height boxes) and the buttons were inset from
+    the fields' edges - fields now size from padding, buttons line up. Menu text fields fixed the same
+    way. Tapping a field no longer selects all its text.
+  * Menu > Advanced > AI models: pick the brain (language model), ears (speech recognition), Kokoro and
+    Veena voice model files, and switch the Indian (Veena) voices off/on. Used from the NEXT START (each
+    model loads once): ModelChoices (PlayerPrefs) read by LLMModelSelector (runs before the LLM's Awake),
+    SpeechInputController.Awake and TTSProcessManager.Awake. "Use the models set in the Inspector" undoes.
+  * Menu > Language & listening: "Listens for" (Auto/English/Hindi), "Replies in" (Same as asked /
+    English / Hindi - DialogueController.RepliesIn; e.g. always answer in Hindi), Microphone (pick a device;
+    an unplugged one falls back to the default).
+  * Advanced > Listening (new page): "Stop listening when you stop talking" (hands-free, uses the mic's
+    silence detection), pause length, longest question. When the mic stops by itself the app now leaves
+    the listening state properly (SpeechInputController.HandleRecordStop).
+  * Advanced additions: voice volume; show the conversation text (off = buttons only, panel shrinks);
+    loading screen hold time.
+
+2026-09-30 - Sign-in, settings everywhere, keyboard, camera options, loading bar, wider menu
+  * SIGN-IN before the menu: the menu button asks for username + password (default admin / admin - CHANGE
+    IT before a showcase). Users are set on the "Companion UI" object's AdminAccess component in the
+    Inspector (list, several users allowed; "Require Sign In" off for development). Stays signed in while
+    the menu is open and N minutes after (Inspector, default 2; 0 = ask every time). "Sign out" at the
+    bottom of the menu. 5 wrong tries -> 30 s pause. Passwords are plain text in the scene.
+  * SHOW KEYBOARD (menu > Display, off by default): shows a keyboard button next to the mic; it opens the
+    text box and an on-screen keyboard drawn by the app (Windows' touch keyboard doesn't show for Unity
+    apps). The sign-in card has its own on-screen keyboard (keyboard icon, top right of the card).
+  * PERSONALITY (menu > Name & personality): who it is, tone (warm/professional/playful/calm/enthusiastic),
+    formality, humour, how it talks, always do, never do, topics to avoid (open chat). Reply length for
+    both modes (menu > Conversation). Stored per bot (AvatarSettingsStore now saves any profile field) and
+    also editable on the Avatar Profile assets ("Personality details", "Open chat details").
+  * CHAT SETTINGS: open chat - memory, creativity, asks questions back, topics to avoid, reply length;
+    knowledge - topic strictness, answer checking, passages read per question, reply length.
+  * ADVANCED (menu > Advanced): every Inspector setting marked [Tunable] in code, grouped in pages - Voice &
+    sound, Mouth & lip-sync, Eyes, Body, Brain, Display & performance (text size, frame-rate cap). Saved on
+    this computer, "Reset this page" = back to the Inspector values. To add a setting: put
+    [Tunable("Page", "Label", min, max, step)] on the component's field (see Assets/Scripts/Tunable.cs).
+  * CAMERA page: presets (Face / Shoulders / Waist up / Full body), lens (field of view), "Follow the
+    character" (camera gently re-centres as she moves) on top of distance/height/sideways/angle/tilt.
+  * Loading screen: a progress bar with a moving light (was a ring). Menu 460 wide (was 380).
+
+2026-09-29 (night) - Loading screen, Learning (owner-taught answers)
+  * NEW loading screen: opaque, drawn from the first frame (the character was seen in its raw T-pose while
+    the app started). Ring with %, "Getting ready", what's loading, chips Brain / Listening / Voice
+    (dot = waiting, spinner = loading, tick = ready). Holds 0.5 s once ready, then fades (0.8 s) to the
+    character already in its idle motion. Menu button hidden while loading (shown if loading fails, with the
+    error in red). Code: CompanionUI.UpdateLoading, ProgressRing (CompanionControls), Companion.uxml/.uss.
+  * NEW Learning ("you're in charge" - the bots never learn by themselves):
+    - Every exchange is saved on this computer: Conversations/<date>.jsonl (build: app data folder), with
+      what happened: Answered / Partial ("I don't have details on...") / NotInDocuments / OffTopic (refused
+      on purpose) / SmallTalk / OpenChat. Switch "Save conversations" off in the menu. Git-ignored.
+    - Menu > Learning > Questions & answers: questions the knowledge bots couldn't (fully) answer, most asked
+      first -> "Teach an answer"; recent answers -> "Correct an answer"; taught answers list (edit/forget);
+      "Save a report" (Markdown: stats per bot, unanswered, off-topic, taught, last 60 exchanges) and "Open
+      the conversations folder". "Not worth teaching" hides a question.
+    - A taught answer is a small file "Taught answer - <question>.txt" (question line + answer) in the bot's
+      knowledge folder, so the document search finds it at once. Bots with the same documents (Maya + Ethan)
+      learn together; open-chat bots get it as a private note when a question matches (>= 0.6).
+      Knowledge bots put taught passages first, marked "confirmed, most up to date".
+    - Tested: taught "free trial" answer used by Maya and Ethan, English and Hindi; Iris used a taught
+      favourite colour in English and Hindi; other questions unaffected. Test data removed afterwards.
+
+  PLANNED BY THE OWNER (later, in this order-ish): more languages (IndicTrans2 idea in CLAUDE.md); try
+  AI4Bharat Indic-TTS and Piper Hindi voices (want Indian-sounding Hindi that doesn't swallow words); more UI
+  changes; more camera-angle options; stage backdrops; a "Fix now"/system-check button - first collect as
+  many real problems as possible (add each to this log) so its checks are solid.
+
+2026-09-29 (evening) - Hindi audio breaking, camera menu, clean-up
+  * AUDIO BREAKING FIXED. Cause: the closed settings sheet (off-screen) had a large soft drop-shadow that
+    UI Toolkit re-rendered every frame; at 1440x2560 that saturated the GPU and Veena (Hindi voice, runs on
+    the GPU) slowed to ~3x real time -> 0.6-5 s silences mid-sentence in EVERY Hindi sentence, first sound
+    ~6 s. Fix: sheet is display:none when closed and uses a 1px edge instead of the shadow (debug card too).
+    Measured: Veena 2.97x -> 0.94x real time in the app, 0 gaps, 60 fps, Hindi first sound 2.8-5 s.
+    Lesson: CSS-style filters (drop-shadow) on big UI Toolkit elements are expensive at 2K/4K - avoid.
+    The frosted-glass blur on the answer panel was measured as ~free and kept.
+  * Adaptive voice buffer (SpeechOutputController.ReadyToPlay, PcmStream.ArrivalRate): a slowly generated
+    sentence now waits until enough is buffered instead of breaking mid-word. Impact: under GPU load a
+    sentence may start a little later, but never stutters.
+  * Note: other GPU apps (Character Creator, Figma, Chrome, Parsec...) also slow Veena - close them on the TV PC.
+  * Open-chat bots answered Hindi questions with "I'm afraid I don't speak Hindi" (in Hindi). Now the Hindi
+    message is translated to English first (router agent, ToEnglishPrompt) and the persona only sees English.
+  * Open-chat replies: stage directions "(Smiling warmly)" / "*laughs*" and quotation marks are stripped
+    (they were read aloud). Hindi text: a space is inserted where Devanagari and English letters touch
+    ("एकsurprisingly").
+  * Speech-language detection counts Marathi/Nepali/Punjabi/Gujarati/Bengali/Sanskrit/Urdu with Hindi
+    (Whisper often scores Hinglish as those; English could win and the question came back as an English
+    translation, answered in English). Tested on 95 clips: no English clip now mistaken for Hindi.
+  * Iris's Hindi voice: veena_maitri -> Kokoro hf_alpha (Maitri was the least clear: 50-75%; hf_alpha 86%).
+    Can be changed back in the menu (Voice > Hindi voice).
+  * NEW: Menu > Camera > Angle & position: distance, height, sideways, angle, tilt; live preview; saved per
+    character AND per screen shape (tall/wide) in PlayerPrefs; "Reset camera". Code: Avatar/CameraFraming.cs,
+    AvatarStage.PreviewFraming/SaveFraming/ResetFraming.
+  * Motions checked: male/female sets are wired strictly by gender. BUT the exported Talk_Male file is an
+    exact copy of Talk_Female (0.0 cm difference), and Idle3 male ~ Idle3 female (2 cm). Re-export the male
+    talk (and idle 3) from CC with a male motion, then re-run tools/setup_four_bots.cs.
+  * Unused models moved to the Recycle Bin (16.6 GB): Qwen2.5-3B + Qwen3.5-4B (LLM), Whisper Hindi
+    medium, Veena Q8 (Q4 is used), Kokoro v1.1-zh, and HF-cache copies of Indic Parler-TTS, IndicF5 (+vocos),
+    MMS-TTS Hindi, HF Whisper turbo, flan-t5. Kept: Gemma-3-4B, whisper large-v3-turbo GGML, Kokoro v1.0,
+    Veena Q4, bge-m3 (search), wav2vec2 (speech_check), SNAC (Veena).
+    Still to delete before shipping: Assets/StreamingAssets/Knowledge/zz_test_brand (test-only).
+
+2026-09-29 (afternoon) - Four new bots and motions
+  * Old cast (Party F, Kevin) replaced by 4 CC4 actors: Maya, Ethan (knowledge), Iris, Leo (open chat).
+    tools/import_actors.cs, tools/fix_cc5_materials.cs (brow/scalp transparency, Maya's hidden Dress),
+    tools/setup_four_bots.cs (characters, motion sets, lip-sync, profiles, scene).
+  * First motion exports were CC "Calibration" takes (T-pose) -> placeholders; re-exported with
+    Include Motion = Current Animation: 3 idles + 1 talk per gender now real.
+  * Talk clips start at a random point so every answer doesn't open with the same gesture.
+  * Resting eyelids 0.65 (the CC4 faces stared).
+
+2026-09-29 (morning) - New app screen
+  * Apple-like UI Toolkit screen replaced the old uGUI one: glass answer panel, mic turns red while
+    listening, states (listening/thinking/speaking), menu for bot/voice/mode/personality/language/theme/debug.
+  * Two layouts: wide (card on the right) and tall/portrait TV (panel at the bottom, scaled to width).
+    Fixed-height panel (it used to resize with the text). Camera further back on tall screens (hands left
+    the frame). Dark mode default, grey background.
+  * Per-bot menu settings saved in PlayerPrefs (AvatarSettingsStore); the profile assets are never edited.
+
+2026-09-28 - Avatar, lip-sync, speech checking
+  * CC characters imported via CC/iC Unity Tools; AvatarStage/AvatarCharacter system (any character plug-in).
+  * uLipSync with per-voice calibrated profiles; mouth driven 70 ms ahead of the audio (lookahead).
+  * Veena voice made consistent (pitch-verified anchor sample - it used to switch female->male mid-sentence).
+  * SpeechReview recorder + speech_check.py (phoneme recogniser + naturalness score) so an AI can "listen".
+  * Open Chat mode added (persona talks about anything, with memory).
+
+2026-09-24 - Brain and Hindi
+  * Gemma-3-4B chosen over Qwen 2.5/3.5 (tools/test_models.cs): all answers correct, best Hindi, fastest.
+  * Hindi answering = English answer translated sentence by sentence into everyday Hindi (hinglish.py
+    restores English words). Hindi documents supported.
+  * Veena added for Indian-accented Hindi; IndicF5 rejected by ear (watery sound); Sarvam is cloud-only.
+
+2026-09-18..23 - Foundations
+  * Packages: LLMUnity, whisper.unity, uLipSync. Knowledge gate (3 checks), written refusals/small talk,
+    Kokoro voice sidecar, model managers (brain/voice/ears) in the Inspector.
+
+
+6. KNOWN ISSUES / NEXT
+----------------------
+- Male talk motion is the female one (re-export needed, see 2026-09-29 evening).
+- Open-chat answers are often 4-5 sentences (rules ask for 1-3); long Hindi answers take ~30 s to speak.
+- Veena Hindi clarity ~77-82% (small words like कर / पर / कोई sometimes swallowed). Kokoro Hindi voices are
+  clearer (86-90%) but less Indian-sounding - a per-bot choice in the menu.
+- Language detection is only tested on synthetic voices; check with real speakers.

@@ -1,0 +1,940 @@
+﻿{
+  "success": true,
+  "command": "command console",
+  "data": {
+    "command": "console",
+    "parameters": {},
+    "result": {
+      "entries": [
+        {
+          "seq": 856,
+          "timestampUtc": "2026-09-18T08:56:27.8730043Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 857,
+          "timestampUtc": "2026-09-18T08:56:27.8765249Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 858,
+          "timestampUtc": "2026-09-18T08:56:27.8790368Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 859,
+          "timestampUtc": "2026-09-18T08:56:27.8825492Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 860,
+          "timestampUtc": "2026-09-18T08:56:27.8875696Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 861,
+          "timestampUtc": "2026-09-18T08:56:27.890074Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 862,
+          "timestampUtc": "2026-09-18T08:56:27.8925778Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 863,
+          "timestampUtc": "2026-09-18T08:56:27.8960883Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 864,
+          "timestampUtc": "2026-09-18T08:56:27.9010957Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 865,
+          "timestampUtc": "2026-09-18T08:56:27.9036076Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 866,
+          "timestampUtc": "2026-09-18T08:56:27.9078623Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 867,
+          "timestampUtc": "2026-09-18T08:56:27.9098861Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 868,
+          "timestampUtc": "2026-09-18T08:56:27.9127698Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 869,
+          "timestampUtc": "2026-09-18T08:56:27.9178139Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 870,
+          "timestampUtc": "2026-09-18T08:56:27.9188209Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 871,
+          "timestampUtc": "2026-09-18T08:56:27.9233563Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 872,
+          "timestampUtc": "2026-09-18T08:56:27.9264204Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 873,
+          "timestampUtc": "2026-09-18T08:56:27.9286408Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 874,
+          "timestampUtc": "2026-09-18T08:56:27.930646Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 875,
+          "timestampUtc": "2026-09-18T08:56:27.9351701Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 876,
+          "timestampUtc": "2026-09-18T08:56:27.9392269Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 877,
+          "timestampUtc": "2026-09-18T08:56:27.9422367Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 878,
+          "timestampUtc": "2026-09-18T08:56:27.9437405Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 879,
+          "timestampUtc": "2026-09-18T08:56:27.9482722Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 880,
+          "timestampUtc": "2026-09-18T08:56:27.952794Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 881,
+          "timestampUtc": "2026-09-18T08:56:27.955306Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 882,
+          "timestampUtc": "2026-09-18T08:56:27.9579892Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 883,
+          "timestampUtc": "2026-09-18T08:56:27.9604945Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 884,
+          "timestampUtc": "2026-09-18T08:56:27.9668028Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 885,
+          "timestampUtc": "2026-09-18T08:56:27.9683218Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 886,
+          "timestampUtc": "2026-09-18T08:56:27.9723347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 887,
+          "timestampUtc": "2026-09-18T08:56:27.9738532Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 888,
+          "timestampUtc": "2026-09-18T08:56:27.9769466Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 889,
+          "timestampUtc": "2026-09-18T08:56:27.9819682Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 890,
+          "timestampUtc": "2026-09-18T08:56:27.98397Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 891,
+          "timestampUtc": "2026-09-18T08:56:27.9879916Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 892,
+          "timestampUtc": "2026-09-18T08:56:27.9910028Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 893,
+          "timestampUtc": "2026-09-18T08:56:27.993525Z",
+          "level": "log",
+          "logType": "Log",
+          "message": ".",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 894,
+          "timestampUtc": "2026-09-18T08:56:27.993525Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 895,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added </s> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 896,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added <|endoftext|> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 897,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added <|im_end|> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 898,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added <|fim_pad|> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 899,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added <|repo_name|> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 900,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_result: added <|file_sep|> logit bias = -inf\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 901,
+          "timestampUtc": "2026-09-18T08:56:27.9960518Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: constructing llama_context\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 902,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_seq_max     = 1\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 903,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_ctx         = 8192\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 904,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_ctx_seq     = 8192\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 905,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_batch       = 512\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 906,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_ubatch      = 512\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 907,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: causal_attn   = 1\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 908,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: flash_attn    = disabled\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 909,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: kv_unified    = false\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 910,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: freq_base     = 1000000.0\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 911,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: freq_scale    = 1\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 912,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context: n_ctx_seq (8192) < n_ctx_train (32768) -- the full capacity of the model will not be utilized\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 913,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_context:  CUDA_Host  output buffer size =     0.58 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 914,
+          "timestampUtc": "2026-09-18T08:56:27.99683Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_kv_cache:      CUDA0 KV buffer size =   224.00 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 915,
+          "timestampUtc": "2026-09-18T08:56:28.0023842Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "llama_kv_cache: size =  224.00 MiB (  8192 cells,  28 layers,  1/1 seqs), K (f16):  112.00 MiB, V (f16):  112.00 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 916,
+          "timestampUtc": "2026-09-18T08:56:28.0023842Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve: reserving ...\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 917,
+          "timestampUtc": "2026-09-18T08:56:28.0054211Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve:      CUDA0 compute buffer size =   299.75 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 918,
+          "timestampUtc": "2026-09-18T08:56:28.0054211Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve:  CUDA_Host compute buffer size =    23.01 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 919,
+          "timestampUtc": "2026-09-18T08:56:28.0054211Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve: graph nodes  = 1098\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 920,
+          "timestampUtc": "2026-09-18T08:56:28.0064258Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve: graph splits = 2\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 921,
+          "timestampUtc": "2026-09-18T08:56:28.0064258Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "sched_reserve: reserve took 3.81 ms, sched copies = 1\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 922,
+          "timestampUtc": "2026-09-18T08:56:28.0064258Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 923,
+          "timestampUtc": "2026-09-18T08:56:28.0231785Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv    load_model: initializing slots, n_slots = 1\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 924,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "no implementations specified for speculative decoding\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 925,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot   load_model: id  0 | task -1 | speculative decoding context not initialized\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 926,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 927,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv    load_model: prompt cache is enabled, size limit: 8192 MiB\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 928,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv    load_model: use `--cache-ram 0` to disable the prompt cache\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 929,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 930,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "init: chat template, example_format: '<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\nHello<|im_end|>\n<|im_start|>assistant\nHi there<|im_end|>\n<|im_start|>user\nHow are you?<|im_end|>\n<|im_start|>assistant\n'\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 931,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv          init: init: chat template, thinking = 0\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 932,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "model loaded\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 933,
+          "timestampUtc": "2026-09-18T08:56:28.0317389Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Deploy server command: llamalib_win-x64_server.exe -m C:/Users/Admin/ChatbotAI/Assets/StreamingAssets/Models/LLM/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf -t -1 -np 1 -c 8192 -b 512 -ngl 999 --context-shift -fa off",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<>c__DisplayClass111_0:<CreateServiceAsync>b__0 () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:521)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 934,
+          "timestampUtc": "2026-09-18T08:56:28.0331597Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "starting service\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 935,
+          "timestampUtc": "2026-09-18T08:56:28.0331597Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv  update_slots: all slots are idle\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 936,
+          "timestampUtc": "2026-09-18T08:56:28.0727243Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "LLM service created successfully, using llamalib_win-x64_cublas.dll",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\nLLMUnity.LLM/<StartServiceAsync>d__107:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:447)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder:SetResult ()\nLLMUnity.LLM/<CreateServiceAsync>d__111:MoveNext () (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLM.cs:533)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 937,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot launch_slot_: id  0 | task -1 | sampler chain: logits -> penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist \n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 938,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot launch_slot_: id  0 | task 0 | processing task, is_child = 0\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 939,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot update_slots: id  0 | task 0 | new prompt, n_ctx_slot = 8192, n_keep = 114, task.n_tokens = 114\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 940,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot update_slots: id  0 | task 0 | n_tokens = 0, memory_seq_rm [0, end)\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 941,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot init_sampler: id  0 | task 0 | init sampler, took 0.02 ms, tokens: text = 114, total = 114\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 942,
+          "timestampUtc": "2026-09-18T08:56:28.1812347Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot update_slots: id  0 | task 0 | prompt processing done, n_tokens = 114, batch.n_tokens = 114\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 943,
+          "timestampUtc": "2026-09-18T08:56:28.2015213Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot print_timing: id  0 | task 0 | \nprompt eval time =      19.99 ms /   114 tokens (    0.18 ms per token,  5703.42 tokens per second)\n       eval time =       0.00 ms /     1 tokens (    0.00 ms per token, 1000000.00 tokens per second)\n      total time =      19.99 ms /   115 tokens\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 944,
+          "timestampUtc": "2026-09-18T08:56:28.2015213Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "slot      release: id  0 | task 0 | stop processing: n_tokens = 114, truncated = 0\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 945,
+          "timestampUtc": "2026-09-18T08:56:28.2015213Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "srv  update_slots: all slots are idle\n",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nLLMUnity.LLMUnitySetup:Log (string) (at ./Library/PackageCache/ai.undream.llm@2c30b44020c7/Runtime/LLMUnitySetup.cs:189)\n",
+          "seeded": false
+        },
+        {
+          "seq": 946,
+          "timestampUtc": "2026-09-18T08:57:01.1671734Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 947,
+          "timestampUtc": "2026-09-18T08:57:01.1671734Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Sequential dual-GPU test triggered.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_36802941:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.Compilation.EvalCodeCompiler:ExecuteCompiledAssembly (System.Reflection.Assembly) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:190)\nUnity.Pipeline.Compilation.EvalCodeCompiler:CompileAndExecuteOnMainThread (string,int,System.Diagnostics.Stopwatch) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Compilation/EvalCodeCompiler.cs:54)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateSource (string,int,string) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:112)\nUnity.Pipeline.Runtime.Commands.CodeEvalCommand:EvaluateFile (string,int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Commands/CodeEvalCommand.cs:54)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nUnity.Pipeline.BasePipelineServer:ExecuteCommandDirect (Unity.Pipeline.Commands.CommandInfo,object[]) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2634)\nUnity.Pipeline.BasePipelineServer/<>c__DisplayClass134_0:<ExecuteCommand>b__1 () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/BasePipelineServer.cs:2508)\nUnity.Pipeline.Threading.Dispatcher/WorkItem`1<object>:ExecuteCore () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:284)\nUnity.Pipeline.Threading.Dispatcher/WorkItem:Execute () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:229)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue (int) (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:195)\nUnity.Pipeline.Threading.Dispatcher:ProcessWorkQueue () (at ./Library/PackageCache/com.unity.pipeline@ab05e9cd7f74/Runtime/Common/Dispatcher.cs:210)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 948,
+          "timestampUtc": "2026-09-18T08:57:01.5347973Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 368 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 949,
+          "timestampUtc": "2026-09-18T08:57:01.5357969Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text: ",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 950,
+          "timestampUtc": "2026-09-18T08:57:01.5696968Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "SEQ_GPU_TEST_1_OK (403ms): []",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_36802941/<>c__DisplayClass0_0/<<Execute>g__RunSequential|0>d:MoveNext ()\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperManager/<GetTextAsync>d__48:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:252)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperWrapper/<GetTextAsync>d__17:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:171)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 951,
+          "timestampUtc": "2026-09-18T08:57:01.5696968Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Inference Whisper on input data...",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:175)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 952,
+          "timestampUtc": "2026-09-18T08:57:02.4613368Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Whisper inference finished, total time: 890 ms.",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:InferenceWhisper (single[],Whisper.Native.WhisperNativeParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:189)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:136)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 953,
+          "timestampUtc": "2026-09-18T08:57:02.4623416Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "Final text: ��ीएसटी परिषद के अनुसार प्रदेश में अब तक एक लाख तिरासी हजार तीन सौ चौबिस लोगों को टीके लगाये जा चुके हैं",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nWhisper.Utils.LogUtils:Log (string) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/Utils/LogUtils.cs:42)\nWhisper.WhisperWrapper:GetText (single[],int,int,Whisper.WhisperParams) (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:154)\nWhisper.WhisperWrapper/<>c__DisplayClass17_0:<GetTextAsync>b__0 () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:169)\nSystem.Threading._ThreadPoolWaitCallback:PerformWaitCallback ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 954,
+          "timestampUtc": "2026-09-18T08:57:02.4677106Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "SEQ_GPU_TEST_2_OK (897ms): [��ीएसटी परिषद के अनुसार प्रदेश में अब तक एक लाख तिरासी हजार तीन सौ चौबिस लोगों को टीके लगाये जा चुके हैं]",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_36802941/<>c__DisplayClass0_0/<<Execute>g__RunSequential|0>d:MoveNext ()\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperManager/<GetTextAsync>d__48:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:252)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperWrapper/<GetTextAsync>d__17:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:171)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        },
+        {
+          "seq": 955,
+          "timestampUtc": "2026-09-18T08:57:02.4677106Z",
+          "level": "log",
+          "logType": "Log",
+          "message": "SEQ_GPU_TEST_ALL_DONE",
+          "stackTrace": "UnityEngine.Debug:Log (object)\nPipelineEvaluation.PipelineEval_36802941/<>c__DisplayClass0_0/<<Execute>g__RunSequential|0>d:MoveNext ()\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperManager/<GetTextAsync>d__48:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperManager.cs:252)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Whisper.WhisperResult>:SetResult (Whisper.WhisperResult)\nWhisper.WhisperWrapper/<GetTextAsync>d__17:MoveNext () (at ./Library/PackageCache/com.whisper.unity@de9ce92ad4c5/Runtime/WhisperWrapper.cs:171)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n",
+          "seeded": false
+        }
+      ],
+      "cursor": 955,
+      "session": "aaa1860c33924c099cfa73569cfee43d",
+      "returned": 100,
+      "dropped": false,
+      "reset": false,
+      "counts": {
+        "error": 4,
+        "warn": 31,
+        "log": 920
+      },
+      "groundTruth": {
+        "sampledUtc": "2026-09-18T08:57:22.1891672Z",
+        "ageMs": 286,
+        "compilationFailed": false,
+        "compiling": false,
+        "consoleErrors": 0,
+        "consoleWarnings": 0,
+        "consoleLogs": 262,
+        "seeded": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Admin\\ChatbotAI"
+    },
+    "success": true
+  },
+  "errors": [],
+  "warnings": []
+}

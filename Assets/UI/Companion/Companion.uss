@@ -1,0 +1,1723 @@
+/* Companion screen, drawn over the 3D scene. Colours are tokens on the root (.theme-light / .theme-dark);
+   the screen's state is a class on the root too: .state-starting, -ready, -listening, -thinking, -speaking, -error.
+
+   Altcore brand (2026-10-05): the brand gradient #F26B00 -> #B30703 (orange to deep red) fills the main actions
+   (mic button, switches, sliders, primary buttons, the loading bar) - USS has no gradients, so it's a stretched
+   image (Brand/brand-gradient*.png). Accent text/ticks use the orange, section captions a deeper orange-red
+   (--caption); the logo (Brand/altcore-logo.png) has the same gradient. Neutrals are warm charcoal greys. */
+
+.theme-light {
+    --bg: #DCD7D3;
+    --surface: #F8F6F4;
+    --fill: #E8E3DF;
+    --fill-pressed: #DAD4CF;
+    --label: #1F1B19;
+    --label-2: #6F6863;
+    --label-3: #ADA6A0;
+    --separator: #D9D3CE;
+    --separator-soft: #EAE5E1;
+    --accent: #D45A00;
+    --accent-pressed: #B30703;
+    --accent-glow: rgba(242, 107, 0, 0.3);
+    --selection: rgba(242, 107, 0, 0.25);
+    --caption: #B8410A;
+    --green: #34C759;
+    --red: #E0261C;
+    --red-pressed: #B30703;
+    --red-glow: rgba(224, 38, 28, 0.5);
+    --panel: rgba(242, 238, 235, 0.66);
+    --panel-edge: rgba(255, 255, 255, 0.5);
+    --scrim: rgba(30, 20, 15, 0.22);
+    --shadow: rgba(0, 0, 0, 0.14);
+    --sheet: #F0ECE9;
+    --sheet-group: #FFFFFF;
+    --track: #DED8D3;
+    --thumb: #FFFFFF;
+    --row-separator: #E8E3DF;
+}
+
+.theme-dark {
+    --bg: #161413;
+    --surface: #1D1A19;
+    --fill: #2D2927;
+    --fill-pressed: #3A3532;
+    --label: #F7F4F2;
+    --label-2: #A39D98;
+    --label-3: #6E6863;
+    --separator: #3B3633;
+    --separator-soft: #2D2927;
+    --accent: #FF7A1F;
+    --accent-pressed: #D95A00;
+    --accent-glow: rgba(242, 107, 0, 0.35);
+    --selection: rgba(242, 107, 0, 0.3);
+    --caption: #F26B00;
+    --green: #30D158;
+    --red: #FF453A;
+    --red-pressed: #E03A30;
+    --red-glow: rgba(255, 69, 58, 0.55);
+    --panel: rgba(28, 25, 23, 0.6);
+    --panel-edge: rgba(255, 255, 255, 0.08);
+    --scrim: rgba(10, 6, 4, 0.5);
+    --shadow: rgba(0, 0, 0, 0.5);
+    --sheet: #221F1D;
+    --sheet-group: #2E2A28;
+    --track: #45403C;
+    --thumb: #6F6863;
+    --row-separator: #3B3633;
+}
+
+/* The brand gradient on anything filled with the accent. Pressed = the same gradient, a little darker. */
+.brand-fill,
+.main-button,
+.send-button,
+.round-button--on,
+.switch--on,
+.slider__fill,
+.save-button,
+.osk__key--enter,
+.login__button--primary,
+.login__keyboard-toggle--on,
+.loading__fill {
+    background-image: url("project://database/Assets/UI/Companion/Brand/brand-gradient.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.main-button,
+.round-button--on,
+.send-button,
+.login__keyboard-toggle--on {
+    background-image: url("project://database/Assets/UI/Companion/Brand/brand-gradient-diagonal.png");
+}
+
+/* ---------- Base ---------- */
+
+.app {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* The scene shows through; with no stage background, the camera clears to the theme's colour. */
+    --camera-background: var(--bg);
+    color: var(--label);
+    font-size: 15px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-Regular.ttf");
+    -unity-text-generator: advanced;
+}
+
+.semibold {
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+Label {
+    white-space: normal;
+}
+
+Button {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-align: middle-center;
+}
+
+.glyph {
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------- Top bar ---------- */
+
+/* No top bar: just the menu button, floating in the top-right corner over the scene (in the same frosted glass
+   as the panel, so it shows on any backdrop). The avatar gets the whole height. */
+.menu-corner {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+}
+
+.icon-button {
+    width: 44px;
+    height: 44px;
+    padding: 11px;
+    border-radius: 22px;
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--panel);
+    backdrop-filter: blur(22px);
+    color: var(--label);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.pointer-mouse .icon-button:hover {
+    background-color: var(--fill);
+}
+
+.icon-button:active {
+    background-color: var(--fill-pressed);
+}
+
+/* ---------- Body ---------- */
+
+.body {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Wide screens: the conversation is a card on the right, beside the avatar (who stays in full view in the
+   middle). Tall screens put it along the bottom instead (see the end of this file). */
+.column {
+    position: absolute;
+    top: 0;
+    right: 36px;
+    bottom: 24px;
+    width: 430px;
+    justify-content: center;
+}
+
+/* The frosted glass panel behind the text and the buttons - the rest of the scene stays clear. A fixed height:
+   text scrolls inside it (and opening the text box shrinks the text area), so the panel never resizes. */
+.dock {
+    height: 470px;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 18px 24px 14px 24px;
+    border-radius: 26px;
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--panel);
+    backdrop-filter: blur(22px);
+}
+
+/* ---------- Transcript ---------- */
+
+/* Scroll areas clip to their own box (the default theme would do this; this screen has none). */
+.unity-scroll-view {
+    overflow: hidden;
+}
+
+.unity-scroll-view__content-viewport {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Content keeps its natural height (and scrolls) instead of being squeezed into the viewport. */
+.unity-scroll-view__content-container {
+    flex-shrink: 0;
+}
+
+.unity-scroll-view__content-container > * {
+    flex-shrink: 0;
+}
+
+/* Takes whatever the panel has left over; longer text scrolls. */
+.transcript {
+    flex-grow: 1;
+    flex-basis: 0;
+    align-self: stretch;
+}
+
+.transcript .unity-scroll-view__content-container {
+    padding: 0 0 4px 0;
+}
+
+/* The empty-panel prompt, roughly in the middle of the text area. */
+.hint {
+    margin-top: 150px;
+    font-size: 15px;
+    color: var(--label-2);
+    -unity-text-align: upper-center;
+}
+
+/* New text fades in (CompanionUI adds .message--enter for a frame) instead of popping. */
+.message,
+.hint {
+    transition-property: opacity, translate;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.message {
+    padding: 4px 0 12px 0;
+}
+
+.message--enter {
+    opacity: 0;
+    translate: 0 8px;
+}
+
+.message__who {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    color: var(--label-2);
+    margin-bottom: 7px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.message__who--avatar {
+    color: var(--accent);
+}
+
+.message__text {
+    font-size: 17px;
+    color: var(--label);
+}
+
+.message__text--pending {
+    color: var(--label-3);
+}
+
+.message-divider {
+    height: 1px;
+    background-color: var(--separator-soft);
+    margin: 4px 0 12px 0;
+}
+
+/* ---------- Type row ---------- */
+
+.type-row {
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    margin: 8px 0 10px 0;
+    display: none;
+}
+
+.type-row--open {
+    display: flex;
+}
+
+.type-field {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.type-field .unity-base-text-field__input {
+    padding: 11px 16px;
+    border-radius: 21px;
+    border-width: 1px;
+    border-color: var(--separator);
+    background-color: var(--surface);
+    color: var(--label);
+    font-size: 15px;
+    --unity-cursor-color: var(--accent);
+    --unity-selection-color: var(--selection);
+    -unity-text-align: middle-left;
+}
+
+.type-field:focus .unity-base-text-field__input {
+    border-color: var(--accent);
+}
+
+.type-field .unity-base-text-field__input--placeholder {
+    color: var(--label-3);
+}
+
+.send-button {
+    width: 36px;
+    height: 36px;
+    margin-left: 8px;
+    padding: 7px;
+    border-radius: 18px;
+    background-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.send-button:active {
+    -unity-background-image-tint-color: #CCCCCC;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+    flex-shrink: 0;
+    align-items: center;
+    padding: 6px 0 0 0;
+}
+
+/* The main button and, while the mic is on, the ripple behind it. */
+.main-wrap {
+    width: 72px;
+    height: 72px;
+}
+
+.mic-pulse {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-radius: 36px;
+    background-color: var(--red);
+    opacity: 0;
+    display: none;
+}
+
+.state-listening .mic-pulse {
+    display: flex;
+}
+
+.controls__row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.controls__side {
+    width: 76px;
+    align-items: center;
+}
+
+.round-button {
+    width: 44px;
+    height: 44px;
+    padding: 11px;
+    border-radius: 22px;
+    background-color: var(--fill);
+    color: var(--label-2);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.pointer-mouse .round-button:hover {
+    background-color: var(--fill-pressed);
+}
+
+.round-button--on {
+    background-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.pointer-mouse .round-button--on:hover {
+    -unity-background-image-tint-color: #DDDDDD;
+}
+
+.main-button {
+    width: 72px;
+    height: 72px;
+    padding: 21px;
+    border-radius: 36px;
+    background-color: var(--accent);
+    color: #FFFFFF;
+    transition-property: background-color, scale;
+    transition-duration: 0.2s;
+}
+
+/* The button's glow, on a circle of its own behind it: a filter on the button itself drew the microphone icon
+   through an off-screen image (slightly blurred). Shown only when the button invites a tap or listens. */
+.main-glow {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-radius: 36px;
+    background-color: var(--accent);
+    filter: drop-shadow(0px 6px 18px var(--accent-glow));
+}
+
+.state-listening .main-glow {
+    background-color: var(--red);
+    filter: drop-shadow(0px 6px 24px var(--red-glow));
+}
+
+.state-starting .main-glow,
+.state-thinking .main-glow,
+.state-speaking .main-glow,
+.state-error .main-glow {
+    display: none;
+}
+
+.pointer-mouse .main-button:hover {
+    scale: 1.04 1.04;
+}
+
+.main-button:active {
+    scale: 0.96 0.96;
+    -unity-background-image-tint-color: #CCCCCC;
+}
+
+/* Mic on: the button turns red (solid - the gradient is the "tap me" look). */
+.state-listening .main-button {
+    background-image: none;
+    background-color: var(--red);
+}
+
+.state-listening .main-button:active {
+    background-color: var(--red-pressed);
+}
+
+.state-starting .main-button,
+.state-thinking .main-button,
+.state-speaking .main-button,
+.state-error .main-button {
+    background-image: none;
+    background-color: var(--fill);
+    color: var(--label-2);
+}
+
+.state-thinking .main-button {
+    padding: 22px;
+}
+
+.state-starting .main-button:hover,
+.state-thinking .main-button:hover,
+.state-error .main-button:hover {
+    scale: 1 1;
+}
+
+.state-speaking .main-button {
+    padding: 20px;
+    color: var(--accent);
+}
+
+.state-speaking .main-button:active {
+    background-color: var(--fill-pressed);
+}
+
+.state-caption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--label-2);
+    -unity-text-align: upper-center;
+    max-width: 420px;
+}
+
+.state-listening .state-caption {
+    color: var(--red);
+}
+
+.state-error .state-caption {
+    color: var(--red);
+}
+
+/* ---------- Debug card ---------- */
+
+.debug-card {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    bottom: 20px;
+    width: 330px;
+    padding: 14px 4px 10px 16px;
+    border-radius: 16px;
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--surface);
+    display: none;
+}
+
+.debug-card--open {
+    display: flex;
+}
+
+.debug-card__header {
+    flex-direction: row;
+    align-items: center;
+    padding-right: 10px;
+    margin-bottom: 6px;
+}
+
+.debug-card__title {
+    flex-grow: 1;
+    font-size: 15px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.pill-button {
+    height: 26px;
+    padding: 0 10px;
+    margin-left: 6px;
+    border-radius: 13px;
+    background-color: var(--fill);
+    color: var(--label);
+    font-size: 12px;
+}
+
+.pointer-mouse .pill-button:hover {
+    background-color: var(--fill-pressed);
+}
+
+.debug-card__scroll {
+    flex-grow: 1;
+}
+
+.debug-card__scroll .unity-scroll-view__content-container {
+    padding-right: 12px;
+}
+
+.debug-line {
+    font-size: 12px;
+    color: var(--label);
+    margin-bottom: 3px;
+}
+
+.debug-line--header {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    color: var(--label-2);
+    margin-top: 10px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.debug-line--detail {
+    color: var(--label-2);
+}
+
+.debug-line--log {
+    font-size: 11px;
+    color: var(--label-2);
+    margin-bottom: 2px;
+}
+
+/* ---------- Loading screen ---------- */
+
+/* Opaque, over everything but the menu, from the very first frame: the character isn't seen until it's standing
+   in its idle motion (at startup it showed in its raw T-pose). Fades away once everything has loaded. */
+.loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg);
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.8s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.loading--done {
+    opacity: 0;
+}
+
+.loading--gone {
+    display: none;
+}
+
+.loading__center {
+    align-items: center;
+    padding: 0 32px;
+    transition-property: scale, translate;
+    transition-duration: 0.8s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.loading--done .loading__center {
+    scale: 0.97 0.97;
+    translate: 0 -10px;
+}
+
+/* The progress bar: a slim track, the accent fill (its width is set from code) and a soft light sweeping across
+   the fill so it never looks stuck while one step takes a while. No overflow clipping (it needs the stencil
+   buffer, which some screens lack - the bar then drew solid white): code keeps the sheen inside the fill. */
+.loading__bar-row {
+    flex-direction: row;
+    align-items: center;
+    width: 380px;
+    margin-bottom: 32px;
+}
+
+.loading__bar {
+    flex-grow: 1;
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--fill);
+}
+
+.loading__fill {
+    height: 100%;
+    width: 0;
+    border-radius: 4px;
+    background-color: var(--accent);
+    transition-property: width;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-out;
+}
+
+.loading__sheen {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background-color: rgba(255, 255, 255, 0.28);
+    border-radius: 4px;
+}
+
+.loading__percent {
+    width: 52px;
+    margin-left: 14px;
+    font-size: 15px;
+    color: var(--label-2);
+    -unity-text-align: middle-right;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.loading--error .loading__fill {
+    background-image: none;
+    background-color: var(--red);
+}
+
+/* The Altcore wordmark, above everything else on the loading screen. */
+.loading__logo {
+    width: 420px;
+    height: 103px;
+    /* The block stays centred: a bigger gap moves the logo up and "Getting ready" + the bar down by half of it each. */
+    margin-bottom: 150px;
+    background-image: url("project://database/Assets/UI/Companion/Brand/altcore-logo.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.loading__title {
+    font-size: 22px;
+    color: var(--label);
+    margin-bottom: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.loading__stage {
+    font-size: 16px;
+    color: var(--label-2);
+    margin-bottom: 34px;
+    -unity-text-align: middle-center;
+}
+
+.loading__steps {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.loading__step {
+    flex-direction: row;
+    align-items: center;
+    height: 36px;
+    padding: 0 16px 0 11px;
+    margin: 0 5px 10px 5px;
+    border-radius: 18px;
+    background-color: var(--fill);
+    transition-property: background-color;
+    transition-duration: 0.3s;
+}
+
+.loading__step-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    color: var(--label-3);
+}
+
+.loading__step-label {
+    font-size: 14px;
+    color: var(--label-2);
+}
+
+.loading__step--active .loading__step-icon {
+    color: var(--accent);
+}
+
+.loading__step--active .loading__step-label,
+.loading__step--done .loading__step-label {
+    color: var(--label);
+}
+
+.loading__step--done .loading__step-icon {
+    color: var(--caption);
+}
+
+.loading__note {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 48px;
+    font-size: 13px;
+    color: var(--label-3);
+    -unity-text-align: middle-center;
+}
+
+/* Under the menu's text boxes: finger-sized "Speak" and "Keyboard" buttons (CompanionMenu.InputTools). */
+.input-tools {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.tool-pill {
+    flex-direction: row;
+    align-items: center;
+    height: 46px;
+    padding: 0 18px 0 14px;
+    margin: 0 10px 4px 0;
+    border-radius: 23px;
+    border-width: 1px;
+    border-color: var(--separator);
+    background-color: var(--track);
+    transition-property: background-color;
+    transition-duration: 0.12s;
+}
+
+.tool-pill:active {
+    background-color: var(--thumb);
+}
+
+.pointer-mouse .tool-pill:hover {
+    background-color: var(--thumb);
+}
+
+.tool-pill__icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    color: var(--accent);
+}
+
+.tool-pill__label {
+    font-size: 15px;
+    color: var(--label);
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+/* Listening: red, like the main microphone button. */
+.tool-pill--live {
+    background-color: var(--red);
+}
+
+.tool-pill--live .tool-pill__icon,
+.tool-pill--live .tool-pill__label {
+    color: #FFFFFF;
+}
+
+/* The keyboard is open for this box. */
+.tool-pill--on {
+    background-image: url("project://database/Assets/UI/Companion/Brand/brand-gradient.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.tool-pill--on .tool-pill__icon,
+.tool-pill--on .tool-pill__label {
+    color: #FFFFFF;
+}
+
+/* Startup check problems (StartupCheck): amber, readable from a distance. */
+.loading__note--warning {
+    font-size: 15px;
+    color: #FFB020;
+}
+
+.loading--error .loading__stage {
+    color: var(--red);
+}
+
+/* The menu stays out of the way while loading (it comes back if loading fails - its Debug panel helps). */
+.state-starting .menu-corner {
+    display: none;
+}
+
+/* ---------- Settings sheet ---------- */
+
+.scrim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--scrim);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+.scrim--open {
+    opacity: 1;
+}
+
+/* The Camera page: the scene stays undimmed so the change shows while a slider is dragged. */
+.scrim--open.scrim--clear {
+    opacity: 0;
+}
+
+.sheet {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: 460px;
+    border-radius: 20px;
+    /* An edge, not a soft drop-shadow: a 40px shadow on an element this size was re-rendered every frame (even
+       with the sheet closed and off-screen) and slowed the Hindi voice to 3x real time on a 2K screen. */
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--sheet);
+    opacity: 0;
+    translate: 500px 0;
+    transition-property: opacity, translate;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.sheet--open {
+    opacity: 1;
+    translate: 0 0;
+}
+
+/* Closed and slid away: not drawn at all. */
+.sheet--gone {
+    display: none;
+}
+
+/* Tall screens: the Camera page sits low, leaving the character's head and body in view. */
+.layout-portrait .sheet--camera {
+    top: 52%;
+}
+
+.sheet__header {
+    height: 56px;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 10px;
+    flex-shrink: 0;
+}
+
+.sheet__title {
+    flex-grow: 1;
+    font-size: 17px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.sheet__header-button {
+    width: 36px;
+    height: 36px;
+    padding: 9px;
+    border-radius: 18px;
+    color: var(--label-2);
+    background-color: var(--fill);
+}
+
+.sheet__header-button--back {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--accent);
+    padding: 8px;
+}
+
+.sheet__header-button--hidden {
+    visibility: hidden;
+}
+
+/* The menu's first page shows the Altcore wordmark instead of a title. */
+.sheet__logo {
+    flex-grow: 1;
+    height: 26px;
+    display: none;
+    background-image: url("project://database/Assets/UI/Companion/Brand/altcore-logo.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.sheet--root .sheet__logo {
+    display: flex;
+}
+
+.sheet--root .sheet__title {
+    display: none;
+}
+
+/* A thin line of the brand gradient under the menu's header. */
+.sheet__accent {
+    height: 2px;
+    margin: 0 20px 4px 20px;
+    border-radius: 1px;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+.sheet__scroll {
+    flex-grow: 1;
+}
+
+.sheet__scroll .unity-scroll-view__content-container {
+    padding: 0 16px 20px 16px;
+}
+
+.sheet__scroll.has-scrollbar .unity-scroll-view__content-container {
+    padding-right: 30px;
+}
+
+.transcript.has-scrollbar .unity-scroll-view__content-container {
+    padding-right: 22px;
+}
+
+/* Finger-sized scrollbar (TouchScrollbar), inside its list along the right edge: a wide touch area with a slim
+   visible thumb. */
+.scrollbar {
+    position: absolute;
+    top: 4px;
+    bottom: 8px;
+    right: 2px;
+    width: 28px;
+}
+
+/* The settings menu's on-screen keyboard, docked under the list while a text box is being typed in. */
+.sheet__keyboard {
+    display: none;
+    flex-shrink: 0;
+    padding: 10px 6px 6px 6px;
+    border-top-width: 1px;
+    border-color: var(--row-separator);
+}
+
+.sheet--typing .sheet__keyboard {
+    display: flex;
+}
+
+.scrollbar--hidden {
+    visibility: hidden;
+}
+
+.scrollbar__thumb {
+    position: absolute;
+    right: 8px;
+    width: 8px;
+    border-radius: 4px;
+    background-color: var(--label-2);
+    opacity: 0.45;
+    transition-property: width, opacity, border-radius;
+    transition-duration: 0.12s;
+}
+
+.scrollbar--dragging .scrollbar__thumb {
+    width: 12px;
+    border-radius: 6px;
+    right: 6px;
+    opacity: 0.8;
+}
+
+.section__caption {
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    color: var(--caption);
+    margin: 18px 16px 7px 16px;
+}
+
+.section__footnote {
+    font-size: 12px;
+    color: var(--label-2);
+    margin: 7px 16px 0 16px;
+}
+
+.group {
+    border-radius: 12px;
+    background-color: var(--sheet-group);
+}
+
+.row {
+    flex-shrink: 0;
+    min-height: 46px;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 14px 8px 16px;
+    border-bottom-width: 1px;
+    border-color: var(--row-separator);
+}
+
+.row--last {
+    border-bottom-width: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* The group's rounded corners are repeated on its first and last rows instead of clipping the group
+   (overflow: hidden with a radius needs the stencil buffer - on some screens it drew the group solid white). */
+.row--first {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.row--tappable {
+    transition-property: background-color;
+    transition-duration: 0.12s;
+}
+
+.pointer-mouse .row--tappable:hover {
+    background-color: var(--track);
+}
+
+.row--stack {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.row__texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.row__title {
+    font-size: 15px;
+    color: var(--label);
+}
+
+.row__subtitle {
+    font-size: 12px;
+    color: var(--label-2);
+    margin-top: 2px;
+}
+
+.row__title--muted {
+    color: var(--label-2);
+}
+
+.row__title--warning {
+    color: #FF9F0A;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.row--action .row__title {
+    color: var(--accent);
+}
+
+.row__value {
+    font-size: 15px;
+    color: var(--label-2);
+    margin-left: 8px;
+    flex-shrink: 1;
+    -unity-text-align: middle-right;
+}
+
+.row__accessory {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    color: var(--label-3);
+}
+
+.row__accessory--check {
+    color: var(--accent);
+}
+
+.row__head {
+    flex-direction: row;
+    align-items: center;
+}
+
+.row--destructive .row__title {
+    color: var(--red);
+}
+
+.row--destructive {
+    justify-content: center;
+}
+
+.row--disabled {
+    opacity: 0.4;
+}
+
+.preview-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    background-color: var(--accent);
+}
+
+/* Switch */
+
+.switch {
+    width: 51px;
+    height: 31px;
+    border-radius: 16px;
+    background-color: var(--track);
+    flex-shrink: 0;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+}
+
+.switch--on {
+    background-color: var(--green);
+}
+
+.switch__knob {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 27px;
+    height: 27px;
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.18));
+    transition-property: translate;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.switch--on .switch__knob {
+    translate: 20px 0;
+}
+
+/* Segmented control */
+
+.segmented {
+    flex-direction: row;
+    height: 32px;
+    padding: 2px;
+    border-radius: 9px;
+    background-color: var(--track);
+    margin-top: 8px;
+}
+
+.segmented__item {
+    flex-grow: 1;
+    flex-basis: 0;
+    border-radius: 7px;
+    font-size: 13px;
+    color: var(--label);
+    -unity-text-align: middle-center;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+/* No drop-shadow filter here: a filter draws the element (its text too) through an off-screen image, which left the
+   selected option's text blurry. A hairline edge instead. */
+.segmented__item--selected {
+    background-color: var(--thumb);
+    border-width: 0.5px;
+    border-color: rgba(0, 0, 0, 0.18);
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+/* Slider */
+
+.slider {
+    height: 28px;
+    justify-content: center;
+    margin: 6px 0 0 0;
+}
+
+.slider__track {
+    height: 4px;
+    margin: 0 14px;
+    border-radius: 2px;
+    background-color: var(--track);
+}
+
+.slider__fill {
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--accent);
+}
+
+.slider__knob {
+    position: absolute;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    border-width: 0.5px;
+    border-color: rgba(0, 0, 0, 0.06);
+    filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Multi-line text (persona) */
+
+.text-area {
+    margin: 8px 0 0 0;
+}
+
+.text-area .unity-base-text-field__input {
+    min-height: 180px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background-color: var(--sheet);
+    color: var(--label);
+    font-size: 14px;
+    white-space: normal;
+    -unity-text-align: upper-left;
+    --unity-cursor-color: var(--accent);
+    --unity-selection-color: var(--selection);
+}
+
+.text-area--small .unity-base-text-field__input {
+    min-height: 72px;
+}
+
+/* Text boxes inside a settings group are the row itself (iOS style): no box inside the box, no extra margin,
+   text lined up with the other rows' titles. The row's padding gives the spacing. */
+.group .text-line,
+.group .text-area {
+    margin: 0;
+}
+
+.group .text-line .unity-base-text-field__input,
+.group .text-area .unity-base-text-field__input {
+    padding: 4px 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.group .text-area .unity-base-text-field__input {
+    min-height: 140px;
+}
+
+.group .text-area--small .unity-base-text-field__input {
+    min-height: 56px;
+}
+
+.group .unity-base-text-field__input--placeholder {
+    color: var(--label-3);
+}
+
+.row__note {
+    margin: 4px 0 2px 0;
+    white-space: normal;
+}
+
+.text-line {
+    margin: 8px 0 0 0;
+}
+
+.text-line .unity-base-text-field__input {
+    height: auto;
+    padding: 9px 12px;
+    border-radius: 10px;
+    background-color: var(--sheet);
+    color: var(--label);
+    font-size: 15px;
+    -unity-text-align: middle-left;
+    --unity-cursor-color: var(--accent);
+    --unity-selection-color: var(--selection);
+}
+
+.save-button {
+    height: 44px;
+    margin-top: 14px;
+    border-radius: 12px;
+    background-color: var(--accent);
+    color: #FFFFFF;
+    font-size: 15px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.save-button:active {
+    -unity-background-image-tint-color: #CCCCCC;
+}
+
+/* Advanced > Display > Show the conversation text off: just the buttons, in a panel that fits them. */
+.text-off .transcript {
+    display: none;
+}
+
+.text-off .dock,
+.layout-portrait.text-off .dock {
+    height: auto;
+    justify-content: flex-end;
+}
+
+/* ---------- Keyboard (menu > Display > Show keyboard) ---------- */
+
+/* Off: no keyboard button, so visitors only talk. */
+.keyboard-off .keyboard-button {
+    display: none;
+}
+
+/* The chat's on-screen keyboard: a glass panel just above the answer panel, shown with the text box. */
+.osk-panel {
+    display: none;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+    padding: 10px 8px 6px 8px;
+    border-radius: 22px;
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--panel);
+    backdrop-filter: blur(22px);
+}
+
+.osk-panel--open {
+    display: flex;
+}
+
+.osk__row {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.osk__key {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 44px;
+    height: 46px;
+    margin: 0 3px;
+    border-radius: 9px;
+    background-color: var(--fill);
+    color: var(--label);
+    font-size: 18px;
+    transition-property: background-color;
+    transition-duration: 0.08s;
+}
+
+.osk__key:active {
+    background-color: var(--fill-pressed);
+}
+
+.osk__key--wide {
+    max-width: 66px;
+    flex-grow: 1.5;
+    font-size: 15px;
+    color: var(--label-2);
+}
+
+.osk__key--space {
+    max-width: 240px;
+    flex-grow: 5;
+    font-size: 14px;
+    color: var(--label-2);
+}
+
+.osk__key--enter {
+    max-width: 76px;
+    flex-grow: 1.6;
+    background-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.osk__key--enter:active {
+    -unity-background-image-tint-color: #CCCCCC;
+}
+
+.osk__key--on {
+    background-color: var(--label-2);
+    color: var(--bg);
+}
+
+/* ---------- Sign-in (before the settings menu) ---------- */
+
+.login {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--scrim);
+    display: none;
+}
+
+.login--open {
+    display: flex;
+}
+
+.login__card {
+    width: 380px;
+    padding: 30px 28px 24px 28px;
+    border-radius: 22px;
+    border-width: 1px;
+    border-color: var(--panel-edge);
+    background-color: var(--sheet);
+    transition-property: translate;
+    transition-duration: 0.05s;
+}
+
+.login__card--with-keyboard {
+    width: 580px;
+}
+
+.login__card--shake {
+    translate: 10px 0;
+}
+
+.login__title {
+    font-size: 24px;
+    color: var(--label);
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.login__subtitle {
+    margin: 6px 0 18px 0;
+    font-size: 14px;
+    color: var(--label-2);
+    -unity-text-align: middle-center;
+}
+
+.login__field {
+    margin: 0 0 10px 0;
+}
+
+/* Height from padding, not a fixed height: with a fixed one the text sat at the top of the box. */
+.login__field .unity-base-text-field__input {
+    height: auto;
+    padding: 12px 14px;
+    font-size: 15px;
+    -unity-text-align: middle-left;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: var(--separator);
+    background-color: var(--sheet-group);
+}
+
+.login__field:focus .unity-base-text-field__input {
+    border-color: var(--accent);
+}
+
+.login__field .unity-base-text-field__input--placeholder {
+    color: var(--label-3);
+}
+
+.login__error {
+    min-height: 20px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--red);
+    -unity-text-align: middle-center;
+}
+
+.login__buttons {
+    flex-direction: row;
+}
+
+.login__button {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 46px;
+    margin: 0;
+    border-radius: 12px;
+    background-color: var(--fill);
+    color: var(--label);
+    font-size: 15px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.login__button:active {
+    background-color: var(--fill-pressed);
+}
+
+/* Both buttons line up with the fields' edges; the gap is only between them. */
+.login__button--primary {
+    margin-left: 10px;
+    background-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.login__button--primary:active {
+    -unity-background-image-tint-color: #CCCCCC;
+}
+
+.login__logo {
+    height: 34px;
+    margin-bottom: 18px;
+    background-image: url("project://database/Assets/UI/Companion/Brand/altcore-logo.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.login__keyboard-toggle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border-radius: 18px;
+    background-color: var(--fill);
+    color: var(--label-2);
+}
+
+.login__keyboard-toggle--on {
+    background-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.login__keyboard {
+    display: none;
+    margin-top: 18px;
+}
+
+.login__card--with-keyboard .login__keyboard {
+    display: flex;
+}
+
+/* ---------- Tall screens (9:16, phone-style): .layout-portrait on the root ---------- */
+
+.layout-portrait .column {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    flex-grow: 1;
+    width: auto;
+    padding: 0 28px 28px 28px;
+    justify-content: flex-end;
+}
+
+/* 720 units wide x 1280 high here (CompanionUI scales tall screens to their width). */
+.layout-portrait .dock {
+    height: 380px;
+}
+
+.layout-portrait .hint {
+    margin-top: 100px;
+}
+
+.layout-portrait .debug-card {
+    right: 80px;
+    width: auto;
+    bottom: 440px;
+}
+
+/* ---------- Frosted glass cost (menu > Advanced > Display & performance > Frosted glass) ---------- */
+
+/* The blur behind the panels is drawn at the screen's full size: on a 4K screen it kept the graphics card ~20% busier
+   (62% -> 40% without it), which the AI sharing the card felt. .glass-light = a smaller blur, .glass-off = none, with
+   a more solid panel so the text stays readable over the scene. */
+.glass-light .dock,
+.glass-light .icon-button,
+.glass-light .osk-panel {
+    backdrop-filter: blur(8px);
+}
+
+.glass-off .dock,
+.glass-off .icon-button,
+.glass-off .osk-panel {
+    backdrop-filter: none;
+    background-color: var(--panel-solid);
+}
+
+.theme-dark {
+    --panel-solid: rgba(30, 27, 25, 0.88);
+}
+
+.theme-light {
+    --panel-solid: rgba(242, 238, 235, 0.92);
+}
+
+/* ---------- Help & guides (CompanionMenu.BuildGuide / BuildGuideList, HelpGuides) ---------- */
+
+.sheet__header-button--help {
+    margin-right: 8px;
+    padding: 8px;
+}
+
+.guide__top {
+    flex-direction: row;
+    margin: 8px 0 4px 0;
+}
+
+.guide__all {
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px 0 8px;
+    border-radius: 16px;
+    border-width: 1px;
+    border-color: var(--separator);
+    background-color: var(--sheet-group);
+    color: var(--label);
+    font-size: 13px;
+}
+
+.guide__all-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 2px;
+    color: var(--accent);
+}
+
+.guide__title {
+    font-size: 26px;
+    margin: 10px 2px 6px 2px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.guide__intro {
+    font-size: 14px;
+    color: var(--label-2);
+    white-space: normal;
+    margin: 0 2px 14px 2px;
+}
+
+/* The page's screenshot; its height is set from the picture's shape (CompanionMenu.BuildGuide). */
+.guide__shot {
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: var(--separator);
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* What a step points at: an outline in the accent colour, and the step's number on its corner. */
+.guide__mark {
+    position: absolute;
+    border-width: 2px;
+    border-color: var(--accent);
+    border-radius: 8px;
+    background-color: rgba(242, 107, 0, 0.06);
+}
+
+.guide__badge {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    translate: -9px -9px;
+    color: #FFFFFF;
+    font-size: 12px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.guide__caption {
+    font-size: 12px;
+    color: var(--label-3);
+    margin: 6px 4px 14px 4px;
+}
+
+.guide__step {
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0 2px 14px 2px;
+}
+
+.guide__number {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    color: #FFFFFF;
+    font-size: 12px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.guide__text {
+    flex-shrink: 1;
+    flex-grow: 1;
+    font-size: 15px;
+    white-space: normal;
+    padding-top: 2px;
+}
+
+.guide__tips {
+    border-radius: 12px;
+    padding: 12px 16px 6px 16px;
+    margin: 4px 0 8px 0;
+    background-color: rgba(242, 107, 0, 0.1);
+}
+
+.guide__tips-title {
+    font-size: 13px;
+    color: var(--caption);
+    margin-bottom: 6px;
+    -unity-font-definition: url("project://database/Assets/UI/Companion/Fonts/Inter-SemiBold.ttf");
+}
+
+.guide__tip {
+    font-size: 13px;
+    color: var(--label-2);
+    white-space: normal;
+    margin-bottom: 6px;
+}

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d7320c94604bf409663c595ff323e9, type: 3}
+  m_Name: Iris
+  m_EditorClassIdentifier: Assembly-CSharp::ChatbotAI.Avatar.AvatarCharacter
+  displayName: Iris
+  prefab: {fileID: 5630758861446113017, guid: 72b7a053a57340a46b233713122dff81, type: 3}
+  animations: {fileID: 11400000, guid: 47de066aeabc070409041dac4e7f5d20, type: 2}
+  lipSync: {fileID: 11400000, guid: ff2219206187f3744abc657a0eb96130, type: 2}
+  restingEyelids: 0.65
+  cameraDistance: 2.2
+  aimBelowEyes: 0.25
+  portraitCameraDistance: 3.3
+  portraitAimBelowEyes: 0.5
+  cameraAngle: 10
+  cameraTilt: 4
