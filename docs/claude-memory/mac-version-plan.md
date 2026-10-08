@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: b4e751f1-b40e-48b7-a3ee-293480808468
-  modified: 2026-10-08T11:58:33.494Z
+  modified: 2026-10-08T13:23:06.026Z
 ---
 
 2026-10-08: User has a MacBook Air M5, 24 GB RAM. Wants (LATER - "dont make it now") a separate Mac version of the
@@ -16,6 +16,8 @@ companion, distinct from the Windows kiosk build:
 Second Mac: MacBook Pro M1 Pro 16 GB (offline tight - skip reranker, maybe smaller Whisper; online easy).
 Existing menu page Advanced > "Online models & API keys" (CompanionMenu.BuildOnlineAi) is a non-working PREVIEW -
 user wants it made real (likely both Windows and Mac).
+2026-10-08: Mac version code written (memory.txt (f), MAC-SETUP.md) and pushed to github.com/vivekanandroy99/ChatbotAI
+(PUBLIC - owner said that's fine). Untested on a Mac. Claude's notes copied to docs/claude-memory for the Mac.
 User has NO API keys yet (will buy later) - build the online part provider-neutral, test once a key exists.
 Windows version stays as is (CUDA, Veena, kiosk).
 

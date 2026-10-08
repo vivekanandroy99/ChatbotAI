@@ -79,8 +79,9 @@ Main folders:
 
 2026-10-08 (e) - Git set up properly (whole project committed, Git LFS for big art) + v5 Windows build
   Before: only an empty "Initial check-in" commit; everything since was untracked.
-  Now: commit 32c2f68 tracks the project. Remote "origin" = github.com/vivekanandroy99/ChatbotAI - NOT pushed yet
-  (needs the owner's OK; Git LFS ~2 GB to upload - check GitHub's LFS allowance first).
+  Now: commit 32c2f68 tracks the project. Remote "origin" = github.com/vivekanandroy99/ChatbotAI - PUBLIC repo
+  (owner chose to keep it public, 2026-10-08). Pushed 2026-10-08 (main 90ebcc3; 667 LFS files, 2.2 GB - free LFS
+  allowance is 10 GB storage + 10 GB downloads/month).
   Git LFS (.gitattributes): FBX/.Fbx, textures, audio, PDF/docx/pptx/xlsx, fonts, .mesh, CC "*Array.asset".
   LFS is enabled per repo ("git lfs install --local"); a new machine needs Git LFS installed before cloning.
   NOT in git (.gitignore) - copy these or re-download on a new machine:
