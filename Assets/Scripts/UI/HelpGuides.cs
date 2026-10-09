@@ -312,7 +312,7 @@ namespace ChatbotAI.UI
             },
             new HelpGuide
             {
-                id = "models", title = "AI models", page = "BuildModels", openedFrom = new[] { "AI models", "Online AI" },
+                id = "models", title = "AI models", page = "BuildModels", openedFrom = new[] { "AI models" },
                 intro = "The AI parts that run on this PC. Already set up - change only if told to.",
                 steps = new[]
                 {
@@ -322,6 +322,62 @@ namespace ChatbotAI.UI
                     ("VEENA - the natural Hindi voices. Off starts faster but Hindi sounds plainer.", "VEENA · NATURAL HINDI"),
                 },
                 tips = new[] { "Changes here are used from the next time the app starts." },
+            },
+            new HelpGuide
+            {
+                id = "onlinevoice", title = "Online voice", page = "BuildOnlineVoice", openedFrom = new[] { "Online voice" },
+                intro = "Let an online service speak the answers - natural voices in many languages. Only the text of each sentence is sent.",
+                steps = new[]
+                {
+                    ("Speaks - Online uses the service below; On this PC keeps the voices offline.", "Speaks"),
+                    ("Service - Sarvam (Indian languages), OpenAI, ElevenLabs, Gemini, or Other.", "Service"),
+                    ("Voice - one for female bots, one for male bots. Tap Hear it to listen.", "VOICE FOR FEMALE BOTS"),
+                    ("API key - paste the key from the service's website, then tap Save the key.", "API KEY"),
+                    ("Test the connection - tells you plainly whether the key and the voice work.", "TEST"),
+                },
+                tips = new[]
+                {
+                    "If the service can't be reached, the voice on this PC speaks that sentence.",
+                    "The language is picked from the text of each reply, so Hindi, Tamil, French... are spoken in their own voice.",
+                    "OpenAI and Gemini use the same key as the online brain.",
+                },
+            },
+            new HelpGuide
+            {
+                id = "onlineears", title = "Online ears", page = "BuildOnlineEars", openedFrom = new[] { "Online ears" },
+                intro = "Let an online service understand what visitors say - many more languages and accents.",
+                steps = new[]
+                {
+                    ("Listens with - Online sends each question's recording to the service below; This PC keeps it private.", "Listens with"),
+                    ("Service - Groq (has a free tier), Sarvam (Indian languages), OpenAI, ElevenLabs, Gemini, or Other.", "Service"),
+                    ("API key - paste the key from the service's website, then tap Save the key.", "API KEY"),
+                    ("Test the connection - tells you plainly whether the key and the model work.", "TEST"),
+                },
+                tips = new[]
+                {
+                    "If the service can't be reached, this PC listens to that question instead.",
+                    "The service also tells the bot which language it heard, so it can answer in the same one.",
+                    "Choose which languages to expect on the Language page (More languages).",
+                },
+            },
+            new HelpGuide
+            {
+                id = "online", title = "Online brain", page = "BuildOnlineAi", openedFrom = new[] { "Online brain" },
+                intro = "Let a stronger online model write the answers. Hearing, the voice and the document search stay on this PC.",
+                steps = new[]
+                {
+                    ("Answers - Online uses the service below; On this PC keeps everything offline.", "Answers"),
+                    ("Service - OpenAI, Claude, Gemini, or Other (any server that speaks the OpenAI way).", "Service"),
+                    ("API key - paste the key from the service's website, then tap Save the key.", "API KEY"),
+                    ("Model name - tap Choose from the service's list and pick a small, fast model.", "MODEL"),
+                    ("Test the connection - tells you plainly whether the key and the model work.", "TEST"),
+                },
+                tips = new[]
+                {
+                    "If the service can't be reached, this PC's model answers that question - visitors never see an error.",
+                    "The question, the matching document passages and the bot's personality text are sent to the service, which charges your account.",
+                    "The key is kept in the system's secure store and is never put into exported bots, builds or settings files.",
+                },
             },
             new HelpGuide
             {

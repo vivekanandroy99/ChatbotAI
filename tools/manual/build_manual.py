@@ -163,8 +163,9 @@ def content():
     h2("What is AltcoreBot?")
     p("AltcoreBot is a talking 3D assistant for a screen in your showroom, office or event stand. A visitor taps the microphone, "
       "asks a question in <b>English or Hindi</b>, and the bot answers out loud in a natural voice, with its lips moving as it speaks.")
-    p("Everything runs <b>offline, on the kiosk PC itself</b>. There is no internet connection, no cloud service and no account to "
-      "pay for. Nothing a visitor says leaves the computer.")
+    p("Everything runs <b>offline, on the kiosk PC itself</b>: no internet connection, no cloud service and no account to pay for, "
+      "and nothing a visitor says leaves the computer. (An optional <b>Online AI</b> setting lets a cloud model write the answers; "
+      "it is off unless staff switch it on - see Part 4.)")
     ul(["<b>It listens</b> with a speech recognition model (Whisper) and works out whether the visitor spoke English or Hindi.",
         "<b>It thinks</b> with a language model (Gemma) and a search of the documents you gave it.",
         "<b>It speaks</b> with a voice engine (Kokoro for English, Veena for natural Hindi) and moves its lips to match.",
@@ -218,7 +219,7 @@ def content():
 
     h2("What it can and can't do")
     table(["It can", "It can't"], [
-        ["Answer questions from the documents you add (PDF, Word, PowerPoint, text).", "Look anything up on the internet. It is fully offline."],
+        ["Answer questions from the documents you add (PDF, Word, PowerPoint, text).", "Look anything up on the internet by itself. It answers from its documents (or, Open chat, from what its language model knows)."],
         ["Understand English and Hindi, including Indian-accented English, and answer in the same language.", "Speak or understand other languages yet."],
         ["Speak with a natural voice and move its lips to match.", "Hear well in a very loud room - see the noise settings and the microphone advice later."],
         ["Be taught better answers by staff, which it uses from the very next question.", "Learn by itself. Nothing is learnt without staff choosing it."],
@@ -244,7 +245,7 @@ def content():
         ["Memory and disk", "16 GB of RAM or more, and about 21 GB of free disk space for the app folder."],
         ["Screen", "A touch screen or TV. The app is made for a <b>portrait 2K or 4K</b> screen, and also adapts to a wide screen."],
         ["Sound", "A microphone (a close, directional or headset microphone works best) and speakers or the TV's speakers."],
-        ["Internet", "<b>Not needed.</b> Nothing to download or sign in to."]], "plain")
+        ["Internet", "<b>Not needed.</b> Nothing to download or sign in to - unless you switch on the optional Online AI."]], "plain")
     note("warn", None, "Without an NVIDIA card the bot will be very slow or won't start. The loading screen and the top of the menu tell you if something is missing (see <b>CHECK THIS PC</b> in the Troubleshooting part).")
 
     h2("What is in the folder")
@@ -282,7 +283,7 @@ def content():
         "<b>Switching the PC off:</b> close the app first, then shut down Windows as usual."])
 
     h2("Privacy and where things are kept")
-    p("Everything stays on this PC. Visitors' questions are kept in a small log so you can see what people ask. You can switch that off "
+    p("Everything stays on this PC (unless staff switch on Online AI: then the question and the matching document passages go to the chosen service). Visitors' questions are kept in a small log so you can see what people ask. You can switch that off "
       "(Menu › Questions &amp; answers › Save conversations). Settings are kept per PC, so a copied folder starts with the settings it was delivered with.")
     table(["What", "Where"], [
         ["Documents and taught answers", "<code>AltcoreBot_Data\\StreamingAssets\\Knowledge\\&lt;bot&gt;</code> (the menu's <b>Open the documents folder</b> opens it)"],
@@ -632,9 +633,24 @@ def content():
                ("DOCUMENT SEARCH - ANSWER CHECKER", "<b>ANSWER CHECKER</b> - after the search finds the closest passages, this re-reads the question with each and gives the brain the best. <b>On</b> is best; it adds about 0.1 second."),
                ("starts:VOICE - KOKORO", "<b>KOKORO</b> - the English voice engine. Always on; it also stands in for any voice engine turned off."),
                ("VEENA · NATURAL HINDI", "<b>VEENA</b> - the natural Hindi (and Indian English) voices. <b>Off</b> starts faster and frees graphics memory, but Hindi then sounds plainer."),
-               ("ONLINE AI", "<b>ONLINE AI</b> - a preview page for a future option to use online AI services. It does nothing yet: everything runs offline."),
+               ("ONLINE AI", "<b>ONLINE AI</b> - opens the Online AI page (next): let an online model write the answers instead of this PC."),
                ("Use the models set in the Inspector", "<b>Use the models set …</b> - goes back to the models the app was delivered with.")],
               tips=["Turning an engine off keeps it on disk but never loads it.", "To add a model file, tap <b>Add a … model</b>: it opens the folder to copy the file into."],
+              level=3)
+    menu_page("online", "Online AI", "Menu › ADVANCED › AI models › Online models & API keys",
+              "An option for kiosks with internet: a stronger online model writes the answers (and reads Hindi and other languages better). "
+              "Hearing, the voice, the document search and the topic checks still run on this PC.",
+              [("THE BRAIN", "<b>THE BRAIN</b> - <b>Answers</b>: <b>On this PC</b> (default, fully offline) or <b>Online</b>. A line under it says what is happening now."),
+               ("SERVICE", "<b>SERVICE</b> - <b>OpenAI</b>, <b>Claude</b>, <b>Gemini</b>, or <b>Other</b> (any server that speaks the OpenAI way: type its address)."),
+               ("MODEL", "<b>MODEL</b> - the model's name. Claude starts with a small, fast one; for the others pick from the list."),
+               ("starts:Choose from the service", "<b>Choose from the service's list</b> - asks the service which models your key can use. Tap one to choose it."),
+               ("API KEY", "<b>API KEY</b> - paste the key from the service's website (the <b>Paste</b> button copies it from the clipboard), then tap <b>Save the key</b>."),
+               ("Save the key", "<b>Save the key</b> - kept in Windows' secure store for this user, never in the app's files, exported bots or builds. <b>Remove the key</b> appears once one is saved."),
+               ("Test the connection", "<b>Test the connection</b> - sends one tiny question and tells you plainly whether the key and model work, and how long it took.")],
+              tips=["A small, fast model is plenty: the bot's answers are short and come from your documents.",
+                    "If the service can't be reached or refuses, <b>that question is answered by this PC's model</b> and visitors see no error. After two failures in a row it uses this PC's model for a minute before trying again.",
+                    "Each answer is charged by the service to your account (usually a fraction of a cent). Set a monthly spending limit on the service's website.",
+                    "What is sent: the visitor's question, the matching pieces of the bot's documents and the bot's personality text. Nothing else leaves the PC."],
               level=3)
     menu_page("staff", "Staff sign-in", "Menu › ADVANCED › Staff sign-in",
               "Who can open the menu. Visitors can't, without a username and password.",
@@ -797,6 +813,7 @@ def content():
         ("Menu › Screen lists only one screen although two TVs are connected", "Windows is showing them as one picture (<i>Duplicate</i>), or one TV is off or on another input. Press <span class='k'>Win</span> + <span class='k'>P</span> and choose <b>Extend</b>, switch the other TV on, then tap <b>Look again</b> on the Screen page."),
         ("The app closed by itself", "Started with <code>Start AltcoreBot.cmd</code>, it restarts by itself (within seconds after a crash, about two minutes after a freeze). <code>watchdog.log</code> says why. If it stopped 5 times in 10 minutes it gives up: restart it and tell the installer."),
         ("\"The voice engine keeps stopping - restart the app\"", "The voice server stopped 3 times in 10 minutes. Close the app (Menu › Close the app) and start it again. If it repeats, tell the installer."),
+        ("Online AI: \"didn't accept this API key\", \"doesn't know this model\", \"too many requests\" or \"couldn't reach\"", "Open Menu › Advanced › AI models › Online models &amp; API keys and tap <b>Test the connection</b>: it names the problem. <i>Didn't accept the key</i> - paste the key again, or the account may not be allowed to use that model. <i>Doesn't know this model</i> - tap <b>Choose from the service's list</b>. <i>Too many requests</i> - the account is out of credit or over its limit. <i>Couldn't reach</i> - check the internet. Meanwhile this PC's model keeps answering."),
         ("The disk is filling up", "Check that <b>Save spoken sentences for review</b> (Advanced › Voice &amp; sound) is off, and delete old folders in <code>SpeechReview</code> (an earlier version saved them). Conversation logs are small."),
     ]
     table(["Problem", "What to try"], [[a, b] for a, b in rows])
@@ -808,7 +825,7 @@ def content():
     table(["Key", "What it does"], [["<span class='k'>Space</span>", "Hold to talk (keyboard attached). Release to ask."], ["<span class='k'>Esc</span>", "Closes the menu or the sign-in card."], ["<span class='k'>F1</span>", "Shows or hides the debug panel."]], "plain")
     h2("The AI under the hood")
     table(["Part", "What it is"], [
-        ["Brain", "Gemma 3 4B (Q4_K_M), run through llama.cpp on the NVIDIA card."],
+        ["Brain", "Gemma 3 4B (Q4_K_M), run through llama.cpp on the NVIDIA card - or, if Online AI is switched on, an online model (OpenAI, Claude, Gemini or another service)."],
         ["Ears", "Whisper large-v3-turbo. It decides English or Hindi from the voice, then transcribes."],
         ["Document search", "bge-m3, a multilingual search model, plus a reranker (bge-reranker-v2-m3) that reads the question with each passage."],
         ["Voices", "Kokoro (English, and plainer Hindi) and Veena (natural Hindi and Indian English)."],

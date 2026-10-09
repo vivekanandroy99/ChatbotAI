@@ -25,7 +25,34 @@ namespace ChatbotAI.Audio
         int starved;        // silence played mid-sentence because generation fell behind
         int firstStarved = -1;
 
+        // Online voices: rawRate > 0 = headerless PCM16 at that rate (OpenAI, ElevenLabs); decoder = the whole reply is
+        // buffered and turned into PCM when it is complete (Sarvam and Gemini send base64 inside JSON).
+        readonly int rawRate;
+        readonly Func<byte[], (int rate, byte[] pcm)> decoder;
+        readonly System.IO.MemoryStream whole;
+        readonly byte[] head = new byte[400];
+        int headLength;
+
         public PcmStream() : base(new byte[16 * 1024]) { }
+
+        public PcmStream(int rawRate, Func<byte[], (int rate, byte[] pcm)> decoder) : base(new byte[16 * 1024])
+        {
+            this.rawRate = rawRate;
+            this.decoder = decoder;
+            if (decoder != null) whole = new System.IO.MemoryStream();
+        }
+
+        /// This sentence comes from an online voice (so a failure falls back to the voice on this PC).
+        public bool Online { get; set; }
+
+        /// The first bytes of the reply as text - an online service's error message when the request is refused.
+        public string Head
+        {
+            get
+            {
+                lock (gate) return System.Text.Encoding.UTF8.GetString(head, 0, headLength);
+            }
+        }
 
         /// 0 until the header has arrived.
         public int SampleRate { get; private set; }
@@ -122,10 +149,29 @@ namespace ChatbotAI.Audio
 
         protected override bool ReceiveData(byte[] data, int length)
         {
+            lock (gate)
+            {
+                int n = Math.Min(length, head.Length - headLength);
+                if (n > 0) { Array.Copy(data, 0, head, headLength, n); headLength += n; }
+            }
+            if (decoder != null)
+            {
+                whole.Write(data, 0, length);
+                return true;
+            }
             int i = 0;
-            while (headerBytes < 4 && i < length) header[headerBytes++] = data[i++];
-            if (headerBytes == 4 && SampleRate == 0) SampleRate = BitConverter.ToInt32(header, 0);
+            if (rawRate > 0) { if (SampleRate == 0) SampleRate = rawRate; }
+            else
+            {
+                while (headerBytes < 4 && i < length) header[headerBytes++] = data[i++];
+                if (headerBytes == 4 && SampleRate == 0) SampleRate = BitConverter.ToInt32(header, 0);
+            }
+            Push(data, i, length);
+            return true;
+        }
 
+        void Push(byte[] data, int i, int length)
+        {
             lock (gate)
             {
                 if (lastByte >= 0 && i < length)
@@ -142,11 +188,23 @@ namespace ChatbotAI.Audio
                     firstPieceSamples = samples.Count;
                 }
             }
-            return true;
         }
 
         protected override void CompleteContent()
         {
+            if (decoder != null)
+            {
+                try
+                {
+                    var (rate, pcm) = decoder(whole.ToArray());
+                    if (rate > 0 && pcm != null && pcm.Length > 1)
+                    {
+                        SampleRate = rate;
+                        Push(pcm, 0, pcm.Length);
+                    }
+                }
+                catch (Exception e) { UnityEngine.Debug.LogWarning($"PcmStream: couldn't read the online voice's reply ({e.Message})."); }
+            }
             lock (gate) Complete = true;
         }
 

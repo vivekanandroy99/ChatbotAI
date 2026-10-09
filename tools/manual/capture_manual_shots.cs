@@ -229,6 +229,7 @@ ChatbotAI.Dialogue.ConversationLog.Exchange Ex(int daysAgo, string name, string 
         case "speakers": return ("Speaker", Call("BuildSpeakers"));
         case "screens": return ("Screen", Call("BuildScreens"));
         case "models": return ("AI models", Call("BuildModels"));
+        case "online": return ("Online AI", Call("BuildOnlineAi"));
         case "staff": return ("Staff sign-in", Call("BuildStaff"));
         case "staffadd": return ("Add a person", Call("BuildStaffMember", new object[] { null }));
         default:
@@ -268,6 +269,7 @@ var pages = new (string id, string bot, string kind, bool full, int maxViews, st
     ("speakers", "altcore_female", "speakers", false, 1, new[] { "System default" }),
     ("screens", "altcore_female", "screens", false, 1, new[] { "SHOW THE APP ON" }),
     ("models", "altcore_female", "models", false, 4, new[] { "BRAIN - LANGUAGE MODEL", "EARS - SPEECH RECOGNITION", "DOCUMENT SEARCH - ANSWER CHECKER", "starts:VOICE - KOKORO", "VEENA · NATURAL HINDI", "ONLINE AI", "Use the models set in the Inspector" }),
+    ("online", "altcore_female", "online", false, 3, new[] { "THE BRAIN", "SERVICE", "MODEL", "starts:Choose from the service", "API KEY", "Save the key", "Test the connection" }),
     ("staff", "altcore_female", "staff", false, 1, new[] { "WHO CAN OPEN THIS MENU", "Add a person…", "!admin" }),
     ("staffadd", "altcore_female", "staffadd", false, 1, new[] { "NAME", "PASSWORD", "Add" }),
     ("tun_display", "altcore_female", "tun:Display & performance", false, 3, new[] { "Text & button size", "Frame rate cap", "Show the conversation text", "Clear the conversation after", "Reset this page" }),

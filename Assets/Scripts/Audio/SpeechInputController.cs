@@ -252,8 +252,13 @@ namespace ChatbotAI.Audio
             }
 
             OnLanguageDetected?.Invoke(detected);
+            // The language an online service heard (Tamil, French...) goes with the question - the bot answers in it.
+            Languages.HeardLanguage = lastHeardCode;
+            lastHeardCode = null;
             OnTranscribed?.Invoke(text);
         }
+
+        string lastHeardCode;
 
         static float[] From(float[] data, int samplesPerSecond, float seconds)
         {
@@ -423,6 +428,25 @@ namespace ChatbotAI.Audio
                     Debug.Log($"Noise filter: no clear voice (loudest {20f * Mathf.Log10(Mathf.Max(loudest, 1e-5f)):0} dB, " +
                               $"{overNoise:0} dB over the background) - ignored.");
                     return ("", chosen == InputLanguage.Auto ? InputLanguage.English : chosen);
+                }
+            }
+            // Online ears: the service writes the words down and says which language it heard; if it can't be used,
+            // Whisper on this PC listens to this question.
+            lastHeardCode = null;
+            if (OnlineEars.Ready && channels == 1 && samples.Length > 0)
+            {
+                string hint = chosen == InputLanguage.English ? "en" : chosen == InputLanguage.Hindi ? "hi" : OnlineEars.ListenCode;
+                var heard = await OnlineEars.Transcribe(samples, frequency, hint, vocabularyPrompt);
+                if (heard.text != null)
+                {
+                    InputLanguage which = heard.language == "hi" ? InputLanguage.Hindi : InputLanguage.English;
+                    if (noiseFilter && IsSilenceInvention(heard.text) && (overNoise < 20f || loudest < 0.03f))
+                    {
+                        Debug.Log($"Noise filter: \"{heard.text}\" from a quiet recording - made up from silence - ignored.");
+                        return ("", which);
+                    }
+                    lastHeardCode = heard.language;
+                    return (heard.text, which);
                 }
             }
             if (chosen == InputLanguage.Auto)

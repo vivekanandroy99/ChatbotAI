@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChatbotAI.Audio;
 using LLMUnity;
 using UnityEngine;
 
@@ -199,6 +200,15 @@ namespace ChatbotAI.Dialogue
                 PlayerPrefs.Save();
             }
         }
+        /// A fixed reply language beyond English/Hindi (two-letter code, menu > Language & listening > More languages); "" = use
+        /// RepliesIn. Languages other than English and Hindi are written by the online brain and spoken by the online voice.
+        public string ReplyCode
+        {
+            get => PlayerPrefs.GetString(ReplyCodeKey, "");
+            set { PlayerPrefs.SetString(ReplyCodeKey, value ?? ""); PlayerPrefs.Save(); }
+        }
+        public const string ReplyCodeKey = "companion/reply-language-code";
+
         public string SidecarUrl => sidecarUrl;
 
         public event Action<string> OnReply;
@@ -339,18 +349,55 @@ namespace ChatbotAI.Dialogue
                 userText = understood;
             }
 
+            // The language the ears heard (an online service reports it), else the text's script (Latin letters = English).
+            string heardLanguage = Languages.TakeHeard();
+            string questionLanguage = !string.IsNullOrEmpty(heardLanguage) ? heardLanguage : Languages.ScriptLanguage(userText) ?? "en";
+            Languages.ScriptPreference = questionLanguage;
+
             IsThinking = true;
             OnQuestion?.Invoke(userText);
-            bool hindi = RefusalBank.IsHindi(userText);
-            // Replies in the language asked, unless the menu fixes it (Language & listening > Replies in).
-            bool hindiReply = RepliesIn == ReplyLanguage.SameAsQuestion ? hindi : RepliesIn == ReplyLanguage.Hindi;
+            string asked = userText;
+            // Neither English nor Hindi: the online brain puts the question into English, and everything after that is the
+            // usual English pipeline. Without it the question is handled as before (and probably not understood).
+            string otherQuestion = questionLanguage != "en" && questionLanguage != "hi" && OnlineBrain.Ready ? questionLanguage : null;
+            string translatedQuestion = null;
+            if (otherQuestion != null)
+            {
+                translatedQuestion = await OnlineBrain.Translate(userText, Languages.NameOf(otherQuestion), "English");
+                if (string.IsNullOrWhiteSpace(translatedQuestion)) otherQuestion = null;
+                else
+                {
+                    Debug.Log($"Heard in {Languages.NameOf(otherQuestion)}: \"{userText}\" -> \"{translatedQuestion}\"");
+                    userText = translatedQuestion;
+                }
+            }
+            bool hindi = otherQuestion == null && (questionLanguage == "hi" || RefusalBank.IsHindi(userText));
+
+            // Replies in the language asked, unless the menu fixes it (Language & listening > Replies in / More languages).
+            string replyLanguage = !string.IsNullOrEmpty(ReplyCode) ? ReplyCode
+                : RepliesIn == ReplyLanguage.Hindi ? "hi"
+                : RepliesIn == ReplyLanguage.English ? "en"
+                : otherQuestion ?? (hindi ? "hi" : "en");
+            // A language other than English/Hindi needs the online brain to write it AND an online voice that can say it.
+            string otherReply = replyLanguage != "en" && replyLanguage != "hi" && OnlineBrain.Ready && OnlineVoice.Speaks(replyLanguage) ? replyLanguage : null;
+            if (otherReply == null && replyLanguage != "en" && replyLanguage != "hi")
+            {
+                Debug.Log($"Reply language {Languages.NameOf(replyLanguage)} needs the online brain and an online voice that speaks it - answering in English.");
+                replyLanguage = "en";
+            }
+            bool hindiReply = replyLanguage == "hi";
+            Languages.ScriptPreference = replyLanguage;
+            Languages.LatinReply = otherReply != null && Languages.IsLatin(otherReply) ? otherReply : "en";
             // What happened to this question, for the Learning page (ConversationLog).
             var record = new ConversationLog.Exchange
             {
-                avatarId = profile.avatarId, avatarName = profile.displayName, question = userText, hindi = hindi,
+                avatarId = profile.avatarId, avatarName = profile.displayName, question = asked, hindi = hindi,
+                english = translatedQuestion,
             };
-            void Finish(string text, ConversationLog.Outcome outcome)
+            async void Finish(string text, ConversationLog.Outcome outcome)
             {
+                // The English line (an answer, a refusal, small talk) in the visitor's language, a sentence at a time.
+                if (otherReply != null) text = await ToOther(text, otherReply, profile);
                 record.reply = text;
                 record.outcome = outcome.ToString();
                 ConversationLog.Add(record);
@@ -474,7 +521,7 @@ namespace ChatbotAI.Dialogue
             if (hindi)
             {
                 router.chat = routerHistory;
-                string english = (await router.Chat("HINDI: " + userText, null, null, addToHistory: false))?.Trim();
+                string english = (await OnlineBrain.Chat(router, "HINDI: " + userText))?.Trim();
                 Debug.Log($"Open chat: heard in Hindi -> \"{english}\"");
                 // Given raw Hindi, the model started its reply with "(Translating: Do you like cooking?)".
                 message = string.IsNullOrWhiteSpace(english)
@@ -505,7 +552,7 @@ namespace ChatbotAI.Dialogue
             string reply;
             try
             {
-                reply = SpokenOpenReply(await agent.Chat(prompt, null, null, addToHistory: false));
+                reply = SpokenOpenReply(await OnlineBrain.Chat(agent, prompt));
             }
             finally
             {
@@ -569,7 +616,7 @@ namespace ChatbotAI.Dialogue
         async Task<KnowledgeClient.Result> SearchWithGuess(AvatarProfile profile, string folder, string question)
         {
             searchHelper.chat = SearchHelperHistory;
-            string guess = (await searchHelper.Chat(question, null, null, addToHistory: false))?.Trim();
+            string guess = (await OnlineBrain.Chat(searchHelper, question))?.Trim();
             string text = question + "\n" + guess;
             var result = await KnowledgeClient.Retrieve(sidecarUrl, folder, text, profile.passagesPerQuestion,
                                                         profile.rerankPassages, profile.SearchText(text));
@@ -615,7 +662,7 @@ namespace ChatbotAI.Dialogue
             if (followUp) message = "PREVIOUS QUESTION: " + lastQuestion + "\n" + message;
 
             router.chat = routerHistory;
-            string routed = (await router.Chat(message, null, null, addToHistory: false))?.Trim() ?? "";
+            string routed = (await OnlineBrain.Chat(router, message))?.Trim() ?? "";
             if (routed.StartsWith("SMALLTALK:")) return (RouteKind.SmallTalk, routed.Substring(10).Trim());
             if (routed.StartsWith("ASK:") && routed.Length > 5) return (RouteKind.CustomerQuestion, WithFollowUpContext(routed.Substring(4).Trim(), followUp));
             if (routed.StartsWith("GENERAL:") && routed.Length > 9) return (RouteKind.GeneralQuestion, WithFollowUpContext(routed.Substring(8).Trim(), followUp));
@@ -635,7 +682,7 @@ namespace ChatbotAI.Dialogue
             // independent (addToHistory: false), so latency doesn't grow.
             agent.chat = ExampleHistory;
             string prompt = BuildPrompt(passages, question, hindiQuestion);
-            string reply = await agent.Chat(prompt, null, null, addToHistory: false);
+            string reply = await OnlineBrain.Chat(agent, prompt);
             return string.IsNullOrWhiteSpace(reply) ? null : WithoutDocumentNotes(reply.Trim(), passages);
         }
 
@@ -702,6 +749,24 @@ namespace ChatbotAI.Dialogue
             return string.Join(" ", parts);
         }
 
+        /// The English reply in another language (Tamil, French...) by the online brain, a sentence at a time like ToHindi so the
+        /// voice starts on the first one. A sentence that can't be translated stays English rather than being dropped.
+        async Task<string> ToOther(string english, string language, AvatarProfile profile)
+        {
+            string name = Languages.NameOf(language);
+            var sentences = SentenceEnd.Split(english.Trim()).Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            var parts = new List<string>();
+            for (int i = 0; i < sentences.Count; i++)
+            {
+                string translated = await OnlineBrain.Translate(sentences[i].Trim(), "English", name);
+                if (string.IsNullOrWhiteSpace(translated)) translated = sentences[i].Trim();
+                translated = CanonicalNames(profile, translated);
+                parts.Add(translated);
+                OnReplySentence?.Invoke(translated, i == sentences.Count - 1);
+            }
+            return string.Join(" ", parts);
+        }
+
         static readonly System.Text.RegularExpressions.Regex ScriptBoundary = new System.Text.RegularExpressions.Regex(
             @"(?<=[ऀ-ॣ०-ॿ])(?=[A-Za-z])|(?<=[A-Za-z])(?=[ऀ-ॣ०-ॿ])");
 
@@ -712,7 +777,7 @@ namespace ChatbotAI.Dialogue
             {
                 translator.chat = translatorHistory;
                 // Labelled, so a question reads as text to translate, not one to answer.
-                string hindi = await translator.Chat("ENGLISH: " + english, null, null, addToHistory: false);
+                string hindi = await OnlineBrain.Chat(translator, "ENGLISH: " + english);
                 if (!string.IsNullOrWhiteSpace(hindi) && RefusalBank.IsHindi(hindi) && !LeakedExample(hindi, english)) return hindi.Trim();
                 Debug.Log($"Translator returned no Devanagari (attempt {attempt + 1}): \"{hindi}\"");
             }

@@ -86,7 +86,7 @@ namespace ChatbotAI.Audio
         /// reply continues through Append() calls (a reply that's still being written).
         public void Speak(string text, string voice, float speed, bool moreToCome = false)
         {
-            if (processManager != null && !processManager.IsReady)
+            if (processManager != null && !processManager.IsReady && !OnlineVoice.Ready)
             {
                 const string error = "voice engine is still starting up - try again in a few seconds";
                 Debug.LogWarning($"SpeechOutputController: {error}");
@@ -157,11 +157,29 @@ namespace ChatbotAI.Audio
                 var request = current;
                 var stream = (PcmStream)request.downloadHandler;
                 string sentence = sentences[i];
+                string rateKey = stream.Online ? "online/" + voice : voice;
+                float asked = Time.realtimeSinceStartup;
                 // Start once enough audio is buffered that the rest arrives before it's needed - no gap mid-word.
                 yield return new WaitUntil(() => request.isDone ||
-                                                 (request.responseCode == 200 && ReadyToPlay(stream, sentence, voice)));
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError ||
-                    (request.isDone && stream.SampleRate == 0))
+                                                 (request.responseCode == 200 && ReadyToPlay(stream, sentence, rateKey)));
+                bool failed = request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError ||
+                              (request.isDone && stream.SampleRate == 0);
+                if (failed && stream.Online)
+                {
+                    // The online voice didn't work: this sentence is spoken by the voice on this PC.
+                    OnlineVoice.NoteFailure(request.responseCode, stream.Head, request.error);
+                    Dispose(ref current);
+                    current = Send(sentence, voice, speed, local: true);
+                    request = current;
+                    stream = (PcmStream)request.downloadHandler;
+                    rateKey = voice;
+                    yield return new WaitUntil(() => request.isDone ||
+                                                     (request.responseCode == 200 && ReadyToPlay(stream, sentence, rateKey)));
+                    failed = request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError ||
+                             (request.isDone && stream.SampleRate == 0);
+                }
+                else if (stream.Online && stream.SampleRate > 0) OnlineVoice.NoteSuccess(Time.realtimeSinceStartup - asked);
+                if (failed)
                 {
                     string error = $"TTS request failed - {request.error} (HTTP {request.responseCode})";
                     Dispose(ref current);
@@ -194,7 +212,7 @@ namespace ChatbotAI.Audio
                 audioSource.Stop();
                 PlayingStream = null;
                 OnSentenceSpoken?.Invoke(sentences[i], voice, stream.Samples(), stream.SampleRate);
-                if (stream.Complete) LearnLength(voice, sentences[i], stream.ReceivedSeconds);
+                if (stream.Complete) LearnLength(rateKey, sentences[i], stream.ReceivedSeconds);
                 if (stream.StarvedSeconds > 0.05f)
                     Debug.LogWarning($"SpeechOutputController: the voice fell behind - {stream.StarvedSeconds:0.00} s of silence mid-sentence ({stream.StarvedAt}).");
                 Dispose(ref current);
@@ -236,8 +254,13 @@ namespace ChatbotAI.Audio
             return received >= needed;
         }
 
-        UnityWebRequest Send(string text, string voice, float speed)
+        UnityWebRequest Send(string text, string voice, float speed, bool local = false)
         {
+            if (!local)
+            {
+                var online = OnlineVoice.Request(text, voice, speed);
+                if (online != null) return online;
+            }
             string json = JsonUtility.ToJson(new SpeakRequest { text = text, voice = voice, speed = speed });
             var req = new UnityWebRequest(ttsUrl + "_stream", "POST")
             {

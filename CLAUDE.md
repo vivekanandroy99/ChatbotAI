@@ -29,6 +29,11 @@ Git (2026-10-08 (e)): Git LFS for art; models/venvs/LlamaLib/indexes are gitigno
 Help (2026-10-08): HelpGuides.cs = a guide per menu page (? in the sheet header; root "Help & guides"); pictures in
 Resources/Help from tools/capture_help_shots.cs + import_help_shots.cs - re-run them when a menu page changes, and add
 or edit a guide when you add or change a page.
+Online AI (2026-10-09, memory.txt (e)): optional online brain - `OnlineBrain.Chat(role, prompt)` replaces `agent.Chat(...)` in
+DialogueController (falls back to the local LLMAgent); keys in `SecretStore`; test without a key with tools/mock_online_ai.py.
+Hearing, voice and document search stay local BY DEFAULT. Keep it that way unless asked (privacy: only question + passages + persona go out).
+Online voice + ears + many languages (2026-10-09, memory.txt (f)): OnlineVoice.cs / OnlineEars.cs / Languages.cs; each part is a separate
+menu switch with local fallback; non-English/Hindi languages = the online brain translates (DialogueController.Ask/ToOther) + an online voice speaks.
 Staff manual (2026-10-09, memory.txt (a)): docs/AltcoreBot-Staff-Manual.pdf, made by tools/manual (capture_manual_shots.cs in
 Play mode, then build_manual.py) - re-make it, and edit its text in build_manual.py, when a menu page or a bot changes.
 v4 = studio HDRI lighting (StageBackdrop draws it) + sharper shadows (project-wide URP asset) - memory.txt (l). Check `unity command editor_status` before recompiling/entering Play: the user is often in Play mode.**

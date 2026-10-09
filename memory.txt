@@ -62,6 +62,59 @@ Main folders:
 5. CHANGE LOG (newest first)
 ----------------------------
 
+2026-10-09 (f) - ONLINE VOICE + ONLINE EARS + MANY LANGUAGES (Phases 2-3; mock-tested only, no real key tried yet)
+  Menu > Advanced > AI models > "ONLINE AI · API KEYS" now has three pages: Online brain (was "Online AI"), Online voice, Online ears.
+  Each part is switched separately (This PC / Online) and falls back to the local engine when the service fails (2 failures in a row
+  -> local for 60 s). Keys in SecretStore: OpenAI/Gemini share one key across brain, voice and ears; Sarvam/ElevenLabs share one
+  between voice and ears; Groq/Other have their own.
+  VOICE (Assets/Scripts/Audio/OnlineVoice.cs): Sarvam bulbul (POST /text-to-speech, base64 WAV in JSON), OpenAI-style
+  (/v1/audio/speech, response_format pcm), ElevenLabs (/v1/text-to-speech/<voice>?output_format=pcm_24000), Gemini TTS
+  (generateContent, inlineData PCM), Other (OpenAI-style). SpeechOutputController.Send asks OnlineVoice.Request first (null = use the
+  sidecar); the SAME PcmStream plays it (new ctor: rawRate for headerless PCM, or a decoder for base64-in-JSON; .Online and .Head
+  = first 400 bytes of the reply for error messages). A failed online sentence is re-sent to the local voice. Voice id picked by the
+  bot's gender (VoiceCatalog female flag) -> online voice per provider+gender (prefs online/voice/voice/<p>/f|m); language from the
+  text's SCRIPT (Languages.OfText; Latin = Languages.LatinReply, set by the dialogue). Sarvam can only speak its 11 languages
+  (CanSpeak) - other languages fall back to the local voice. Local voice engine may be not-ready while online is Ready (Speak guard).
+  EARS (OnlineEars.cs): Groq whisper-large-v3-turbo (free tier), Sarvam saaras (/speech-to-text), OpenAI, ElevenLabs scribe,
+  Gemini (audio in generateContent, asked for JSON {language,text}), Other. SpeechInputController.TranscribeAsync: after the local
+  noise filter, if OnlineEars.Ready the WAV goes online and the reported language code is handed to the dialogue through
+  Languages.HeardLanguage (consumed by DialogueController.Ask). Failure -> Whisper on this PC.
+  MANY LANGUAGES: Languages.cs = catalog (44: 12 Indian + English + 30 world; add a line to add a language). DialogueController.Ask:
+  a question that is neither English nor Hindi (heard language, else script) is translated to English by OnlineBrain.Translate and
+  then runs the unchanged English pipeline; replies in another language are translated sentence by sentence (ToOther, streams
+  through OnReplySentence like ToHindi) and need OnlineBrain.Ready AND OnlineVoice.Speaks(lang), else the reply stays English.
+  Menu: Visitors > Language > More languages (what visitors speak = OnlineEars.ListenCode; bot answers in = DialogueController.ReplyCode,
+  prefs companion/listen-language-code, companion/reply-language-code). English and Hindi stay fully offline.
+  Also fixed: OnlineBrain.Server() / the voice+ears versions treat an empty saved address as the official one (the old test left
+  empty server prefs in the Editor, which would have broken the brain page); stale "mock-model" prefs removed.
+  Tests (all pass against the mock; tools/mock_online_ai.py now also fakes the voice + ears endpoints): tools/test_online_voice.cs
+  (5 providers), test_online_voice_e2e.cs (Play mode: online sentence, then fallback after the mock stops, then the 60 s pause),
+  test_online_ears.cs (6 providers + language helpers), test_online_languages_e2e.cs (Tamil question, French reply, Play mode).
+  NOT verified: real services (model names/ids drift - Gemini TTS now documents a newer "interactions" endpoint; I used generateContent;
+  Sarvam sends both language_code and target_language_code), Sarvam voice genders (unlabelled; defaults priya/shubh are guesses),
+  Latin-script languages typed by hand (only the online ears or the reply-language setting can tell French from English).
+  The staff manual (docs/AltcoreBot-Staff-Manual.pdf) does NOT yet describe the voice/ears/More-languages pages - re-make it.
+
+2026-10-09 (e) - ONLINE AI is real: the brain can use OpenAI / Claude / Gemini / any OpenAI-style server (Phase 1 = brain only)
+  Menu > Advanced > AI models > Online models & API keys (was a non-working preview). Per the plan in memory (mac-version-plan):
+  hearing (Whisper), the voice (Kokoro/Veena), document search + topic gate stay LOCAL; only the five brain calls go online:
+  DialogueController's router / answer agent / search helper / translator now call OnlineBrain.Chat(role, prompt), which sends the
+  role's systemPrompt + its few-shot history + the prompt to the service, or - when Online is off, not set up, failing, or the
+  service paused (2 failures in a row -> 60 s) - runs the local LLMAgent exactly as before. The local model is still loaded.
+  Code: Assets/Scripts/Dialogue/OnlineBrain.cs (3 wire formats via UnityWebRequest + Newtonsoft; Claude default model
+  claude-haiku-5-5, the others chosen from "Choose from the service's list" = GET /models; retries once without `temperature` /
+  with the other max-tokens name when a model refuses them; Test() and ListModels() for the page); Assets/Scripts/SecretStore.cs
+  (API keys: Windows Credential Manager / Mac Keychain / scrambled PlayerPrefs fallback - never in scene, builds, exported bots or
+  default-settings.json; DefaultSettings only carries whitelisted keys, "online/*" isn't one); CompanionMenu.BuildOnlineAi (+RunOnline);
+  Help guide "online"; manual page + troubleshooting row. PlayerPrefs: online/brain, online/provider, online/model/<p>, online/server/<p>.
+  Tests WITHOUT a key: tools/mock_online_ai.py (fake OpenAI/Claude/Gemini on 127.0.0.1:8890; MODE=reject_temperature|bad_key|slow),
+  tools/test_online_brain.cs (all 3 services: test, model list, ask; request shapes/headers checked in the mock's log),
+  test_online_brain_failures.cs, test_online_brain_down.cs, test_online_brain_e2e.cs (Play mode: Iris answered with the mock's text,
+  then with the mock stopped by the local model). NOT tested against the real services (no key yet) - the first real try may need a
+  small fix (model names / a refused field): read the page's Test message and Player.log ("OnlineBrain:").
+  The staff manual was re-made with the Online AI page (full recapture 2026-10-09; white cover kept). Online settings never travel in a build\n  (DefaultSettings carries only whitelisted prefixes) - each kiosk needs its key typed in once.\n  Not built (later phases): online speech recognition, online voices (Sarvam Bulbul / ElevenLabs...), "don't load the local brain when
+  online" (saves GPU memory - needed for a Mac that is online-only), streaming replies, per-bot online settings.
+
 2026-10-09 (d) - Staff manual: white cover page (was full black - hard to print)
   Only page 1 changed (owner: "others are fine"): the cover is now white with an orange top stripe; docs/AltcoreBot-Staff-Manual.pdf
   has the new page swapped in (pypdf) - the other 49 pages, bookmarks and contents links are as before. manual_lib.py's cover CSS is

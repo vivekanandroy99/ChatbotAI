@@ -158,3 +158,8 @@ __pycache__/
 /tools/manual/shots/
 /tools/manual/out/
 __pycache__/
+
+# Output of the online-AI test scripts (tools/test_online_brain*.cs, tools/mock_online_ai.py)
+/tools/mock_online_ai.log
+/tools/online_test*.txt
+/tools/mock_stopped.flag

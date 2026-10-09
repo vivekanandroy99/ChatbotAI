@@ -896,8 +896,66 @@ namespace ChatbotAI.UI
                 }, note: "Auto tells English and Hindi apart by itself. Pick one if people only speak that language - it's never confused then.");
             SegmentRow(listen, "Replies in", new[] { "Same as asked", "English", "Hindi" }, (int)dialogue.RepliesIn, i =>
                 dialogue.RepliesIn = (DialogueController.ReplyLanguage)i,
-                note: "Same as asked: a Hindi question gets a Hindi answer. More languages are planned.");
-            Footnote("For every bot. The background noise filter and the listening fine-tuning are in Advanced > Listening.");
+                note: "Same as asked: a Hindi question gets a Hindi answer.");
+            string extra = MoreLanguagesSummary();
+            NavRow(listen, "More languages", extra, () => Push(MoreLanguagesPage, BuildMoreLanguages));
+            Footnote("For every bot. English and Hindi work fully offline. Every other language, Indian or international, needs the Online AI " +
+                     "parts (Advanced > AI models). The background noise filter and the listening fine-tuning are in Advanced > Listening.");
+        }
+
+        // ---------------- Visitors: language - more languages (online) ----------------
+
+        const string MoreLanguagesPage = "More languages";
+
+        string MoreLanguagesSummary()
+        {
+            string listens = OnlineEars.ListenCode, replies = dialogue.ReplyCode;
+            if (listens.Length == 0 && replies.Length == 0) return "Not set";
+            string Name(string c) => c.Length == 0 ? "auto" : Languages.NameOf(c);
+            return $"Hears {Name(listens)} · Replies {(replies.Length == 0 ? "as set" : Languages.NameOf(replies))}";
+        }
+
+        void BuildMoreLanguages()
+        {
+            string Ok(bool v) => v ? "✓" : "✗";
+            Footnote("English and Hindi work offline. Any other language needs: the online ears (to hear it), the online brain (to understand and answer in it) " +
+                     "and an online voice that can speak it.  " +
+                     $"Now:  {Ok(OnlineEars.Ready)} ears   {Ok(OnlineBrain.Ready)} brain   {Ok(OnlineVoice.Ready)} voice" +
+                     (OnlineVoice.Ready && OnlineVoice.Current == OnlineVoice.Provider.Sarvam ? "  (Sarvam speaks Indian languages and English only; use OpenAI, ElevenLabs or Gemini for the others)" : "") + ".");
+
+            var hears = Section("WHAT VISITORS SPEAK (ONLINE EARS)");
+            string current = OnlineEars.ListenCode;
+            ChoiceRow(hears, "Any language", "The service works it out by itself - best for mixed crowds.", current.Length == 0, () => PickListen(""));
+            foreach (var l in Languages.All)
+            {
+                var lang = l;
+                ChoiceRow(hears, lang.name, lang.native == lang.name ? null : lang.native, current == lang.code, () => PickListen(lang.code));
+            }
+
+            var replies = Section("THE BOT ANSWERS IN");
+            string reply = dialogue.ReplyCode;
+            ChoiceRow(replies, "As set on the Language page", "Same as asked / English / Hindi.", reply.Length == 0, () => { dialogue.ReplyCode = ""; Render(); });
+            foreach (var l in Languages.All)
+            {
+                var lang = l;
+                bool offline = lang.code == "en" || lang.code == "hi";
+                string note = lang.native == lang.name ? null : lang.native;
+                if (!offline && !(OnlineBrain.Ready && OnlineVoice.Speaks(lang.code))) note = (note == null ? "" : note + " · ") + "needs online brain + voice";
+                ChoiceRow(replies, lang.name, note, reply == lang.code, () => { dialogue.ReplyCode = lang.code; Render(); });
+            }
+            Footnote("Add a language to the list by adding one line to Languages.cs - the services do the rest.");
+        }
+
+        void PickListen(string code)
+        {
+            OnlineEars.ListenCode = code;
+            if (input)
+            {
+                input.SetLanguage(SpeechInputController.InputLanguage.Auto);
+                PlayerPrefs.SetInt(CompanionUI.ListenLanguageKey, (int)SpeechInputController.InputLanguage.Auto);
+                PlayerPrefs.Save();
+            }
+            Render();
         }
 
         // ---------------- Visitors: report ----------------
@@ -1299,8 +1357,11 @@ namespace ChatbotAI.UI
                 Footnote("Kokoro .onnx files, and Veena .gguf files (name containing \"veena\"). Other kinds of voice model need support in the voice server first.");
             }
 
-            var online = Section("ONLINE AI");
-            NavRow(online, "Online models & API keys", "Preview", () => Push("Online AI", BuildOnlineAi));
+            var online = Section("ONLINE AI · API KEYS");
+            NavRow(online, "Brain · writes the answers", OnlineBrain.Enabled ? (OnlineBrain.Ready ? "On" : "Not ready") : "Off", () => { onlineStatus = null; onlineModels = null; Push(OnlinePage, BuildOnlineAi); });
+            NavRow(online, "Voice · speaks the answers", OnlineVoice.Enabled ? (OnlineVoice.Ready ? "On" : "Not ready") : "Off", () => { onlineStatus = null; voiceList = null; Push(OnlineVoicePage, BuildOnlineVoice); });
+            NavRow(online, "Ears · listens to visitors", OnlineEars.Enabled ? (OnlineEars.Ready ? "On" : "Not ready") : "Off", () => { onlineStatus = null; Push(OnlineEarsPage, BuildOnlineEars); });
+            Footnote("Each part can run on this PC (private, free) or on an online service (stronger, more languages, costs a little per use). They are independent: mix as you like.");
 
             Footnote("Changes here are used from the next time the app starts. To add or delete model files, use Unity's " +
                      "Inspector (LLM Model Selector, Speech Input, TTS Process Manager).");
@@ -1359,42 +1420,402 @@ namespace ChatbotAI.UI
             });
         }
 
-        // ---------------- Advanced: online AI (a preview - not connected yet) ----------------
+        // ---------------- Advanced: online AI (the brain through an online service - OnlineBrain) ----------------
 
-        static readonly string[] BrainProviders = { "OpenAI", "Anthropic Claude", "Google Gemini" };
-        static readonly string[] EarsProviders = { "OpenAI", "Deepgram", "Sarvam AI" };
-        static readonly string[] VoiceProviders = { "ElevenLabs", "Sarvam AI", "OpenAI" };
+        const string OnlinePage = "Online brain", OnlineVoicePage = "Online voice", OnlineEarsPage = "Online ears";
+        string onlineStatus;            // the last Test / model list result, shown on the page
+        List<string> onlineModels;      // the models this account can use, once asked for
+        bool onlineBusy;
 
-        // The planned hybrid mode: each part offline or online, with its provider and API key. A design preview -
-        // nothing here is saved or sent anywhere, and the app keeps running fully offline.
+        bool OnOnlinePage => pages.Count > 0 && (pages.Peek().Item1 == OnlinePage || pages.Peek().Item1 == OnlineVoicePage ||
+                                                                   pages.Peek().Item1 == OnlineEarsPage);
+
         void BuildOnlineAi()
         {
-            var banner = Section(null);
-            var note = Row(banner, stack: true);
-            note.Add(new Label("Preview - not working yet").WithClass("row__title", "row__title--warning"));
-            note.Add(new Label("This is how online AI will be set up. Nothing here is saved or connected; every part of the app " +
-                               "still runs offline on this computer.").WithClass("row__subtitle", "row__note"));
+            var p = OnlineBrain.Current;
+            string who = OnlineBrain.ProviderNames[(int)p];
 
-            void Part(string caption, string what, string[] providers)
+            var mode = Section("THE BRAIN");
+            SegmentRow(mode, "Answers", new[] { "On this PC", "Online" }, OnlineBrain.Enabled ? 1 : 0, i =>
             {
-                var group = Section(caption);
-                SegmentRow(group, what, new[] { "Offline", "Online" }, 0, _ => { });
-                SegmentRow(group, "Provider", providers, 0, _ => { });
-                var keyRow = Row(group, stack: true);
-                keyRow.Add(new Label("API key").WithClass("row__title"));
-                var key = new TextField { isPasswordField = true, maskChar = '•' }.WithClass("text-line");
-                key.textEdition.placeholder = "Paste the key from the provider's website";
-                keyRow.Add(key);
+                OnlineBrain.Enabled = i == 1;
+                Render();
+            }, note: "Online: a stronger model writes the answers, and Hindi and other languages read better. Needs internet and an API key; each question costs a little.");
+            string ready = !OnlineBrain.Enabled ? "Answers come from the model on this PC."
+                : OnlineBrain.Ready ? $"Online answers are on ({who}). If it can't be reached, this PC's model answers instead."
+                : !OnlineBrain.HasKey(p) ? "Online is on but there is no API key yet - this PC's model answers until you add one."
+                : OnlineBrain.Model(p).Length == 0 ? "Online is on but no model is chosen yet - this PC's model answers until you pick one."
+                : "The online service didn't answer a moment ago - this PC's model is answering, and it tries again within a minute.";
+            Footnote(ready);
+
+            var service = Section("SERVICE");
+            SegmentRow(service, "Service", OnlineBrain.ProviderNames, (int)p, i =>
+            {
+                OnlineBrain.Current = (OnlineBrain.Provider)i;
+                onlineStatus = null;
+                onlineModels = null;
+                Render();
+            }, note: p == OnlineBrain.Provider.Other ? "Any server that speaks the OpenAI way (Groq, OpenRouter, a company server...)." : null);
+            if (p == OnlineBrain.Provider.Other)
+            {
+                var serverRow = Row(service, stack: true);
+                serverRow.Add(new Label("Server address").WithClass("row__title"));
+                var address = new TextField { value = OnlineBrain.Server(p) }.WithClass("text-line");
+                address.textEdition.placeholder = "https://api.example.com";
+                address.RegisterValueChangedCallback(e => OnlineBrain.SetServer(p, e.newValue));
+                serverRow.Add(address);
+                InputTools(serverRow, address, speak: false);
             }
-            Part("BRAIN", "Answers", BrainProviders);
-            Footnote("Online: smarter, longer answers and better Hindi; needs internet, costs per question, and questions leave this computer.");
-            Part("EARS", "Speech recognition", EarsProviders);
-            Footnote("Online: better with accents and noisy rooms; the recording is sent to the provider.");
-            Part("VOICE", "Speaking voice", VoiceProviders);
-            Footnote("Online: very natural voices (Sarvam's Bulbul has Indian voices); reply text is sent to the provider.");
-            var fallback = Section(null);
-            SwitchRow(fallback, "Fall back to offline when there's no internet", true, _ => { },
-                      note: "Planned: if a provider is unreachable, that part switches to its offline model for the moment.");
+
+            var modelGroup = Section("MODEL");
+            var modelRow = Row(modelGroup, stack: true);
+            modelRow.Add(new Label("Model name").WithClass("row__title"));
+            var model = new TextField { value = OnlineBrain.Model(p) }.WithClass("text-line");
+            model.textEdition.placeholder = p == OnlineBrain.Provider.Claude ? "e.g. claude-haiku-5-5" : "Pick from the list below";
+            model.RegisterValueChangedCallback(e => OnlineBrain.SetModel(p, e.newValue));
+            modelRow.Add(model);
+            InputTools(modelRow, model, speak: false);
+            ButtonRow(modelGroup, onlineBusy ? "Asking the service…" : "Choose from the service's list", destructive: false, () =>
+            {
+                if (onlineBusy) return;
+                RunOnline(async () =>
+                {
+                    var (models, error) = await OnlineBrain.ListModels();
+                    onlineModels = models;
+                    onlineStatus = error;
+                });
+            });
+            Footnote("A small, fast model is plenty: the bot's answers are short and come from your documents.");
+            if (onlineModels != null && onlineModels.Count > 0)
+            {
+                var list = Section("MODELS THIS KEY CAN USE");
+                string current = OnlineBrain.Model(p);
+                foreach (string m in onlineModels)
+                {
+                    string name = m;
+                    ChoiceRow(list, name, null, name == current, () => { OnlineBrain.SetModel(p, name); Render(); });
+                }
+            }
+
+            var keyGroup = Section("API KEY");
+            var keyState = Row(keyGroup);
+            Texts(keyState, OnlineBrain.HasKey(p) ? $"A {who} key is saved on this PC" : $"No {who} key yet",
+                  OnlineBrain.HasKey(p) ? (Platform.IsMac ? "Kept in the Mac's Keychain, not in the app's files." : "Kept in Windows' secure store, not in the app's files.") : "Make one on the service's website (its API or developer page).");
+            var keyRow = Row(keyGroup, stack: true);
+            var key = new TextField { isPasswordField = true, maskChar = '•' }.WithClass("text-line");
+            key.textEdition.placeholder = "Paste the key here";
+            keyRow.Add(key);
+            InputTools(keyRow, key, speak: false);
+            var bar = keyRow.Q(className: "input-tools");
+            if (bar != null)
+            {
+                var (paste, _, _) = Pill(bar, Glyph.Kind.None, "Paste");
+                paste.RegisterCallback<ClickEvent>(_ => key.value = (GUIUtility.systemCopyBuffer ?? "").Trim());
+            }
+            ButtonRow(keyGroup, "Save the key", destructive: false, () =>
+            {
+                string value = key.value?.Trim();
+                if (string.IsNullOrEmpty(value)) { onlineStatus = "Type or paste the key first."; Render(); return; }
+                OnlineBrain.SetKey(p, value);
+                key.value = "";
+                onlineStatus = "Key saved. Tap Test the connection.";
+                Render();
+            });
+            if (OnlineBrain.HasKey(p))
+                ButtonRow(keyGroup, "Remove the key", destructive: true, () =>
+                {
+                    OnlineBrain.RemoveKey(p);
+                    onlineStatus = null;
+                    onlineModels = null;
+                    Render();
+                });
+            Footnote("The key is like a password for your account's billing: keep it private. It is never copied into exported bots, builds or settings files.");
+
+            var test = Section("TEST");
+            ButtonRow(test, onlineBusy ? "Testing…" : "Test the connection", destructive: false, () =>
+            {
+                if (onlineBusy) return;
+                RunOnline(async () =>
+                {
+                    var (ok, message) = await OnlineBrain.Test();
+                    onlineStatus = (ok ? "✓ " : "✗ ") + message;
+                });
+            });
+            if (!string.IsNullOrEmpty(onlineStatus) || !string.IsNullOrEmpty(OnlineBrain.Status))
+                Row(test, stack: true).Add(new Label(onlineStatus ?? OnlineBrain.Status).WithClass("row__subtitle", "row__note"));
+
+            Footnote("What goes online: the visitor's question, the matching pieces of the bot's documents and the bot's personality text. " +
+                     "Hearing, the voice, the document search and the topic checks stay on this PC. Costs are charged by the service to your account (usually a fraction of a cent per answer).");
+        }
+
+        // Runs an online call without freezing the menu; the page is redrawn when it's done (if still showing).
+        async void RunOnline(Func<System.Threading.Tasks.Task> work)
+        {
+            onlineBusy = true;
+            Render();
+            try { await work(); }
+            catch (Exception e) { onlineStatus = "✗ " + e.Message; }
+            onlineBusy = false;
+            if (OnOnlinePage) Render();
+        }
+
+        // ---------------- Advanced: online voice (OnlineVoice) ----------------
+
+        List<(string name, string id)> voiceList;   // ElevenLabs voices on the account, once asked for
+        string voiceListOpen;                       // "f" / "m": which voice's list of choices is showing
+
+        void BuildOnlineVoice()
+        {
+            var p = OnlineVoice.Current;
+            string who = OnlineVoice.ProviderNames[(int)p];
+
+            var mode = Section("THE VOICE");
+            SegmentRow(mode, "Speaks", new[] { "On this PC", "Online" }, OnlineVoice.Enabled ? 1 : 0, i =>
+            {
+                OnlineVoice.Enabled = i == 1;
+                Render();
+            }, note: "Online: natural voices in many languages, and nothing heavy to run on this computer. Needs internet and an API key; each reply costs a little.");
+            Footnote(!OnlineVoice.Enabled ? "Replies are spoken by the voices on this PC."
+                : OnlineVoice.Ready ? $"Replies are spoken by {who}. If it can't be reached, the voice on this PC speaks that sentence."
+                : !OnlineVoice.HasKey(p) ? "Online is on but there is no API key yet - the voices on this PC speak until you add one."
+                : "The online voice didn't work a moment ago - the voice on this PC is speaking, and it tries again within a minute.");
+
+            var service = Section("SERVICE");
+            SegmentRow(service, "Service", OnlineVoice.ProviderNames, (int)p, i =>
+            {
+                OnlineVoice.Current = (OnlineVoice.Provider)i;
+                onlineStatus = null;
+                voiceList = null;
+                voiceListOpen = null;
+                Render();
+            }, note: p switch
+            {
+                OnlineVoice.Provider.Sarvam => "Made in India: Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia and Indian English.",
+                OnlineVoice.Provider.OpenAI => "Natural voices in dozens of languages, picked from the text itself.",
+                OnlineVoice.Provider.ElevenLabs => "The most lifelike voices; about 30 languages with the fast model.",
+                OnlineVoice.Provider.Gemini => "Google's voices: over 100 languages, picked from the text itself. Can share the brain's Gemini key.",
+                _ => "Any server that speaks the OpenAI way for voices (a company or self-hosted server).",
+            });
+            if (p == OnlineVoice.Provider.Other)
+            {
+                var serverRow = Row(service, stack: true);
+                serverRow.Add(new Label("Server address").WithClass("row__title"));
+                var address = new TextField { value = OnlineVoice.Server(p) }.WithClass("text-line");
+                address.textEdition.placeholder = "https://api.example.com";
+                address.RegisterValueChangedCallback(e => OnlineVoice.SetServer(p, e.newValue));
+                serverRow.Add(address);
+                InputTools(serverRow, address, speak: false);
+            }
+
+            var modelGroup = Section("MODEL");
+            var modelRow = Row(modelGroup, stack: true);
+            modelRow.Add(new Label("Model name").WithClass("row__title"));
+            var model = new TextField { value = OnlineVoice.Model(p) }.WithClass("text-line");
+            model.RegisterValueChangedCallback(e => { OnlineVoice.SetModel(p, e.newValue); });
+            modelRow.Add(model);
+            InputTools(modelRow, model, speak: false);
+            Footnote(p == OnlineVoice.Provider.Sarvam ? "bulbul:v3 is the newest; bulbul:v2 has fewer voices."
+                   : "The pre-filled name is the usual one. Services rename their models now and then - the service's website lists the current ones.");
+
+            foreach (bool female in new[] { true, false })
+            {
+                string tag = female ? "f" : "m";
+                var group = Section(female ? "VOICE FOR FEMALE BOTS (MAYA, PEARL, IRIS)" : "VOICE FOR MALE BOTS (ETHAN, PETER, LEO)");
+                var row = Row(group, stack: true);
+                row.Add(new Label(p == OnlineVoice.Provider.ElevenLabs || p == OnlineVoice.Provider.Other ? "Voice name or id" : "Voice").WithClass("row__title"));
+                var field = new TextField { value = OnlineVoice.Voice(p, female) }.WithClass("text-line");
+                field.RegisterValueChangedCallback(e => OnlineVoice.SetVoice(p, female, e.newValue));
+                row.Add(field);
+                InputTools(row, field, speak: false);
+
+                var choices = OnlineVoice.VoiceChoices(p);
+                bool listable = choices.Length > 0 || (p == OnlineVoice.Provider.ElevenLabs && voiceList != null);
+                bool open = voiceListOpen == tag;
+                if (choices.Length > 0 || p == OnlineVoice.Provider.ElevenLabs)
+                    ButtonRow(group, open ? "Hide the list" : p == OnlineVoice.Provider.ElevenLabs && voiceList == null ? "Choose from my account's voices" : "Choose from the list", destructive: false, () =>
+                    {
+                        if (onlineBusy) return;
+                        if (p == OnlineVoice.Provider.ElevenLabs && voiceList == null)
+                        {
+                            RunOnline(async () =>
+                            {
+                                var (voices, error) = await OnlineVoice.ListElevenLabsVoices();
+                                voiceList = voices;
+                                voiceListOpen = voices.Count > 0 ? tag : null;
+                                onlineStatus = error;
+                            });
+                            return;
+                        }
+                        voiceListOpen = open ? null : tag;
+                        Render();
+                    });
+                if (open && listable)
+                {
+                    var list = Section(null);
+                    string current = OnlineVoice.Voice(p, female);
+                    if (p == OnlineVoice.Provider.ElevenLabs)
+                        foreach (var (name, id) in voiceList)
+                        {
+                            string chosen = id;
+                            ChoiceRow(list, name, null, chosen == current, () => { OnlineVoice.SetVoice(p, female, chosen); Render(); });
+                        }
+                    else
+                        foreach (string c in choices)
+                        {
+                            string chosen = c;
+                            ChoiceRow(list, chosen, null, chosen == current, () => { OnlineVoice.SetVoice(p, female, chosen); Render(); });
+                        }
+                }
+                foreach (string code in new[] { "en", "hi" })
+                {
+                    string lang = code;
+                    ButtonRow(group, $"Hear it in {Languages.NameOf(lang)}", destructive: false, () => HearOnline(female, lang));
+                }
+            }
+            Footnote("The voice is picked by the bot's gender; the language is picked from the text of each reply. " +
+                     (p == OnlineVoice.Provider.Sarvam ? "Sarvam's voices are not labelled male or female - listen and choose. " : "") +
+                     "\"Hear it\" speaks a sample line through the service (turn \"Speaks: Online\" on first).");
+
+            OnlineKeyGroup(who, OnlineVoice.HasKey(p), v => OnlineVoice.SetKey(p, v), () => OnlineVoice.RemoveKey(p),
+                           p == OnlineVoice.Provider.OpenAI || p == OnlineVoice.Provider.Gemini ? $"The {who} key is shared with the online brain." : null);
+
+            var test = Section("TEST");
+            ButtonRow(test, onlineBusy ? "Testing…" : "Test the connection", destructive: false, () =>
+            {
+                if (onlineBusy) return;
+                RunOnline(async () =>
+                {
+                    var (ok, message) = await OnlineVoice.Test();
+                    onlineStatus = (ok ? "✓ " : "✗ ") + message;
+                });
+            });
+            if (!string.IsNullOrEmpty(onlineStatus) || !string.IsNullOrEmpty(OnlineVoice.Status))
+                Row(test, stack: true).Add(new Label(onlineStatus ?? OnlineVoice.Status).WithClass("row__subtitle", "row__note"));
+
+            Footnote("What goes online: only the text of each sentence to be spoken - not the question, not the documents. " +
+                     "Hearing and the brain are separate settings.");
+        }
+
+        // ---------------- Advanced: online ears (OnlineEars) ----------------
+
+        void BuildOnlineEars()
+        {
+            var p = OnlineEars.Current;
+            string who = OnlineEars.ProviderNames[(int)p];
+
+            var mode = Section("THE EARS");
+            SegmentRow(mode, "Listens with", new[] { "This PC", "Online" }, OnlineEars.Enabled ? 1 : 0, i =>
+            {
+                OnlineEars.Enabled = i == 1;
+                Render();
+            }, note: "Online: hears many more languages and accents. The recording of what a visitor says is sent to the service - tell visitors if that matters in your place.");
+            Footnote(!OnlineEars.Enabled ? "What visitors say is understood on this PC and never leaves it."
+                : OnlineEars.Ready ? $"Visitors' speech is understood by {who}. If it can't be reached, this PC listens to that question instead."
+                : !OnlineEars.HasKey(p) ? "Online is on but there is no API key yet - this PC listens until you add one."
+                : "The online service didn't work a moment ago - this PC is listening, and it tries again within a minute.");
+
+            var service = Section("SERVICE");
+            SegmentRow(service, "Service", OnlineEars.ProviderNames, (int)p, i =>
+            {
+                OnlineEars.Current = (OnlineEars.Provider)i;
+                onlineStatus = null;
+                Render();
+            }, note: p switch
+            {
+                OnlineEars.Provider.Groq => "Whisper on Groq's servers: very fast, about 100 languages, and it has a free tier.",
+                OnlineEars.Provider.Sarvam => "Made in India: 22 Indian languages and English, with their accents and mixed Hindi-English speech.",
+                OnlineEars.Provider.OpenAI => "OpenAI's speech models: about 100 languages.",
+                OnlineEars.Provider.ElevenLabs => "ElevenLabs Scribe: about 100 languages.",
+                OnlineEars.Provider.Gemini => "Google's Gemini listens to the recording: over 100 languages. Can share the brain's Gemini key.",
+                _ => "Any server that speaks the OpenAI way for transcription (a company or self-hosted server).",
+            });
+            if (p == OnlineEars.Provider.Other)
+            {
+                var serverRow = Row(service, stack: true);
+                serverRow.Add(new Label("Server address").WithClass("row__title"));
+                var address = new TextField { value = OnlineEars.Server(p) }.WithClass("text-line");
+                address.textEdition.placeholder = "https://api.example.com";
+                address.RegisterValueChangedCallback(e => OnlineEars.SetServer(p, e.newValue));
+                serverRow.Add(address);
+                InputTools(serverRow, address, speak: false);
+            }
+
+            var modelGroup = Section("MODEL");
+            var modelRow = Row(modelGroup, stack: true);
+            modelRow.Add(new Label("Model name").WithClass("row__title"));
+            var model = new TextField { value = OnlineEars.Model(p) }.WithClass("text-line");
+            model.RegisterValueChangedCallback(e => OnlineEars.SetModel(p, e.newValue));
+            modelRow.Add(model);
+            InputTools(modelRow, model, speak: false);
+            Footnote("The pre-filled name is the usual one. Services rename their models now and then - the service's website lists the current ones.");
+
+            OnlineKeyGroup(who, OnlineEars.HasKey(p), v => OnlineEars.SetKey(p, v), () => OnlineEars.RemoveKey(p),
+                           p == OnlineEars.Provider.OpenAI || p == OnlineEars.Provider.Gemini ? $"The {who} key is shared with the online brain."
+                           : p == OnlineEars.Provider.Sarvam || p == OnlineEars.Provider.ElevenLabs ? $"The {who} key is shared with the online voice." : null);
+
+            var test = Section("TEST");
+            ButtonRow(test, onlineBusy ? "Testing…" : "Test the connection", destructive: false, () =>
+            {
+                if (onlineBusy) return;
+                RunOnline(async () =>
+                {
+                    var (ok, message) = await OnlineEars.Test();
+                    onlineStatus = (ok ? "✓ " : "✗ ") + message;
+                });
+            });
+            if (!string.IsNullOrEmpty(onlineStatus) || !string.IsNullOrEmpty(OnlineEars.Status))
+                Row(test, stack: true).Add(new Label(onlineStatus ?? OnlineEars.Status).WithClass("row__subtitle", "row__note"));
+
+            Footnote("What goes online: the recording of each question, after this PC's noise filter has found a voice in it - not the silence between visitors. " +
+                     "The language to listen for is on the Language page (Visitors > Language > More languages).");
+        }
+
+        // Speaks a sample line with the online voice of that gender, in that language.
+        void HearOnline(bool female, string language)
+        {
+            if (!output) return;
+            if (!OnlineVoice.Ready) { onlineStatus = "Turn \"Speaks: Online\" on and save a key first."; Render(); return; }
+            if (!OnlineVoice.CanSpeak(OnlineVoice.Current, language)) { onlineStatus = $"{OnlineVoice.ProviderNames[(int)OnlineVoice.Current]} can't speak {Languages.NameOf(language)}."; Render(); return; }
+            output.Stop();
+            string line = language == "hi" ? VoiceCatalog.PreviewLines[VoiceCatalog.Language.Hindi] : VoiceCatalog.PreviewLines[VoiceCatalog.Language.English];
+            output.Speak(line, female ? "af_heart" : "am_michael", Profile != null ? Profile.speechSpeed : 1f);
+        }
+
+        // The "API KEY" group shared by the online pages: state, paste box, Save, Remove.
+        void OnlineKeyGroup(string who, bool hasKey, Action<string> save, Action remove, string note)
+        {
+            var keyGroup = Section("API KEY");
+            var keyState = Row(keyGroup);
+            Texts(keyState, hasKey ? $"A {who} key is saved on this PC" : $"No {who} key yet",
+                  hasKey ? (Platform.IsMac ? "Kept in the Mac's Keychain, not in the app's files." : "Kept in Windows' secure store, not in the app's files.") : "Make one on the service's website (its API or developer page).");
+            var keyRow = Row(keyGroup, stack: true);
+            var key = new TextField { isPasswordField = true, maskChar = '•' }.WithClass("text-line");
+            key.textEdition.placeholder = "Paste the key here";
+            keyRow.Add(key);
+            InputTools(keyRow, key, speak: false);
+            var bar = keyRow.Q(className: "input-tools");
+            if (bar != null)
+            {
+                var (paste, _, _) = Pill(bar, Glyph.Kind.None, "Paste");
+                paste.RegisterCallback<ClickEvent>(_ => key.value = (GUIUtility.systemCopyBuffer ?? "").Trim());
+            }
+            ButtonRow(keyGroup, "Save the key", destructive: false, () =>
+            {
+                string value = key.value?.Trim();
+                if (string.IsNullOrEmpty(value)) { onlineStatus = "Type or paste the key first."; Render(); return; }
+                save(value);
+                key.value = "";
+                onlineStatus = "Key saved. Tap Test the connection.";
+                Render();
+            });
+            if (hasKey)
+                ButtonRow(keyGroup, "Remove the key", destructive: true, () =>
+                {
+                    remove();
+                    onlineStatus = null;
+                    Render();
+                });
+            Footnote((note != null ? note + " " : "") + "The key is like a password for your account's billing: keep it private. It is never copied into exported bots, builds or settings files.");
         }
 
         static string Picked(string key, string fallback)
@@ -2109,7 +2530,7 @@ namespace ChatbotAI.UI
             ("THE BOT ON SCREEN", new[] { "newbot", "look", "personality", "conversation", "documents", "camera", "backdrop", "lighting", "manage" }),
             ("VISITORS", new[] { "listening", "learning", "report" }),
             ("THIS PC", new[] { "microphone", "speaker", "screen", "display" }),
-            ("ADVANCED", new[] { "models", "staff", "tuning" }),
+            ("ADVANCED", new[] { "models", "online", "staff", "tuning" }),
         };
 
         void BuildGuideList()
