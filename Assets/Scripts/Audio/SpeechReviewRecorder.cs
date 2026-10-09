@@ -12,8 +12,8 @@ namespace ChatbotAI.Audio
     public class SpeechReviewRecorder : MonoBehaviour
     {
         [SerializeField] SpeechOutputController speechOutput;
-        [Tunable("Voice & sound", "Save spoken sentences for review", note = "Each sentence as a WAV in SpeechReview/ - lets a developer or AI check the voice.")]
-        [SerializeField] bool record = true;
+        [Tunable("Voice & sound", "Save spoken sentences for review", note = "Each sentence as a WAV in SpeechReview/ - lets a developer or AI check the voice. Off by default: the folder grows with every answer.")]
+        [SerializeField] bool record = false;
         [Tooltip("Press in Play mode to flag the last reply as sounding wrong.")]
         [SerializeField] Key flagKey = Key.F8;
 

@@ -62,6 +62,44 @@ Main folders:
 5. CHANGE LOG (newest first)
 ----------------------------
 
+2026-10-09 (d) - Staff manual: white cover page (was full black - hard to print)
+  Only page 1 changed (owner: "others are fine"): the cover is now white with an orange top stripe; docs/AltcoreBot-Staff-Manual.pdf
+  has the new page swapped in (pypdf) - the other 49 pages, bookmarks and contents links are as before. manual_lib.py's cover CSS is
+  light too, so the next full build_manual.py run makes the same cover. Screenshots inside are still the app's dark appearance;
+  capture_manual_shots.cs can take them in Light if shots/_light.txt exists (not used - owner said keep the others).
+  Mishap + fix: a capture started for the light pictures was stopped half way and left the app on Light with "Save conversations"
+  off - both put back (companion/dark = 1, learning/save-conversations = 1); the visitor log files were untouched. The capture also
+  wiped tools/manual/shots (a partial new set is there now): run the FULL capture again before the next build_manual.py.
+
+2026-10-09 (c) - Menu > Screen is always shown + explains why only one screen is listed
+  Owner: on a PC with two TVs (as monitors) the Screen row wasn't in the menu. Cause (almost certainly): the row only showed with
+  >1 screens from Unity's Screen.GetDisplayLayout, and Windows reports ONE screen when two TVs are mirrored (Win+P "Duplicate"),
+  when one TV is off / on another HDMI input, or the TV doesn't report itself as a monitor - then there is nothing to pick.
+  Now: the row is always there (value "1 screen" / "Shown as one"); the Screen page says why and how (Win+P > Extend, TV on and on
+  the right input), has "Look again" and "Open Windows display settings" (ms-settings:display), and says how many screens Windows
+  has switched on (DisplayChoice.ConnectedScreens = user32 EnumDisplayDevices; more than Unity lists = mirrored). Player.log gets
+  one line at start: "DisplayChoice: Unity lists N screen(s) [...], Windows reports M switched on." - read it on that PC.
+  The Screen help guide and the staff manual (Devices, Troubleshooting) say the same. Needs a rebuild to reach the other PC.
+  Why start with the .cmd: it runs the watchdog (restarts a crash / a freeze); the .exe alone works but isn't watched.
+
+2026-10-09 (b) - Speech review recording is OFF by default
+  SpeechReviewRecorder.record default true -> false (code) and the v5 scene's value 1 -> 0 (AltcoreBot_v5.unity, one line). It wrote a
+  WAV of every spoken sentence into <build>/SpeechReview - a kiosk's disk filled slowly. Turn it on in Menu > Advanced > Voice & sound
+  (or the Inspector) only when a developer wants to check the voice. The existing Builds/AltcoreBot_v5 was made BEFORE this and still
+  records until it is rebuilt (or switched off in its menu). Manual's Voice & sound picture and text updated.
+
+2026-10-09 (a) - Staff manual (PDF, 50 pages) - docs/AltcoreBot-Staff-Manual.pdf
+  Owner asked for a detailed first-time/refresher manual for kiosk STAFF (Windows offline app; the six bots; no Mac, no
+  default sign-in written). Built from real screenshots of every menu page with numbered outlines, plus text.
+  tools/manual/: capture_manual_shots.cs (Play mode, 1440x2560 pictures + manifest.json of where each option is; asks real bots a
+  few questions, conversation saving off, example log instead of real visitors; redacts the default sign-in name),
+  build_manual.py + manual_lib.py (HTML -> PDF with Microsoft Edge headless; two passes for the contents page numbers; bookmarks
+  and links), preview.py, contact_sheet.py, ask_samples.cs (checks the example questions), README.md (how to re-make it).
+  Re-run the capture + build whenever a menu page changes (like the Help guides). shots/ and out/ are git-ignored.
+  Found while writing it: "Save spoken sentences for review" (Advanced > Voice & sound, SpeechReviewRecorder) is ON by default
+  and the v5 build writes a WAV of every spoken sentence into <build>/SpeechReview - the manual tells staff to switch it off on
+  a kiosk; not changed in code. Mac text is NOT in the manual by request.
+
 2026-10-08 (f) - Mac version in the same project (English, lighter) - written on Windows, NOT tested on a Mac yet
   Guide: MAC-SETUP.md. Setup on the Mac: bash tools/setup_mac.sh (uv Python 3.11 -> TTSServer/venv,
   TTSServer/requirements-mac.txt, model downloads checked against the Windows files' sha256: Gemma from

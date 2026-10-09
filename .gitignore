@@ -153,3 +153,8 @@ __pycache__/
 # LLMUnity's model list (written by its model manager / builds)
 /Assets/StreamingAssets/LLMManager.json
 /Assets/StreamingAssets/LLMManager.json.meta
+
+# Staff manual: screenshots and build output are re-made by tools/manual (the finished PDF is docs/AltcoreBot-Staff-Manual.pdf)
+/tools/manual/shots/
+/tools/manual/out/
+__pycache__/

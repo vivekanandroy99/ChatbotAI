@@ -284,10 +284,14 @@ namespace ChatbotAI.UI
                 : AudioOutputDevice.List().Find(d => d.id == speaker).name ?? "Not connected";
             NavRow(devices, "Speaker", Shorten(speakerName, 22), () => Push("Speaker", BuildSpeakers));
             var screens = DisplayChoice.List();
-            if (screens.Count > 1 || Application.isEditor)
             {
+                // Always shown (it used to hide with one screen - on a PC with two TVs that Windows was showing as one, nobody could
+                // see why there was no choice): with one screen the page says why and how to change it.
                 int here = screens.FindIndex(DisplayChoice.IsCurrent);
-                NavRow(devices, "Screen", here < 0 ? "" : Shorten(DisplayChoice.NameOf(screens[here], here), 22), () => Push("Screen", BuildScreens));
+                int connected = DisplayChoice.ConnectedScreens();
+                string value = screens.Count > 1 ? (here < 0 ? "" : Shorten(DisplayChoice.NameOf(screens[here], here), 22))
+                             : connected > screens.Count ? "Shown as one" : "1 screen";
+                NavRow(devices, "Screen", value, () => Push("Screen", BuildScreens));
             }
 
             // Display
@@ -1177,8 +1181,24 @@ namespace ChatbotAI.UI
 
         void BuildScreens()
         {
-            var group = Section("SHOW THE APP ON");
             var screens = DisplayChoice.List();
+            int connected = DisplayChoice.ConnectedScreens();
+            // Only one screen to pick: say why, in plain words. A TV that is switched off, on another input, or that
+            // Windows is mirroring onto the first one (Win+P > Duplicate) is one screen to the app.
+            if (screens.Count <= 1)
+            {
+                var why = Section("ONLY ONE SCREEN FOUND");
+                var row = Row(why, stack: true);
+                row.Add(new Label(connected > screens.Count
+                    ? $"Windows has {connected} screens switched on but is showing them as one picture (\"Duplicate\")."
+                    : "Windows shows this app one screen. If a second TV or monitor is connected, it isn't being used by Windows yet.")
+                    .WithClass("row__title", "row__title--warning"));
+                row.Add(new Label("To pick which one shows the app: press the Windows key + P and choose \"Extend\". " +
+                                  "Check the other TV is switched on and on the right HDMI or DisplayPort input. Then tap Look again.")
+                    .WithClass("row__subtitle", "row__note"));
+            }
+            var group = Section("SHOW THE APP ON");
+            if (screens.Count == 0) Row(group).Add(new Label("No screens listed.").WithClass("row__title", "row__title--muted"));
             for (int i = 0; i < screens.Count; i++)
             {
                 var d = screens[i];
@@ -1192,6 +1212,13 @@ namespace ChatbotAI.UI
             Footnote(DisplayChoice.CanMove
                 ? "The app moves there now and fills it, and starts there next time. If that screen is unplugged, it opens where Windows puts it."
                 : "In Unity's Editor the Game view can't be moved - this works in the built app.");
+
+            var tools = Section(null);
+            ButtonRow(tools, "Look again", destructive: false, () => Render());
+            if (Platform.IsWindows)
+                ButtonRow(tools, "Open Windows display settings", destructive: false, () => Application.OpenURL("ms-settings:display"));
+            Footnote((connected >= 0 ? $"Windows lists {connected} screen{(connected == 1 ? "" : "s")} switched on; this app can use {screens.Count}. " : "") +
+                     "Plug in or switch on a screen, then tap Look again.");
         }
 
         // ---------------- Advanced: AI models ----------------

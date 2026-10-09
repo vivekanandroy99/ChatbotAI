@@ -286,8 +286,17 @@ namespace ChatbotAI.UI
             {
                 id = "screen", title = "Screen", page = "BuildScreens", openedFrom = new[] { "Screen" },
                 intro = "With more than one screen connected: which one shows the app.",
-                steps = new[] { ("Tap a screen to move the app there. It's remembered for the next start.", "SHOW THE APP ON") },
-                tips = new[] { "Works in the built app (not in Unity's Editor)." },
+                steps = new[]
+                {
+                    ("Tap a screen to move the app there. It's remembered for the next start.", "SHOW THE APP ON"),
+                    ("Look again - after plugging in or switching on a screen. Open Windows display settings if only one is listed.", "Look again"),
+                },
+                tips = new[]
+                {
+                    "Only one screen listed with two TVs connected? Windows is showing them as one (Duplicate): press the Windows key + P and choose Extend.",
+                    "Check the other TV is switched on and on the right HDMI or DisplayPort input.",
+                    "Works in the built app (not in Unity's Editor).",
+                },
             },
             new HelpGuide
             {

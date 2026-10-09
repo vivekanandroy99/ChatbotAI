@@ -30,6 +30,64 @@ namespace ChatbotAI.UI
 
         public static bool CanMove => !Application.isEditor;
 
+        /// Screens Windows has switched on (counted from its own display list, which - unlike Unity's - also counts a screen that
+        /// is only MIRRORING another one). More here than in List() = Windows is showing several screens as one (Win+P: Duplicate),
+        /// and then there is nothing to pick between. -1 = couldn't tell (not Windows, or the call failed).
+        public static int ConnectedScreens()
+        {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            try
+            {
+                int count = 0;
+                var adapter = NewDevice();
+                for (uint i = 0; EnumDisplayDevices(null, i, ref adapter, 0); i++, adapter = NewDevice())
+                {
+                    if ((adapter.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP) == 0 || (adapter.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER) != 0) continue;
+                    var monitor = NewDevice();
+                    int monitors = 0;
+                    for (uint j = 0; EnumDisplayDevices(adapter.DeviceName, j, ref monitor, 0); j++, monitor = NewDevice())
+                        if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) != 0) monitors++;
+                    count += Math.Max(1, monitors);   // an output with a screen on it but no monitor name still counts once
+                }
+                return count;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"DisplayChoice: couldn't ask Windows about the screens ({e.Message}).");
+            }
+#endif
+            return -1;
+        }
+
+        /// One line for the log: what Unity and Windows each say about the screens.
+        public static string Summary()
+        {
+            var list = List();
+            var names = new List<string>();
+            for (int i = 0; i < list.Count; i++) names.Add($"{NameOf(list[i], i)} {list[i].width}x{list[i].height}");
+            return $"Unity lists {list.Count} screen(s) [{string.Join("; ", names)}], Windows reports {ConnectedScreens()} switched on.";
+        }
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        const int DISPLAY_DEVICE_ATTACHED_TO_DESKTOP = 0x1, DISPLAY_DEVICE_MIRRORING_DRIVER = 0x8, DISPLAY_DEVICE_ACTIVE = 0x1;
+
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
+        struct DisplayDevice
+        {
+            public int cb;
+            [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 32)] public string DeviceName;
+            [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 128)] public string DeviceString;
+            public int StateFlags;
+            [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 128)] public string DeviceID;
+            [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 128)] public string DeviceKey;
+        }
+
+        static DisplayDevice NewDevice() => new DisplayDevice { cb = System.Runtime.InteropServices.Marshal.SizeOf<DisplayDevice>() };
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
+        static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DisplayDevice lpDisplayDevice, uint dwFlags);
+#endif
+
         /// Moves the app onto that monitor (filling it when full screen) and remembers it. done runs once it's there.
         public static void Use(DisplayInfo d, int index, Action done = null)
         {
@@ -63,6 +121,8 @@ namespace ChatbotAI.UI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void ApplySaved()
         {
+            // In Player.log: why the menu's Screen page lists what it lists (a TV that is off or mirrored isn't a screen to pick).
+            if (!Application.isEditor) Debug.Log("DisplayChoice: " + Summary());
             string saved = PlayerPrefs.GetString(PrefKey, "");
             if (!CanMove || saved.Length == 0) return;
             string[] p = saved.Split('|');

@@ -29,6 +29,8 @@ Git (2026-10-08 (e)): Git LFS for art; models/venvs/LlamaLib/indexes are gitigno
 Help (2026-10-08): HelpGuides.cs = a guide per menu page (? in the sheet header; root "Help & guides"); pictures in
 Resources/Help from tools/capture_help_shots.cs + import_help_shots.cs - re-run them when a menu page changes, and add
 or edit a guide when you add or change a page.
+Staff manual (2026-10-09, memory.txt (a)): docs/AltcoreBot-Staff-Manual.pdf, made by tools/manual (capture_manual_shots.cs in
+Play mode, then build_manual.py) - re-make it, and edit its text in build_manual.py, when a menu page or a bot changes.
 v4 = studio HDRI lighting (StageBackdrop draws it) + sharper shadows (project-wide URP asset) - memory.txt (l). Check `unity command editor_status` before recompiling/entering Play: the user is often in Play mode.**
 **Stage (v3): `StageBackdrop` ("Stage" object) + `StageLook` assets (Assets/Stage) replace the flat background - see
 memory.txt 2026-09-30 (i)/(j): Studio = lit paper + hidden background spot + real key-light shadow. Per bot:

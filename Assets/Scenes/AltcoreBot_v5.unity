@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChatbotAI.Audio.SpeechReviewRecorder
   speechOutput: {fileID: 414171458}
-  record: 1
+  record: 0
   flagKey: 101
 --- !u!114 &414171463
 MonoBehaviour:
